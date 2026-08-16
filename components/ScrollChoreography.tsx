@@ -16,12 +16,10 @@ import { useEffect } from "react";
  */
 export default function ScrollChoreography() {
   useEffect(() => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
     const chapters = Array.from(
       document.querySelectorAll<HTMLElement>(".chapter")
     );
-    const heroShot = document.querySelector<HTMLElement>("[data-hero-shot]");
+    const heroVideo = document.querySelector<HTMLElement>("[data-hero-video]");
     const workPanels = Array.from(
       document.querySelectorAll<HTMLElement>('[data-panel="work"]')
     );
@@ -37,34 +35,15 @@ export default function ScrollChoreography() {
       return clamp(-rect.top / travel, 0, 1);
     };
 
-    let pointerX = 0;
-    let pointerY = 0;
-    let easedX = 0;
-    let easedY = 0;
-
-    const onPointer = (e: PointerEvent) => {
-      pointerX = e.clientX / window.innerWidth - 0.5;
-      pointerY = e.clientY / window.innerHeight - 0.5;
-    };
-    if (!reduce) window.addEventListener("pointermove", onPointer);
-
     let frameId = 0;
     const frame = () => {
-      // ---- hero: the film tilts toward the cursor and recedes on scroll ----
-      // The frame is centred by flex layout, so no translate(-50%) here —
-      // and the video itself is never scaled, so its framing stays exactly
-      // as shot.
-      if (chapters[0] && heroShot) {
+      // ---- hero: the film drifts slowly as the next panel rises over it ----
+      // A gentle parallax only. The video is full-bleed and already cropped
+      // by object-fit, so it stays at scale 1.06 to keep a little headroom
+      // for the drift without ever exposing an edge.
+      if (chapters[0] && heroVideo) {
         const p = progressOf(chapters[0]);
-        easedX += (pointerX - easedX) * 0.07;
-        easedY += (pointerY - easedY) * 0.07;
-        const ry = easedX * 5;
-        const rx = -easedY * 3.4;
-        const recede = 1 - p * 0.12;
-        const lift = -p * 7;
-        heroShot.style.transform =
-          `perspective(1600px) rotateY(${ry}deg) rotateX(${rx}deg) ` +
-          `scale(${recede}) translateY(${lift}vh)`;
+        heroVideo.style.transform = `scale(1.06) translateY(${p * -6}%)`;
       }
 
       // ---- every panel: drift up and dim as the next covers it ----
@@ -100,10 +79,7 @@ export default function ScrollChoreography() {
     };
     frameId = requestAnimationFrame(frame);
 
-    return () => {
-      cancelAnimationFrame(frameId);
-      window.removeEventListener("pointermove", onPointer);
-    };
+    return () => cancelAnimationFrame(frameId);
   }, []);
 
   return null;

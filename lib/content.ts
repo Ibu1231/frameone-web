@@ -39,6 +39,7 @@ export const photos = {
  */
 export const heroVideo = {
   src: "/videos/hero-1080.mp4",
+  srcMobile: "/videos/hero-720.mp4",
   poster: "/images/hero-poster.jpg",
   width: 1920,
   height: 1080,
