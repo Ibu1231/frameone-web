@@ -114,25 +114,6 @@
   flex-wrap: wrap;
 }
 
-.sound {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 100px;
-  color: #fff;
-  font-size: 9.5px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  padding: 9px 18px;
-  cursor: pointer;
-  transition: border-color 0.5s var(--ease), background 0.5s var(--ease);
-  flex: none;
-}
-
-.sound:hover {
-  border-color: rgba(255, 255, 255, 0.9);
-  background: rgba(255, 255, 255, 0.1);
-}
-
 @media (max-width: 860px) {
   .headline {
     font-size: clamp(1.9rem, 11vw, 3.4rem);

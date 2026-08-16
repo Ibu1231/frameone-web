@@ -6,7 +6,6 @@ import styles from "./Hero.module.css";
 
 export default function Hero() {
   const [ready, setReady] = useState(false);
-  const [muted, setMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -18,41 +17,50 @@ export default function Hero() {
     const video = videoRef.current;
     if (!video) return;
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      video.pause();
-      return;
-    }
-
-    // Phones get the lighter encode. Chosen here rather than with <source
-    // media> because browsers only evaluate those once, before layout.
+    // Phones get the lighter encode. Set before play so only one file is
+    // ever fetched.
     if (window.innerWidth < 860 && heroVideo.srcMobile) {
       video.src = heroVideo.srcMobile;
     }
 
-    // Autoplay is only granted to muted video, and Safari needs the
-    // property set — not just the attribute — before play() is called.
+    // The loop is silent by design — there is no audio track in either
+    // encode — but muted must be set as a property, not just an
+    // attribute, or Safari refuses autoplay.
     video.muted = true;
-    void video.play().catch(() => {
-      /* Refused: the poster frame stays up, which is a fine first paint. */
-    });
-  }, []);
+    video.defaultMuted = true;
 
-  const toggleSound = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    const next = !muted;
-    video.muted = next;
-    setMuted(next);
-    if (!next && video.paused) void video.play().catch(() => {});
-  };
+    const start = () => {
+      if (!video.paused) return;
+      void video.play().catch(() => {
+        /* Refused for now; the listeners below try again. */
+      });
+    };
+
+    start();
+
+    // Autoplay can be refused or deferred: the tab may be backgrounded,
+    // the file may not have buffered yet, or the browser may want a
+    // gesture first. Retry on each signal rather than giving up.
+    video.addEventListener("loadeddata", start);
+    video.addEventListener("canplay", start);
+    document.addEventListener("visibilitychange", start);
+    window.addEventListener("pointerdown", start, { once: true });
+    window.addEventListener("keydown", start, { once: true });
+
+    return () => {
+      video.removeEventListener("loadeddata", start);
+      video.removeEventListener("canplay", start);
+      document.removeEventListener("visibilitychange", start);
+      window.removeEventListener("pointerdown", start);
+      window.removeEventListener("keydown", start);
+    };
+  }, []);
 
   return (
     <div className="chapter" style={{ height: "190svh" }}>
       <section className="panel" data-panel="hero">
         <div className="inner">
           <div className={styles.media}>
-            {/* No overlay image: the native poster attribute covers the
-                gap before first frame, with no hydration race. */}
             <video
               ref={videoRef}
               src={heroVideo.src}
@@ -92,14 +100,6 @@ export default function Hero() {
                   </span>
                 ))}
               </div>
-              <button
-                type="button"
-                className={styles.sound}
-                onClick={toggleSound}
-                aria-pressed={!muted}
-              >
-                {muted ? "Sound on" : "Sound off"}
-              </button>
               <span className="lbl">Scroll ↓</span>
             </div>
           </div>
