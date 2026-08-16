@@ -1,73 +1,152 @@
-.inner {
-  justify-content: center;
-  padding-top: clamp(80px, 12vh, 124px);
-  padding-bottom: clamp(20px, 4vh, 44px);
-  gap: clamp(18px, 3vh, 34px);
-  display: flex;
-  flex-direction: column;
-}
-
-.label {
-  display: block;
-}
-
-.heading {
-  font-size: clamp(1.5rem, 4.6vw, 3.9rem);
-  max-width: 16ch;
-}
-
-/* Copy beside the film: text left, motion right. */
-.grid {
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: clamp(24px, 4vw, 68px);
-  align-items: center;
-}
-
-.body {
-  font-size: clamp(12px, 1vw, 15px);
-  line-height: 1.72;
-  color: var(--ink-2);
-  max-width: 54ch;
-}
-
-.film {
-  position: relative;
-  aspect-ratio: 16 / 9;
+/* Full-bleed backdrop, matching the hero's treatment. */
+.media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   overflow: hidden;
   background: #0d0d0c;
 }
 
-.film video {
+.media video {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  will-change: transform;
 }
 
-.filmMeta {
+/* This plate is bright on the right and dark on the left, so the scrim
+   leans left and bottom where the copy actually sits. */
+.scrim {
   position: absolute;
-  left: 12px;
-  bottom: 11px;
-  z-index: 2;
-  color: #fff;
-  font-size: 9px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.8);
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.46) 0%, rgba(0, 0, 0, 0) 24%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.68) 0%, rgba(0, 0, 0, 0) 46%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 52%);
 }
 
-@media (max-width: 900px) {
-  .grid {
-    grid-template-columns: 1fr;
-    gap: clamp(16px, 3vh, 28px);
-  }
+.stack {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+  padding-top: clamp(76px, 10vh, 108px);
+  padding-bottom: clamp(16px, 3vh, 30px);
+  color: #fff;
+}
+
+.stack .lbl,
+.topRow .lbl {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.topRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+/* Copy column, vertically centred and held to a readable measure. */
+.copy {
+  align-self: center;
+  max-width: 62ch;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 2.6vh, 30px);
+}
+
+.heading {
+  font-size: clamp(1.6rem, 5vw, 4.2rem);
+  max-width: 15ch;
+  color: #fff;
+  text-shadow: 0 2px 44px rgba(0, 0, 0, 0.42);
+  /* Phase one: rises into place on its own. */
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 1.15s var(--ease),
+    transform 1.15s var(--ease);
+}
+
+.body {
+  font-size: clamp(12px, 1.02vw, 15.5px);
+  line-height: 1.78;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 58ch;
+  text-shadow: 0 1px 26px rgba(0, 0, 0, 0.55);
+  /* Phase two: arrives only once the heading has landed and the reader
+     keeps scrolling. */
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 1.15s var(--ease),
+    transform 1.15s var(--ease);
+}
+
+/* A hairline that draws itself in as the paragraph arrives. */
+.rule {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.42);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.3s var(--ease);
+  max-width: 58ch;
+}
+
+/* ---- staged by scroll position ---- */
+.stage1 .heading,
+.stage2 .heading {
+  opacity: 1;
+  transform: none;
+}
+
+.stage2 .body {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0.12s;
+}
+
+.stage2 .rule {
+  transform: scaleX(1);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(255, 255, 255, 0.24);
+  padding-top: 11px;
+}
+
+.footer span {
+  color: rgba(255, 255, 255, 0.76);
+}
+
+@media (max-width: 860px) {
   .heading {
+    font-size: clamp(1.4rem, 7vw, 2.3rem);
     max-width: 100%;
   }
-  /* Long copy plus a film will not fit a phone viewport at rest, so the
-     panel scrolls internally rather than clipping. */
-  .inner {
-    overflow-y: auto;
+  .copy {
+    max-width: 100%;
+  }
+}
+
+/* Movement is dropped, but the two-phase sequence is the point of the
+   section, so the staging itself is kept as a fade. */
+@media (prefers-reduced-motion: reduce) {
+  .heading,
+  .body {
+    transform: none;
+    transition: opacity 0.6s ease;
+  }
+  .rule {
+    transition: transform 0.6s ease;
   }
 }

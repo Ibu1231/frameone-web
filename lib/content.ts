@@ -37,11 +37,12 @@ export const heroVideo = {
   alt: "FrameOne showreel",
 };
 
-/** Second motion moment, cut from the same master as the hero. */
+/** Full-bleed backdrop for Who We Are. Seamlessly looped. */
 export const studioVideo = {
-  src: "/videos/studio-loop.mp4",
-  poster: "/images/studio-poster.jpg",
-  alt: "FrameOne crew and productions in motion",
+  src: "/videos/athirappalli-1080.mp4",
+  srcMobile: "/videos/athirappalli-720.mp4",
+  poster: "/images/athirappalli-poster.jpg",
+  alt: "Figure silhouetted against Athirappilly falls at golden hour",
 };
 
 export const studio = {
