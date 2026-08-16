@@ -43,7 +43,6 @@ export const heroVideo = {
   poster: "/images/hero-poster.jpg",
   width: 1920,
   height: 1080,
-  label: "BA 2024",
   alt: "FrameOne showreel — desert and coastline fashion cinematography",
 };
 
@@ -56,7 +55,12 @@ export const studio = {
   reach: "Worldwide",
   intro:
     "FrameOne Global — media production. Bangalore, operating worldwide.",
-  disciplineSummary: ["Live events", "Corporate films", "Fashion · Automotive"],
+  disciplineSummary: [
+    "Live events",
+    "Corporate films",
+    "Fashion · Automotive",
+    "Sports, Concerts & Festivals",
+  ],
 };
 
 export const heroLines = ["Crafting", "stories,", "frame by", "frame."];

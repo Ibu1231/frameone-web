@@ -88,12 +88,13 @@
 }
 
 /* Bottom bar: studio line, disciplines, scroll cue. */
+/* Three tracks with equal outer columns, so the genre list sits on the
+   page's true centre line rather than wherever its neighbours leave it. */
 .footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
   gap: 16px;
-  flex-wrap: wrap;
   border-top: 1px solid rgba(255, 255, 255, 0.24);
   padding-top: 11px;
   margin-top: clamp(16px, 3vh, 30px);
@@ -110,8 +111,15 @@
 
 .meta {
   display: flex;
-  gap: clamp(14px, 2.4vw, 34px);
+  gap: clamp(12px, 2vw, 30px);
   flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Scroll cue holds the right track, kept flush to the edge. */
+.scrollCue {
+  justify-self: end;
 }
 
 @media (max-width: 860px) {

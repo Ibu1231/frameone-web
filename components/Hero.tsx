@@ -79,7 +79,6 @@ export default function Hero() {
           <div className={`pad ${styles.stack} ${ready ? styles.ready : ""}`}>
             <div className={styles.topRow}>
               <span className="lbl">{studio.name} — Showreel</span>
-              <span className="lbl">Reel — {heroVideo.label}</span>
             </div>
 
             <h2 className={styles.headline}>
@@ -100,7 +99,7 @@ export default function Hero() {
                   </span>
                 ))}
               </div>
-              <span className="lbl">Scroll ↓</span>
+              <span className={`lbl ${styles.scrollCue}`}>Scroll ↓</span>
             </div>
           </div>
         </div>
