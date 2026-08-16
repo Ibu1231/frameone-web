@@ -1,0 +1,75 @@
+.frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+  transform: scale(1.15);
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.42) 0%,
+    rgba(0, 0, 0, 0.12) 38%,
+    rgba(0, 0, 0, 0.72) 100%
+  );
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: clamp(84px, 13vh, 132px);
+  padding-bottom: clamp(20px, 3.6vh, 40px);
+  color: #fff;
+}
+
+.num {
+  font-size: clamp(9px, 0.7vw, 10.5px);
+  letter-spacing: 0.22em;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.title {
+  overflow: hidden;
+  font-size: clamp(2.1rem, 8.6vw, 7.6rem);
+  color: #fff;
+}
+
+.title > i {
+  display: block;
+  font-style: normal;
+  will-change: transform;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(255, 255, 255, 0.28);
+  padding-top: 12px;
+  margin-top: 12px;
+}
+
+.meta span {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.86;
+}

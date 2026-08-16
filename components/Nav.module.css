@@ -1,0 +1,65 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 22px var(--pad);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* Difference blending keeps the bar legible over both the pale
+     ground and the full-bleed photography without a scrim. */
+  mix-blend-mode: difference;
+  color: #fff;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.logo i {
+  width: 8px;
+  height: 8px;
+  background: currentColor;
+  display: block;
+}
+
+.links {
+  display: flex;
+  gap: 24px;
+}
+
+.links a,
+.cta {
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+  opacity: 0.75;
+  transition: opacity 0.3s;
+}
+
+.links a:hover,
+.cta:hover {
+  opacity: 1;
+}
+
+.cta {
+  background: none;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+}
+
+@media (max-width: 820px) {
+  .links {
+    display: none;
+  }
+}

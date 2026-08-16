@@ -1,0 +1,68 @@
+.inner {
+  justify-content: space-between;
+  padding-top: clamp(84px, 13vh, 132px);
+  padding-bottom: clamp(18px, 3vh, 32px);
+}
+
+.heading {
+  font-size: clamp(2.2rem, 10.4vw, 9.6rem);
+  margin-top: auto;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 26px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  margin-top: clamp(20px, 4vh, 44px);
+}
+
+.mail {
+  font-size: clamp(0.95rem, 2.5vw, 1.9rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 2px;
+  transition: opacity 0.3s;
+}
+
+.mail:hover {
+  opacity: 0.5;
+}
+
+.cols {
+  display: flex;
+  gap: clamp(20px, 4vw, 58px);
+  flex-wrap: wrap;
+}
+
+.cols a,
+.cols p {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  line-height: 1.75;
+}
+
+.cols a:hover {
+  opacity: 0.55;
+}
+
+.foot {
+  border-top: 1px solid rgba(233, 230, 225, 0.2);
+  padding-top: 11px;
+  margin-top: clamp(16px, 3vh, 30px);
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.foot span {
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
