@@ -1,0 +1,60 @@
+/* Shared reveal-on-scroll. One timing and one easing for the whole site
+   so text arrives with a consistent rhythm wherever it appears. */
+
+.reveal {
+  --reveal-duration: 1.05s;
+  --reveal-shift: 22px;
+  opacity: 0;
+  transform: translateY(var(--reveal-shift));
+  transition:
+    opacity var(--reveal-duration) var(--ease) var(--reveal-delay, 0s),
+    transform var(--reveal-duration) var(--ease) var(--reveal-delay, 0s);
+  will-change: opacity, transform;
+}
+
+.in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Line-by-line variant: the element is masked and its inner span rises
+   into view. Used on headings. */
+.mask {
+  display: block;
+  overflow: hidden;
+}
+
+.mask > span {
+  display: block;
+  transform: translateY(105%);
+  transition: transform 1.15s var(--ease) var(--reveal-delay, 0s);
+  will-change: transform;
+}
+
+.mask.in > span {
+  transform: none;
+}
+
+/* Reduced motion still gets the reveal — as a pure fade. Movement is
+   what triggers vestibular discomfort, so the travel is dropped to zero
+   while the timing and staggering stay intact. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    --reveal-shift: 0px;
+    --reveal-duration: 0.6s;
+  }
+
+  .mask > span {
+    transform: none;
+    transition: none;
+  }
+
+  .mask {
+    opacity: 0;
+    transition: opacity 0.6s ease var(--reveal-delay, 0s);
+  }
+
+  .mask.in {
+    opacity: 1;
+  }
+}

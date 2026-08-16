@@ -24,6 +24,21 @@
   padding: 0;
 }
 
+/* Lenis: it drives scrolling itself, so the document must not also be
+   doing smooth-scroll or clamping its own height. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
 html {
   -webkit-text-size-adjust: 100%;
   background: var(--paper);

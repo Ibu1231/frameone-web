@@ -1,0 +1,169 @@
+.inner {
+  justify-content: flex-start;
+  padding-top: clamp(78px, 11vh, 118px);
+}
+
+.head {
+  margin-bottom: clamp(14px, 2.6vh, 26px);
+}
+
+.head h2 {
+  font-size: clamp(1.5rem, 4.6vw, 3.6rem);
+}
+
+.label {
+  display: block;
+  margin-bottom: clamp(10px, 2vh, 18px);
+}
+
+/* Categories stack; each holds its own project rows. */
+.cats {
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.cat {
+  border-top: 1px solid var(--rule);
+  padding: clamp(8px, 1.5vh, 15px) 0;
+}
+
+.cat:last-of-type {
+  border-bottom: 1px solid var(--rule);
+}
+
+.catHead {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(10px, 2vw, 22px);
+}
+
+.catNum {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--ink-3);
+  flex: none;
+}
+
+.catTitle {
+  font-size: clamp(1rem, 2.6vw, 1.9rem);
+  letter-spacing: -0.03em;
+}
+
+.catBlurb {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin-left: auto;
+  text-align: right;
+  max-width: 32ch;
+}
+
+/* Project names — the clickable things. */
+.projects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(6px, 1vw, 12px);
+  margin-top: clamp(7px, 1.2vh, 12px);
+  padding-left: calc(10px + clamp(10px, 2vw, 22px));
+}
+
+.project {
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 100px;
+  color: var(--ink);
+  padding: 7px 15px;
+  font-size: clamp(10px, 0.86vw, 12px);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: border-color 0.6s var(--ease), background 0.6s var(--ease),
+    color 0.6s var(--ease);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.project:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.project em {
+  font-style: normal;
+  opacity: 0.55;
+  font-size: 0.85em;
+}
+
+.project:hover em {
+  opacity: 0.8;
+}
+
+/* ---------- marquee genre bar ---------- */
+.marquee {
+  overflow: hidden;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 10px 0;
+  margin-bottom: clamp(14px, 2.6vh, 28px);
+  position: relative;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: slide 34s linear infinite;
+}
+
+.marquee:hover .track {
+  animation-play-state: paused;
+}
+
+.track span {
+  font-size: clamp(11px, 1.5vw, 18px);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--ink);
+  font-weight: 700;
+  padding-right: clamp(20px, 3vw, 44px);
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(20px, 3vw, 44px);
+}
+
+.track span::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  background: var(--ink-3);
+  border-radius: 50%;
+  display: block;
+}
+
+@keyframes slide {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* The moving genre bar is a requested design element, so it keeps
+   moving under reduced motion — just considerably slower. */
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation-duration: 90s;
+  }
+}
+
+@media (max-width: 820px) {
+  .catBlurb {
+    display: none;
+  }
+  .projects {
+    padding-left: 0;
+  }
+}

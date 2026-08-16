@@ -1,4 +1,5 @@
 import { socials, studio } from "@/lib/content";
+import Reveal from "./Reveal";
 import styles from "./Contact.module.css";
 
 export default function Contact() {
@@ -6,8 +7,12 @@ export default function Contact() {
     <div className="chapter" style={{ height: "100svh" }} id="contact">
       <section className="panel dk">
         <div className={`inner pad ${styles.inner}`}>
-          <span className="lbl">Let&rsquo;s talk</span>
-          <h2 className={styles.heading}>Let&rsquo;s make something worth watching.</h2>
+          <Reveal as="span" className="lbl">
+            Let&rsquo;s talk
+          </Reveal>
+          <Reveal as="h2" mask className={styles.heading}>
+            Let&rsquo;s make something worth watching.
+          </Reveal>
 
           <div className={styles.row}>
             <a href={`mailto:${studio.email}`} className={styles.mail}>
