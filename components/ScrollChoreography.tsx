@@ -22,7 +22,6 @@ export default function ScrollChoreography() {
       document.querySelectorAll<HTMLElement>(".chapter")
     );
     const heroShot = document.querySelector<HTMLElement>("[data-hero-shot]");
-    const heroImg = document.querySelector<HTMLElement>("[data-hero-img]");
     const workPanels = Array.from(
       document.querySelectorAll<HTMLElement>('[data-panel="work"]')
     );
@@ -51,21 +50,21 @@ export default function ScrollChoreography() {
 
     let frameId = 0;
     const frame = () => {
-      // ---- hero: photo plane tilts to the cursor, lifts on scroll ----
+      // ---- hero: the film tilts toward the cursor and recedes on scroll ----
+      // The frame is centred by flex layout, so no translate(-50%) here —
+      // and the video itself is never scaled, so its framing stays exactly
+      // as shot.
       if (chapters[0] && heroShot) {
         const p = progressOf(chapters[0]);
         easedX += (pointerX - easedX) * 0.07;
         easedY += (pointerY - easedY) * 0.07;
-        const ry = easedX * 14;
-        const rx = -easedY * 10;
-        const scale = 1 + p * 0.55;
-        const lift = -p * 16;
+        const ry = easedX * 5;
+        const rx = -easedY * 3.4;
+        const recede = 1 - p * 0.12;
+        const lift = -p * 7;
         heroShot.style.transform =
-          `translate(-50%,-50%) perspective(1300px) rotateY(${ry}deg) ` +
-          `rotateX(${rx}deg) scale(${scale}) translateY(${lift}vh)`;
-        if (heroImg) {
-          heroImg.style.transform = `scale(${1.12 + p * 0.1}) translateY(${p * -6}%)`;
-        }
+          `perspective(1600px) rotateY(${ry}deg) rotateX(${rx}deg) ` +
+          `scale(${recede}) translateY(${lift}vh)`;
       }
 
       // ---- every panel: drift up and dim as the next covers it ----

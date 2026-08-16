@@ -20,6 +20,11 @@
 # production
 /build
 
+# source masters — camera/edit exports kept locally for re-encoding.
+# These are far too large for git (GitHub rejects >100MB) and must never
+# be served: anything in /public is copied verbatim into the export.
+/assets-source
+
 # misc
 .DS_Store
 *.pem

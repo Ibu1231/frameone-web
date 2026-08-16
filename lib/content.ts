@@ -32,6 +32,20 @@ export const photos = {
   },
 } satisfies Record<string, Photo>;
 
+/**
+ * Hero film. Source master lives in /assets-source (gitignored, never
+ * deployed); this is the web encode — same 3840x2160 framing, delivered
+ * at 1080p so it is watchable rather than a 340 MB download.
+ */
+export const heroVideo = {
+  src: "/videos/hero-1080.mp4",
+  poster: "/images/hero-poster.jpg",
+  width: 1920,
+  height: 1080,
+  label: "BA 2024",
+  alt: "FrameOne showreel — desert and coastline fashion cinematography",
+};
+
 export const studio = {
   name: "FrameOne",
   legalName: "FrameOne Global",

@@ -1,108 +1,199 @@
-.media {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-}
-
-/* The floating photo plane: tilts toward the cursor, and is scaled
-   and lifted by the scroll choreography as the panel is covered. */
-.shot {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: min(52vw, 700px);
-  aspect-ratio: 16 / 10;
-  transform: translate(-50%, -50%);
-  transform-style: preserve-3d;
-  will-change: transform;
-  overflow: hidden;
-  box-shadow: 0 50px 90px -50px rgba(0, 0, 0, 0.6);
-}
-
-.shot img {
-  width: 100%;
+/* The hero is a three-row grid: type above, the film in the middle,
+   studio line and meta below. The film row is the only one that flexes,
+   so the video always takes the space the type doesn't need — it can
+   never be pushed off-screen or cropped. */
+.stack {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
   height: 100%;
-  object-fit: cover;
-  transform: scale(1.12);
-  will-change: transform;
+  padding-top: clamp(76px, 10vh, 108px);
+  padding-bottom: clamp(14px, 2.4vh, 26px);
+  gap: clamp(10px, 1.8vh, 22px);
 }
 
-.top {
-  position: absolute;
-  top: clamp(74px, 11vh, 116px);
-  left: var(--pad);
-  right: var(--pad);
-  z-index: 2;
+/* ---------- type above the film ---------- */
+.overline {
   display: flex;
   justify-content: space-between;
-  gap: 24px;
+  align-items: flex-end;
+  gap: 20px;
   flex-wrap: wrap;
 }
 
-.top p {
-  max-width: 24ch;
-  font-size: clamp(11px, 0.92vw, 13px);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  line-height: 1.55;
-  color: var(--ink-2);
-}
-
-.copy {
-  position: relative;
-  z-index: 2;
-  margin-top: auto;
-  padding-bottom: clamp(18px, 3.4vh, 38px);
-}
-
-/* Difference blending inverts the type against whatever passes
-   behind it — the pale ground and the photograph both. */
-.copy .display {
-  font-size: clamp(2.9rem, 12.4vw, 11.6rem);
-  mix-blend-mode: difference;
-  color: #fff;
+.headline {
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: -0.04em;
-  line-height: 0.85;
+  letter-spacing: -0.045em;
+  line-height: 0.86;
+  /* Deliberately restrained: the film is the hero here, not the type. */
+  font-size: clamp(1.75rem, 4.6vw, 4.15rem);
+  color: var(--ink);
 }
 
-.line {
+.headline .line {
   display: block;
   overflow: hidden;
 }
 
-.line > i {
+.headline .line > i {
   display: block;
   font-style: normal;
-  transform: translateY(102%);
+  transform: translateY(105%);
   transition: transform 1.15s var(--ease);
 }
 
-.ready .line > i {
+.ready .headline .line > i {
   transform: none;
 }
 
-.bar {
-  position: relative;
-  z-index: 2;
-  border-top: 1px solid var(--rule);
-  padding: 11px 0;
+/* Second half of the sentence, set right-aligned under the film so the
+   line reads around the video rather than across it. */
+.underline {
   display: flex;
   justify-content: space-between;
-  gap: 16px;
+  align-items: flex-start;
+  gap: 20px;
   flex-wrap: wrap;
 }
 
-@media (max-width: 820px) {
-  .shot {
-    width: 78vw;
+.underlineType {
+  text-align: right;
+  margin-left: auto;
+}
+
+/* ---------- the film ---------- */
+.filmRow {
+  position: relative;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Locked to the source's exact 16:9. `height:100%` + `width:auto` lets
+   the aspect-ratio box shrink to whatever the row allows, so the frame
+   is never letterboxed and never cropped. */
+.film {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  overflow: hidden;
+  background: #0b0b0b;
+  will-change: transform;
+  transform-style: preserve-3d;
+  box-shadow: 0 60px 100px -60px rgba(0, 0, 0, 0.55);
+}
+
+.film video,
+.film img.poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Poster sits over the video until enough has buffered to play, so the
+   first paint is a real frame rather than a black box. */
+.film img.poster {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  transition: opacity 0.9s var(--ease);
+}
+
+.film.playing img.poster {
+  opacity: 0;
+}
+
+/* Hairline corner marks — a viewfinder read, and they give the frame
+   an edge against the pale ground without adding a border. */
+.marks i {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  z-index: 3;
+  border: 0 solid rgba(255, 255, 255, 0.9);
+  pointer-events: none;
+}
+.marks i:nth-child(1) { top: 9px; left: 9px; border-top-width: 1px; border-left-width: 1px; }
+.marks i:nth-child(2) { top: 9px; right: 9px; border-top-width: 1px; border-right-width: 1px; }
+.marks i:nth-child(3) { bottom: 9px; left: 9px; border-bottom-width: 1px; border-left-width: 1px; }
+.marks i:nth-child(4) { bottom: 9px; right: 9px; border-bottom-width: 1px; border-right-width: 1px; }
+
+.sound {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 4;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #fff;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 7px 13px;
+  cursor: pointer;
+  transition: background 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+
+.sound:hover {
+  background: rgba(0, 0, 0, 0.68);
+  border-color: rgba(255, 255, 255, 0.85);
+}
+
+/* ---------- studio line + meta below ---------- */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--rule);
+  padding-top: 10px;
+}
+
+.studioLine {
+  max-width: 34ch;
+  font-size: clamp(10.5px, 0.86vw, 12.5px);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+
+.meta {
+  display: flex;
+  gap: clamp(14px, 2.4vw, 34px);
+  flex-wrap: wrap;
+}
+
+@media (max-width: 860px) {
+  .headline {
+    font-size: clamp(1.5rem, 7.2vw, 2.4rem);
+  }
+  .underlineType {
+    text-align: left;
+    margin-left: 0;
+  }
+  /* On narrow screens the row is short and wide, so let the frame take
+     the full width and give up the height-driven sizing. */
+  .film {
+    width: 100%;
+    height: auto;
+  }
+  .meta {
+    display: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .line > i {
+  .headline .line > i {
     transform: none;
+  }
+  .film img.poster {
+    transition: none;
   }
 }
