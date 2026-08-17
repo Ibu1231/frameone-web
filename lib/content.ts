@@ -77,17 +77,19 @@ export const whoWeAre = {
 
 /** F1 stills. Originals (up to 5472x3648) are archived in
  *  assets-source; these are the web derivatives. */
-const auto = (n: string, alt: string): Photo => ({
+const auto = (n: string, alt: string, portrait = false): Photo => ({
   src: `/images/automotive/${n}-lg.jpg`,
   srcSmall: `/images/automotive/${n}-sm.jpg`,
   alt,
   width: 1800,
-  height: 1200,
+  // Three of the set are shot portrait. Declaring them all landscape
+  // gave every consumer the wrong aspect to reserve and to fit against.
+  height: portrait ? 2700 : 1200,
 });
 
 export const automotivePhotos: Photo[] = [
   auto("f1-01", "Driver portrait in the pit lane"),
-  auto("f1-02", "Car on track through the esses"),
+  auto("f1-02", "Car on track through the esses", true),
   auto("f1-03", "Pit crew mid tyre change"),
   auto("f1-04", "Front wing detail on the grid"),
   auto("f1-05", "Car at speed under braking"),
@@ -96,8 +98,8 @@ export const automotivePhotos: Photo[] = [
   auto("f1-08", "Car exiting the final corner"),
   auto("f1-09", "Tyre stacks in the paddock"),
   auto("f1-10", "Driver helmet before the formation lap"),
-  auto("f1-11", "Track-side panning shot at speed"),
-  auto("f1-12", "Team radio and timing screens"),
+  auto("f1-11", "Track-side panning shot at speed", true),
+  auto("f1-12", "Team radio and timing screens", true),
   auto("f1-13", "Car on the main straight"),
   auto("f1-14", "Podium celebration"),
 ];

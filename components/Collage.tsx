@@ -46,7 +46,6 @@ function GenreSlideshow({ panel, active }: { panel: CollagePanel; active: boolea
           />
         </div>
       ))}
-      <span className={styles.capBg} aria-hidden="true" />
       <span className={styles.cap}>{panel.label}</span>
       <span className={styles.dots} aria-hidden="true">
         {panel.frames.map((f, i) => (

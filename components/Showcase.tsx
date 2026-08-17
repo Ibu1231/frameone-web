@@ -54,14 +54,29 @@ export default function Showcase({ data, total }: Props) {
               className={`${styles.slide} ${i === index ? styles.active : ""}`}
               aria-hidden={i !== index}
             >
+              {/* Blurred fill: the small variant is enough, it is
+                  heavily blurred anyway. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
+                className={styles.fill}
+                src={slide.srcSmall}
+                alt=""
+                aria-hidden="true"
+                loading={i === 0 ? "eager" : "lazy"}
+                decoding="async"
+                data-work-img
+              />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                className={styles.shot}
                 src={slide.src}
+                srcSet={`${slide.srcSmall} 700w, ${slide.src} ${slide.width}w`}
+                sizes="100vw"
                 alt={i === index ? slide.alt : ""}
                 width={slide.width}
                 height={slide.height}
                 loading={i === 0 ? "eager" : "lazy"}
-                data-work-img
+                decoding="async"
               />
             </div>
           ))}

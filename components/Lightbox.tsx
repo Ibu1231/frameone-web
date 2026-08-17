@@ -72,7 +72,7 @@ export default function Lightbox({ photos, index, onIndex, onClose }: Props) {
         </div>
       </div>
 
-      <div className={styles.stage}>
+      <div className={styles.stage} data-lenis-prevent>
         {/* Full-size source deliberately — this is the "see it properly"
             view, so no srcset downgrade. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}

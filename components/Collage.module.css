@@ -113,7 +113,8 @@
 .tile {
   position: relative;
   overflow: hidden;
-  background: var(--paper-d);
+  /* Mat tone, a shade off the ground so the frame edge reads. */
+  background: color-mix(in srgb, var(--paper-d) 78%, var(--ink) 6%);
   height: 100%;
   opacity: 0;
   transform: translateY(26px) scale(0.985);
@@ -123,15 +124,18 @@
 }
 
 /* Offset heights so it reads as a composed collage, not three cards. */
+/* Heights kept offset for the collage composition, but shallower so
+   contain leaves a mat rather than a void. */
 .tile:nth-child(1) {
-  height: 80%;
+  height: 62%;
   align-self: start;
 }
 .tile:nth-child(2) {
-  height: 100%;
+  height: 78%;
+  align-self: center;
 }
 .tile:nth-child(3) {
-  height: 74%;
+  height: 58%;
   align-self: end;
 }
 
@@ -153,7 +157,9 @@
 /* ---------- the slideshow itself ---------- */
 .slide {
   position: absolute;
-  inset: 0;
+  /* Uniform mat inside the tile. Padding on the tile would not apply:
+     absolutely positioned children resolve against its padding box. */
+  inset: clamp(6px, 0.7vw, 12px);
   opacity: 0;
   /* Opacity only — stays on the compositor, no layout work. */
   transition: opacity 1.5s var(--ease);
@@ -166,27 +172,22 @@
 .slide img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  /* contain, not cover: the tiles are near-square while the frames are
+     16:9 or 2:3, so cover was hiding 50-60% of every image. The tile
+     acts as a mat around the whole frame instead. */
+  object-fit: contain;
+  object-position: center;
   display: block;
 }
 
-.capBg {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 44%;
-  z-index: 2;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.58));
-  pointer-events: none;
-}
-
+/* Sits on the mat now rather than on the photograph, so it takes the
+   page ink instead of white-on-unknown. */
 .cap {
   position: absolute;
-  left: 11px;
-  bottom: 10px;
+  left: 10px;
+  bottom: 7px;
   z-index: 3;
-  color: #fff;
+  color: var(--ink-2);
   font-size: 9.5px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -195,8 +196,8 @@
 
 .dots {
   position: absolute;
-  right: 11px;
-  bottom: 13px;
+  right: 10px;
+  bottom: 10px;
   z-index: 3;
   display: flex;
   gap: 4px;
@@ -205,13 +206,13 @@
 .dots i {
   width: 12px;
   height: 2px;
-  background: rgba(255, 255, 255, 0.42);
+  background: rgba(16, 16, 16, 0.26);
   display: block;
   transition: background 0.6s var(--ease);
 }
 
 .dots i.lit {
-  background: #fff;
+  background: var(--ink);
 }
 
 @media (max-width: 860px) {
