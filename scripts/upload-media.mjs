@@ -56,8 +56,14 @@ for (const file of files) {
 
   if (dryRun) continue;
 
+  // shell: true is required to run npx.cmd on Windows, but it means the
+  // shell re-splits every argument on whitespace — which silently broke
+  // the cache-control value into three arguments and made wrangler
+  // reject the whole command. Anything with spaces gets quoted here.
+  const quote = (a) => (/[\s,]/.test(a) ? `"${a}"` : a);
+
   const res = spawnSync(
-    "npx",
+    "npx.cmd",
     [
       "wrangler",
       "r2",
@@ -72,7 +78,7 @@ for (const file of files) {
       "--cache-control",
       "public, max-age=31536000, immutable",
       "--remote",
-    ],
+    ].map(quote),
     { stdio: "inherit", shell: true }
   );
 
