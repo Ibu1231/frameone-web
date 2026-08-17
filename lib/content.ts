@@ -388,6 +388,36 @@ export function poolClips(category: Category): Clip[] {
   return pooled;
 }
 
+export type GalleryItem =
+  | { kind: "photo"; photo: Photo }
+  | { kind: "clip"; clip: Clip };
+
+/**
+ * Photos and films woven together rather than films clustered at the
+ * top. Positions are computed, not random, so the order is identical on
+ * the server and the client and stable across re-renders — a genuinely
+ * random shuffle would cause a hydration mismatch and reshuffle on
+ * every state change.
+ */
+export function galleryItems(category: Category): GalleryItem[] {
+  const photos = poolGallery(category);
+  const clips = poolClips(category);
+  if (clips.length === 0) return photos.map((photo) => ({ kind: "photo", photo }));
+
+  const items: GalleryItem[] = photos.map((photo) => ({ kind: "photo", photo }));
+  // Spread the films evenly through the run, skipping the lead slot so
+  // the set still opens on a still.
+  const step = (items.length + 1) / (clips.length + 1);
+  clips.forEach((clip, i) => {
+    const at = Math.min(
+      items.length,
+      Math.max(1, Math.round(step * (i + 1)) + i)
+    );
+    items.splice(at, 0, { kind: "clip", clip });
+  });
+  return items;
+}
+
 /** Marquee strip beneath Our Projects. */
 export const genreStrip = [
   "Concerts & Festivals",
@@ -410,42 +440,39 @@ export type Showcase = {
   slides: Photo[];
 };
 
-export const showcases: Showcase[] = [
+/** Genre definitions for the three work panels. Slides are derived
+ *  from each genre's own pool below, never hand-listed — so when a
+ *  genre's folder is populated its panel picks the images up with no
+ *  further wiring. */
+const SHOWCASE_DEFS = [
   {
     index: "01",
     title: "Concerts & Festivals",
     categorySlug: "concerts-festivals",
     meta: "Multi-cam · Live · Same-day",
-    slides: [
-      reel("concert-mainstage", "Festival mainstage with pyrotechnics"),
-      reel("concert-lasers", "Laser array over a live set"),
-      reel("concert-crowd", "Festival crowd at golden hour"),
-      reel("concert-pyro", "Wall of flame jets across the stage"),
-    ],
   },
   {
     index: "02",
     title: "Automotive",
     categorySlug: "automotive",
     meta: "Rig · Drone · Reveal",
-    slides: [
-      reel("auto-porsche", "Sports car tracked at speed on open road"),
-      reel("travel-enfield", "Rider on a Royal Enfield along the shoreline"),
-      reel("auto-moto", "Motorcycle tracking shot on wet sand"),
-    ],
   },
   {
     index: "03",
     title: "Corporate Shoots",
     categorySlug: "corporate",
     meta: "Brand · Interview · Launch",
-    slides: [
-      reel("corp-interview", "Interview setup, monochrome"),
-      reel("corp-camera", "Camera operator shooting on location"),
-      reel("corp-rooftop", "Rooftop portrait at blue hour"),
-    ],
   },
 ];
+
+export const showcases: Showcase[] = SHOWCASE_DEFS.map((def) => {
+  const category = categories.find((c) => c.slug === def.categorySlug);
+  return {
+    ...def,
+    // Each panel draws only from its own genre.
+    slides: category ? poolGallery(category).slice(0, 5) : [],
+  };
+});
 
 export const navLinks = [
   { href: "#who-we-are", label: "Studio" },

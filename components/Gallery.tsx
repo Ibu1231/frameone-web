@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Category, Photo } from "@/lib/content";
-import { poolGallery, poolClips } from "@/lib/content";
+import { poolGallery, poolClips, galleryItems } from "@/lib/content";
+import Lightbox from "./Lightbox";
 import styles from "./Gallery.module.css";
 
 type Props = {
@@ -18,6 +19,8 @@ const LEAD_SIZES = "100vw";
 export default function Gallery({ category, onClose }: Props) {
   const photos: Photo[] = poolGallery(category);
   const clips = poolClips(category);
+  const items = galleryItems(category);
+  const [lightbox, setLightbox] = useState<number | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const [closing, setClosing] = useState(false);
@@ -119,45 +122,50 @@ export default function Gallery({ category, onClose }: Props) {
             gallery read as frozen. data-lenis-prevent tells Lenis to
             leave events inside this subtree alone. */}
         <div className={styles.scroll} data-lenis-prevent>
-          {clips.length > 0 && (
-            <div className={styles.films}>
-              {clips.map((clip) => (
+          {/* Films are woven through the stills rather than stacked at
+              the top, so the set reads as one body of work. */}
+          <div className={styles.grid}>
+            {items.map((item, i) =>
+              item.kind === "clip" ? (
                 <figure
-                  key={clip.src}
+                  key={item.clip.src}
                   className={`${styles.film} ${
-                    clip.portrait ? styles.portrait : ""
+                    item.clip.portrait ? styles.portrait : ""
                   }`}
                 >
                   <video
-                    src={clip.src}
-                    poster={clip.poster}
+                    src={item.clip.src}
+                    poster={item.clip.poster}
                     controls
                     playsInline
                     preload="none"
-                    aria-label={clip.alt}
+                    aria-label={item.clip.alt}
                   />
                 </figure>
-              ))}
-            </div>
-          )}
-
-          <div className={styles.grid}>
-            {photos.map((photo, i) => (
-              <figure key={`${photo.src}-${i}`} className={styles.shot}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={photo.src}
-                  srcSet={`${photo.srcSmall} 700w, ${photo.src} ${photo.width}w`}
-                  sizes={i === 0 ? LEAD_SIZES : SIZES}
-                  alt={photo.alt}
-                  width={photo.width}
-                  height={photo.height}
-                  loading={i < 2 ? "eager" : "lazy"}
-                  decoding="async"
-                  fetchPriority={i === 0 ? "high" : "auto"}
-                />
-              </figure>
-            ))}
+              ) : (
+                <figure key={`${item.photo.src}-${i}`} className={styles.shot}>
+                  <button
+                    type="button"
+                    className={styles.open}
+                    onClick={() => setLightbox(photos.indexOf(item.photo))}
+                    aria-label={`View ${item.photo.alt} full size`}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={item.photo.src}
+                      srcSet={`${item.photo.srcSmall} 700w, ${item.photo.src} ${item.photo.width}w`}
+                      sizes={i === 0 ? LEAD_SIZES : SIZES}
+                      alt={item.photo.alt}
+                      width={item.photo.width}
+                      height={item.photo.height}
+                      loading={i < 2 ? "eager" : "lazy"}
+                      decoding="async"
+                      fetchPriority={i === 0 ? "high" : "auto"}
+                    />
+                  </button>
+                </figure>
+              )
+            )}
           </div>
           {/* Only genres still running on showreel stand-ins say so. */}
           {photos.some((p) => p.src.includes("/reel/")) && (
@@ -168,6 +176,15 @@ export default function Gallery({ category, onClose }: Props) {
           )}
         </div>
       </div>
+
+      {lightbox !== null && (
+        <Lightbox
+          photos={photos}
+          index={lightbox}
+          onIndex={setLightbox}
+          onClose={() => setLightbox(null)}
+        />
+      )}
     </div>
   );
 }

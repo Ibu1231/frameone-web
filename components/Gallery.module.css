@@ -144,25 +144,20 @@
   contain: layout paint;
 }
 
-/* Films lead the set, before the stills. */
-.films {
-  display: flex;
-  flex-wrap: wrap;
-  gap: clamp(8px, 1.2vw, 16px);
-  margin-bottom: clamp(8px, 1.2vw, 16px);
-}
-
+/* Films sit inline in the grid, woven among the stills. */
 .film {
   position: relative;
   overflow: hidden;
   background: #1a1917;
-  flex: 1 1 clamp(240px, 26vw, 360px);
+  aspect-ratio: 16 / 9;
 }
 
 /* These cuts are 9:16, so the slot matches rather than pillarboxing. */
+/* 9:16 cuts take a taller slot and span two rows so the grid stays
+   even around them. */
 .film.portrait {
   aspect-ratio: 9 / 16;
-  max-width: clamp(240px, 26vw, 360px);
+  grid-row: span 2;
 }
 
 .film video {
@@ -196,6 +191,23 @@
   grid-column: 1 / -1;
   aspect-ratio: 21 / 9;
   content-visibility: visible;
+}
+
+.open {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: zoom-in;
+}
+
+.open:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -3px;
 }
 
 .shot img {
