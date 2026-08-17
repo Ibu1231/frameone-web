@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { Category, Photo } from "@/lib/content";
 import { poolGallery, poolClips, galleryItems } from "@/lib/content";
 import Lightbox from "./Lightbox";
+import GalleryClip from "./GalleryClip";
 import styles from "./Gallery.module.css";
 
 type Props = {
@@ -127,27 +128,17 @@ export default function Gallery({ category, onClose }: Props) {
           <div className={styles.grid}>
             {items.map((item, i) =>
               item.kind === "clip" ? (
-                <figure
+                <GalleryClip
                   key={item.clip.src}
-                  className={`${styles.film} ${
-                    item.clip.portrait ? styles.portrait : ""
-                  }`}
-                >
-                  <video
-                    src={item.clip.src}
-                    poster={item.clip.poster}
-                    controls
-                    playsInline
-                    preload="none"
-                    aria-label={item.clip.alt}
-                  />
-                </figure>
+                  clip={item.clip}
+                  onOpen={() => setLightbox(i)}
+                />
               ) : (
                 <figure key={`${item.photo.src}-${i}`} className={styles.shot}>
                   <button
                     type="button"
                     className={styles.open}
-                    onClick={() => setLightbox(photos.indexOf(item.photo))}
+                    onClick={() => setLightbox(i)}
                     aria-label={`View ${item.photo.alt} full size`}
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -179,7 +170,7 @@ export default function Gallery({ category, onClose }: Props) {
 
       {lightbox !== null && (
         <Lightbox
-          photos={photos}
+          items={items}
           index={lightbox}
           onIndex={setLightbox}
           onClose={() => setLightbox(null)}
