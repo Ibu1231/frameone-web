@@ -1,34 +1,18 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import { categories, genreStrip, type Photo, type Project } from "@/lib/content";
+import { useCallback, useState } from "react";
+import { categories, genreStrip, type Project } from "@/lib/content";
 import Reveal from "./Reveal";
 import Gallery from "./Gallery";
 import styles from "./Projects.module.css";
 
 type Open = { project: Project; categoryTitle: string } | null;
-type Peek = { photo: Photo; label: string } | null;
 
 const projectCount = categories.reduce((n, c) => n + c.projects.length, 0);
 
 export default function Projects() {
   const [open, setOpen] = useState<Open>(null);
   const [active, setActive] = useState<string | null>(null);
-  const [peek, setPeek] = useState<Peek>(null);
-  const peekRef = useRef<HTMLDivElement>(null);
-
-  // The preview follows the cursor imperatively — putting pointer
-  // coordinates in state would re-render the whole list on every move.
-  useEffect(() => {
-    const move = (e: PointerEvent) => {
-      const el = peekRef.current;
-      if (!el) return;
-      el.style.left = `${e.clientX}px`;
-      el.style.top = `${e.clientY}px`;
-    };
-    window.addEventListener("pointermove", move);
-    return () => window.removeEventListener("pointermove", move);
-  }, []);
 
   /** Feeds each row its own -1..1 pointer offset for the drift. */
   const track = useCallback((e: React.PointerEvent<HTMLElement>) => {
@@ -61,7 +45,6 @@ export default function Projects() {
             className={`${styles.cats} ${active ? styles.engaged : ""}`}
             onPointerLeave={() => {
               setActive(null);
-              setPeek(null);
             }}
           >
             {categories.map((cat, ci) => (
@@ -76,10 +59,6 @@ export default function Projects() {
                 <div
                   onPointerEnter={() => {
                     setActive(cat.slug);
-                    setPeek({
-                      photo: cat.projects[0].cover,
-                      label: cat.title,
-                    });
                   }}
                   onPointerMove={track}
                   onPointerLeave={leave}
@@ -100,12 +79,6 @@ export default function Projects() {
                         className={styles.project}
                         onClick={() =>
                           setOpen({ project, categoryTitle: cat.title })
-                        }
-                        onPointerEnter={() =>
-                          setPeek({
-                            photo: project.cover,
-                            label: `${project.title} · ${project.photos.length} frames`,
-                          })
                         }
                         onFocus={() => setActive(cat.slug)}
                         aria-haspopup="dialog"
@@ -130,24 +103,6 @@ export default function Projects() {
         </div>
       </section>
 
-      <div
-        ref={peekRef}
-        className={`${styles.peek} ${peek ? styles.on : ""}`}
-        aria-hidden="true"
-      >
-        {peek && (
-          <>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={peek.photo.src}
-              alt=""
-              width={peek.photo.width}
-              height={peek.photo.height}
-            />
-            <span className={styles.peekLabel}>{peek.label}</span>
-          </>
-        )}
-      </div>
 
       {open && (
         <Gallery

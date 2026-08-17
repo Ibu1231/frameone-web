@@ -4,13 +4,54 @@ import { useEffect, useRef, useState } from "react";
 import { heroVideo, studio } from "@/lib/content";
 import styles from "./Hero.module.css";
 
+/** Scroll progress through the hero at which the strap line arrives. */
+const STRAP_AT = 0.05;
+
 export default function Hero() {
   const [ready, setReady] = useState(false);
+  const [phase, setPhase] = useState(0);
+  const chapterRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const id = window.setTimeout(() => setReady(true), 120);
     return () => window.clearTimeout(id);
+  }, []);
+
+  // The strap line is a second beat: the title lands on load, the
+  // tagline follows as soon as the reader starts moving.
+  useEffect(() => {
+    const chapter = chapterRef.current;
+    if (!chapter) return;
+
+    let current = -1;
+    const read = () => {
+      const travel = chapter.offsetHeight - window.innerHeight;
+      const p = travel > 0 ? -chapter.getBoundingClientRect().top / travel : 0;
+      const next = p >= STRAP_AT ? 1 : 0;
+      if (next !== current) {
+        current = next;
+        setPhase(next);
+      }
+    };
+
+    read();
+    window.addEventListener("scroll", read, { passive: true });
+    window.addEventListener("resize", read);
+
+    // Lenis owns scrolling here, so listen to it directly too.
+    let lenis: { off?: (e: "scroll", cb: () => void) => void } | undefined;
+    const attach = window.setTimeout(() => {
+      lenis = window.__lenis;
+      window.__lenis?.on("scroll", read);
+    }, 0);
+
+    return () => {
+      window.clearTimeout(attach);
+      window.removeEventListener("scroll", read);
+      window.removeEventListener("resize", read);
+      lenis?.off?.("scroll", read);
+    };
   }, []);
 
   useEffect(() => {
@@ -57,7 +98,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <div className="chapter" style={{ height: "190svh" }}>
+    <div className="chapter" style={{ height: "190svh" }} ref={chapterRef}>
       <section className="panel" data-panel="hero">
         <div className="inner">
           <div className={styles.media}>
@@ -76,23 +117,20 @@ export default function Hero() {
           </div>
           <div className={styles.scrim} />
 
-          <div className={`pad ${styles.stack} ${ready ? styles.ready : ""}`}>
+          <div className={`pad ${styles.stack} ${ready ? styles.ready : ""} ${phase >= 1 ? styles.phase1 : ""}`}>
             <div className={styles.topRow}>
               <span className="lbl">Showreel — 2024</span>
               <span className="lbl">Bangalore · Worldwide</span>
             </div>
 
             <div className={styles.centre}>
-              <span className={styles.wordmark}>
-                <i>{studio.name}</i>
-              </span>
+              <h2 className={styles.wordmark}>
+                <i>We are {studio.name}</i>
+              </h2>
+              <p className={styles.strap}>{studio.tagline}</p>
             </div>
 
             <div className={styles.bottom}>
-              <p className={styles.tagline}>
-                <i>{studio.tagline}</i>
-              </p>
-
               <div className={styles.footer}>
                 <p className={styles.studioLine}>{studio.intro}</p>
                 <div className={styles.meta}>

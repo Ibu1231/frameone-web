@@ -54,18 +54,22 @@
 .centre {
   display: grid;
   place-items: center;
+  align-content: center;
+  gap: clamp(9px, 1.6vh, 18px);
   min-height: 0;
 }
 
 .wordmark {
-  font-size: clamp(2.6rem, 11vw, 9.5rem);
+  /* Deliberately restrained — the footage is the subject, the title
+     names it. */
+  font-size: clamp(1.6rem, 6vw, 4.9rem);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: -0.035em;
-  line-height: 0.9;
+  line-height: 0.92;
   color: #fff;
   text-align: center;
-  text-shadow: 0 4px 60px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
   overflow: hidden;
   display: block;
 }
@@ -81,36 +85,43 @@
   transform: none;
 }
 
+/* Tagline sits directly under the title on a single line, and arrives
+   as a second phase once the reader starts scrolling. */
+.strap {
+  font-size: clamp(0.62rem, 1.32vw, 1.05rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.92);
+  text-align: center;
+  white-space: nowrap;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 1s var(--ease),
+    transform 1s var(--ease);
+}
+
+.phase1 .strap {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 620px) {
+  .strap {
+    white-space: normal;
+    max-width: 22ch;
+    line-height: 1.4;
+  }
+}
+
 /* ---------- bottom block ---------- */
 .bottom {
   display: flex;
   flex-direction: column;
   gap: clamp(10px, 1.8vh, 18px);
-}
-
-/* The tagline now sits down here, at a supporting size rather than
-   competing with the wordmark. */
-.tagline {
-  font-size: clamp(0.95rem, 2.1vw, 1.75rem);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: -0.025em;
-  line-height: 1;
-  color: #fff;
-  overflow: hidden;
-  display: block;
-  max-width: 22ch;
-}
-
-.tagline > i {
-  display: block;
-  font-style: normal;
-  transform: translateY(105%);
-  transition: transform 1.15s var(--ease) 0.18s;
-}
-
-.ready .tagline > i {
-  transform: none;
 }
 
 .footer {
@@ -145,10 +156,7 @@
 
 @media (max-width: 860px) {
   .wordmark {
-    font-size: clamp(2.2rem, 15vw, 4.5rem);
-  }
-  .tagline {
-    font-size: clamp(0.85rem, 4.4vw, 1.2rem);
+    font-size: clamp(1.5rem, 8.4vw, 2.6rem);
   }
   .meta {
     display: none;
@@ -156,8 +164,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .wordmark > i,
-  .tagline > i {
+  .wordmark > i {
     transform: none;
   }
 }

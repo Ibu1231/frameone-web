@@ -63,7 +63,7 @@
   font-size: clamp(1.6rem, 5vw, 4.2rem);
   max-width: 15ch;
   color: #fff;
-  text-shadow: 0 2px 44px rgba(0, 0, 0, 0.42);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
   /* Phase one: rises into place on its own. */
   opacity: 0;
   transform: translateY(26px);
@@ -77,7 +77,7 @@
   line-height: 1.78;
   color: rgba(255, 255, 255, 0.9);
   max-width: 58ch;
-  text-shadow: 0 1px 26px rgba(0, 0, 0, 0.55);
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.55);
   /* Phase two: arrives only once the heading has landed and the reader
      keeps scrolling. */
   opacity: 0;
