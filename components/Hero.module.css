@@ -106,26 +106,19 @@
   color: rgba(255, 255, 255, 0.92);
   text-align: center;
   white-space: nowrap;
-  /* Driven by a CSS animation, not a JS-applied class, so the tagline
-     always arrives even if scripting is slow, blocked, or fails
-     outright. Scrolling only brings it forward. */
-  animation: strapIn 0.95s var(--ease) 1.4s both;
+  /* Tied to scroll position, both ways: absent at the top of the page,
+     it arrives as you scroll down and withdraws again on the way back
+     up. */
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.75s var(--ease),
+    transform 0.75s var(--ease);
 }
 
-/* Scrolling into the hero starts it immediately instead of waiting. */
 .phase1 .strap {
-  animation-delay: 0s;
-}
-
-@keyframes strapIn {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
+  opacity: 1;
+  transform: none;
 }
 
 /* Stay on one line on phones too: tighten the tracking rather than
