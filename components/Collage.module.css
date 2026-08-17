@@ -1,94 +1,229 @@
-.inner {
-  justify-content: center;
-  padding-top: clamp(80px, 12vh, 124px);
-  padding-bottom: clamp(20px, 4vh, 44px);
+/* ============================================================
+   Selected frames — three self-contained genre slideshows.
+   ============================================================ */
+
+.panelBg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--paper);
+  overflow: hidden;
 }
 
-/* Three offset panes — artist, nature, automotive — set at different
-   heights so the block reads as a composed collage, not a row of cards. */
+/* Abstract ground built from the site's own palette rather than a flat
+   fill: two wide tonal washes and a very low-contrast diagonal rule
+   field. All CSS — no extra request. */
+.panelBg::before {
+  content: "";
+  position: absolute;
+  inset: -10%;
+  background:
+    radial-gradient(
+      52% 44% at 18% 22%,
+      rgba(255, 255, 255, 0.55) 0%,
+      rgba(255, 255, 255, 0) 62%
+    ),
+    radial-gradient(
+      46% 40% at 84% 74%,
+      rgba(112, 109, 102, 0.16) 0%,
+      rgba(112, 109, 102, 0) 66%
+    ),
+    repeating-linear-gradient(
+      58deg,
+      rgba(16, 16, 16, 0.028) 0px,
+      rgba(16, 16, 16, 0.028) 1px,
+      rgba(16, 16, 16, 0) 1px,
+      rgba(16, 16, 16, 0) 22px
+    );
+}
+
+/* Grain, so the ground reads as paper rather than a gradient. */
+.panelBg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.3;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/></svg>");
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  justify-content: flex-start;
+  padding-top: clamp(78px, 11vh, 118px);
+  padding-bottom: clamp(18px, 3.4vh, 38px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 2.2vh, 26px);
+}
+
+/* ---------- phase 1: the heading, on its own ---------- */
+.label {
+  display: block;
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.8s var(--ease),
+    transform 0.8s var(--ease);
+}
+
+.heading {
+  font-size: clamp(1.5rem, 4.8vw, 4rem);
+  max-width: 17ch;
+  color: var(--ink);
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.95s var(--ease),
+    transform 0.95s var(--ease);
+}
+
+.stage1 .label,
+.stage2 .label,
+.stage1 .heading,
+.stage2 .heading {
+  opacity: 1;
+  transform: none;
+}
+
+.stage1 .heading,
+.stage2 .heading {
+  transition-delay: 0.1s;
+}
+
+/* ---------- phase 2: the slideshows, staggered after ---------- */
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: clamp(8px, 1.2vw, 18px);
   align-items: center;
-  height: min(62svh, 560px);
+  flex: 1;
+  min-height: 0;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .tile {
   position: relative;
   overflow: hidden;
-  height: 100%;
   background: var(--paper-d);
+  height: 100%;
+  opacity: 0;
+  transform: translateY(26px) scale(0.985);
+  transition:
+    opacity 1s var(--ease),
+    transform 1s var(--ease);
 }
 
+/* Offset heights so it reads as a composed collage, not three cards. */
 .tile:nth-child(1) {
-  height: 78%;
+  height: 80%;
   align-self: start;
 }
-
 .tile:nth-child(2) {
   height: 100%;
 }
-
 .tile:nth-child(3) {
-  height: 72%;
+  height: 74%;
   align-self: end;
 }
 
-.tile img {
+.stage2 .tile {
+  opacity: 1;
+  transform: none;
+}
+
+.stage2 .tile:nth-child(1) {
+  transition-delay: 0s;
+}
+.stage2 .tile:nth-child(2) {
+  transition-delay: 0.13s;
+}
+.stage2 .tile:nth-child(3) {
+  transition-delay: 0.26s;
+}
+
+/* ---------- the slideshow itself ---------- */
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  /* Opacity only — stays on the compositor, no layout work. */
+  transition: opacity 1.5s var(--ease);
+}
+
+.slide.on {
+  opacity: 1;
+}
+
+.slide img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 1.4s var(--ease);
-  will-change: transform;
+  display: block;
 }
 
-.tile:hover img {
-  transform: scale(1.05);
-}
-
-.tileNum {
+.capBg {
   position: absolute;
-  top: 10px;
-  left: 11px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 44%;
   z-index: 2;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.58));
+  pointer-events: none;
+}
+
+.cap {
+  position: absolute;
+  left: 11px;
+  bottom: 10px;
+  z-index: 3;
   color: #fff;
-  font-size: 9px;
+  font-size: 9.5px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.85);
+  font-weight: 600;
 }
 
-/* Overlay line sits across the collage, centred on the middle pane. */
-.overlay {
+.dots {
   position: absolute;
-  left: var(--pad);
-  right: var(--pad);
-  top: 50%;
-  transform: translateY(-50%);
+  right: 11px;
+  bottom: 13px;
   z-index: 3;
-  pointer-events: none;
-  text-align: center;
+  display: flex;
+  gap: 4px;
 }
 
-.overlay h2 {
-  font-size: clamp(1.4rem, 4.6vw, 4.1rem);
-  color: #fff;
-  line-height: 0.92;
-  max-width: 18ch;
-  margin: 0 auto;
-  mix-blend-mode: normal;
+.dots i {
+  width: 12px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.42);
+  display: block;
+  transition: background 0.6s var(--ease);
 }
 
-@media (max-width: 820px) {
+.dots i.lit {
+  background: #fff;
+}
+
+@media (max-width: 860px) {
   .grid {
     grid-template-columns: 1fr 1fr;
-    height: min(58svh, 420px);
   }
   .tile:nth-child(3) {
     display: none;
   }
-  .overlay h2 {
-    font-size: clamp(1.2rem, 6.4vw, 2rem);
+  .heading {
+    max-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heading,
+  .label,
+  .tile {
+    transform: none;
   }
 }

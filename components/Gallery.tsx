@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Category, Photo } from "@/lib/content";
-import { poolGallery } from "@/lib/content";
+import { poolGallery, poolClips } from "@/lib/content";
 import styles from "./Gallery.module.css";
 
 type Props = {
@@ -17,6 +17,7 @@ const LEAD_SIZES = "100vw";
 
 export default function Gallery({ category, onClose }: Props) {
   const photos: Photo[] = poolGallery(category);
+  const clips = poolClips(category);
   const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const [closing, setClosing] = useState(false);
@@ -97,6 +98,8 @@ export default function Gallery({ category, onClose }: Props) {
             <h3 className={styles.title}>{category.title}</h3>
             <span className={styles.meta}>
               {category.projects.length} projects · {photos.length} frames
+              {clips.length > 0 &&
+                ` · ${clips.length} film${clips.length > 1 ? "s" : ""}`}
             </span>
           </div>
           <button
@@ -109,14 +112,42 @@ export default function Gallery({ category, onClose }: Props) {
           </button>
         </div>
 
-        <div className={styles.scroll}>
+        {/* Lenis intercepts wheel events globally and preventDefaults
+            them. lenis.stop() halts its own scrolling but does NOT stop
+            that interception, so wheel events over this container were
+            being swallowed and native scrolling never happened — the
+            gallery read as frozen. data-lenis-prevent tells Lenis to
+            leave events inside this subtree alone. */}
+        <div className={styles.scroll} data-lenis-prevent>
+          {clips.length > 0 && (
+            <div className={styles.films}>
+              {clips.map((clip) => (
+                <figure
+                  key={clip.src}
+                  className={`${styles.film} ${
+                    clip.portrait ? styles.portrait : ""
+                  }`}
+                >
+                  <video
+                    src={clip.src}
+                    poster={clip.poster}
+                    controls
+                    playsInline
+                    preload="none"
+                    aria-label={clip.alt}
+                  />
+                </figure>
+              ))}
+            </div>
+          )}
+
           <div className={styles.grid}>
             {photos.map((photo, i) => (
               <figure key={`${photo.src}-${i}`} className={styles.shot}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={photo.src}
-                  srcSet={`${photo.srcSmall} 700w, ${photo.src} 1400w`}
+                  srcSet={`${photo.srcSmall} 700w, ${photo.src} ${photo.width}w`}
                   sizes={i === 0 ? LEAD_SIZES : SIZES}
                   alt={photo.alt}
                   width={photo.width}
@@ -128,10 +159,13 @@ export default function Gallery({ category, onClose }: Props) {
               </figure>
             ))}
           </div>
-          <p className={styles.placeholderNote}>
-            Placeholder set — stills from the 2024 showreel, pending final
-            photography.
-          </p>
+          {/* Only genres still running on showreel stand-ins say so. */}
+          {photos.some((p) => p.src.includes("/reel/")) && (
+            <p className={styles.placeholderNote}>
+              Some frames are placeholders — stills from the 2024 showreel,
+              pending final photography.
+            </p>
+          )}
         </div>
       </div>
     </div>

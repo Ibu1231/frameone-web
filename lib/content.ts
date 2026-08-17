@@ -73,14 +73,104 @@ export const whoWeAre = {
   body: "At FrameOne, we don't just capture moments — we turn them into stories people remember. From high-energy live events and cinematic brand films to fashion and automotive productions, we bring together creative vision, technical precision, and flawless execution to create visuals that demand attention. With an end-to-end production approach and a team that thrives under pressure, we transform ideas into powerful visual experiences — because every frame should have a purpose, and every story deserves to be unforgettable.",
 };
 
-/* ---------------- Page 3 — Collage ---------------- */
+/* ---------------- Automotive — client media ---------------- */
+
+/** F1 stills. Originals (up to 5472x3648) are archived in
+ *  assets-source; these are the web derivatives. */
+const auto = (n: string, alt: string): Photo => ({
+  src: `/images/automotive/${n}-lg.jpg`,
+  srcSmall: `/images/automotive/${n}-sm.jpg`,
+  alt,
+  width: 1800,
+  height: 1200,
+});
+
+export const automotivePhotos: Photo[] = [
+  auto("f1-01", "Driver portrait in the pit lane"),
+  auto("f1-02", "Car on track through the esses"),
+  auto("f1-03", "Pit crew mid tyre change"),
+  auto("f1-04", "Front wing detail on the grid"),
+  auto("f1-05", "Car at speed under braking"),
+  auto("f1-06", "Garage monitors during qualifying"),
+  auto("f1-07", "Grandstand crowd on race day"),
+  auto("f1-08", "Car exiting the final corner"),
+  auto("f1-09", "Tyre stacks in the paddock"),
+  auto("f1-10", "Driver helmet before the formation lap"),
+  auto("f1-11", "Track-side panning shot at speed"),
+  auto("f1-12", "Team radio and timing screens"),
+  auto("f1-13", "Car on the main straight"),
+  auto("f1-14", "Podium celebration"),
+];
+
+export type Clip = {
+  src: string;
+  poster: string;
+  alt: string;
+  /** Vertical social cuts — 9:16, not 16:9. */
+  portrait: boolean;
+};
+
+export const automotiveClips: Clip[] = [
+  {
+    src: "/videos/automotive/raceday.mp4",
+    poster: "/images/automotive/raceday-poster.jpg",
+    alt: "Afterpeak — race day film",
+    portrait: true,
+  },
+  {
+    src: "/videos/automotive/qualifying.mp4",
+    poster: "/images/automotive/qualifying-poster.jpg",
+    alt: "Afterpeak — F1 qualifying day film",
+    portrait: true,
+  },
+];
+
+/* ---------------- Page 3 — Collage ----------------
+ * Three self-contained slideshows. Each pulls only from its own genre;
+ * nothing is shared between them.
+ */
+export type CollagePanel = {
+  key: string;
+  label: string;
+  frames: Photo[];
+};
+
 export const collage = {
-  overlay: "Image first, every frame is a decision.",
-  tiles: [
-    reel("concert-artist", "Artist mid-performance under stage light"),
-    reel("travel-reef", "Diver silhouetted against open water"),
-    reel("auto-porsche", "Sports car tracked at speed on open road"),
-  ],
+  heading: "Image first, every frame is a decision.",
+  label: "Selected frames",
+  panels: [
+    {
+      key: "artist",
+      label: "Artist",
+      frames: [
+        reel("concert-artist", "Artist facing a full arena crowd"),
+        reel("concert-flames", "Performer between flame columns"),
+        reel("concert-duo", "Two performers framed by flame jets"),
+        reel("concert-dj", "DJ booth with stage mascot and pyro"),
+      ],
+    },
+    {
+      key: "nature",
+      label: "Nature",
+      frames: [
+        reel("travel-reef", "Diver silhouetted against open water"),
+        reel("travel-forest", "Standing among tall pines"),
+        reel("travel-coast", "Surf breaking against the coastline"),
+        reel("travel-snow", "Lone figure crossing deep snow"),
+      ],
+    },
+    {
+      key: "automotive",
+      label: "Automotive",
+      // Real client work now that the F1 set has landed.
+      frames: [
+        automotivePhotos[1],
+        automotivePhotos[4],
+        automotivePhotos[7],
+        automotivePhotos[12],
+      ],
+    },
+  ] satisfies CollagePanel[],
 };
 
 /* ---------------- Our Projects ---------------- */
@@ -90,6 +180,8 @@ export type Project = {
   meta: string;
   cover: Photo;
   photos: Photo[];
+  /** Films belonging to this project, shown ahead of the stills. */
+  clips?: Clip[];
 };
 
 export type Category = {
@@ -191,8 +283,16 @@ export const categories: Category[] = [
   {
     slug: "automotive",
     title: "Automotive",
-    blurb: "Rig, drone, and studio work — reveal films and rolling shots.",
+    blurb: "Race weekends, rig and rolling work, reveal films.",
     projects: [
+      {
+        slug: "afterpeak-f1",
+        title: "Afterpeak — F1 Race Weekend",
+        meta: "Motorsport · Stills & film",
+        cover: automotivePhotos[0],
+        photos: automotivePhotos,
+        clips: automotiveClips,
+      },
       {
         slug: "coast-run",
         title: "Coast Run",
@@ -274,6 +374,20 @@ export function poolGallery(category: Category): Photo[] {
   return pooled;
 }
 
+/** Every film in a genre, pooled across its projects. */
+export function poolClips(category: Category): Clip[] {
+  const seen = new Set<string>();
+  const pooled: Clip[] = [];
+  for (const project of category.projects) {
+    for (const clip of project.clips ?? []) {
+      if (seen.has(clip.src)) continue;
+      seen.add(clip.src);
+      pooled.push(clip);
+    }
+  }
+  return pooled;
+}
+
 /** Marquee strip beneath Our Projects. */
 export const genreStrip = [
   "Concerts & Festivals",
@@ -345,3 +459,4 @@ export const socials = [
   { label: "Vimeo", href: "#" },
   { label: "YouTube", href: "#" },
 ];
+
