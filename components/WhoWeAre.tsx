@@ -116,7 +116,8 @@ export default function WhoWeAre() {
           </div>
           <div className={styles.scrim} />
 
-          <div className={`pad ${styles.stack} ${stageClass}`}>
+          <div data-drift
+            className={`pad ${styles.stack} ${stageClass}`}>
             <div className={styles.topRow}>
               <span className="lbl">{whoWeAre.label}</span>
               <span className="lbl">Athirappilly — 2024</span>

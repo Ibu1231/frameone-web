@@ -130,7 +130,8 @@ export default function Hero() {
           </div>
           <div className={styles.scrim} />
 
-          <div className={`pad ${styles.stack} ${ready ? styles.ready : ""} ${phase >= 1 ? styles.phase1 : ""}`}>
+          <div data-drift
+            className={`pad ${styles.stack} ${ready ? styles.ready : ""} ${phase >= 1 ? styles.phase1 : ""}`}>
             <div className={styles.topRow}>
               <span className="lbl">Showreel — 2024</span>
               <span className="lbl">Bangalore · Worldwide</span>

@@ -20,6 +20,9 @@ export default function ScrollChoreography() {
       document.querySelectorAll<HTMLElement>(".chapter")
     );
     const heroVideo = document.querySelector<HTMLElement>("[data-hero-video]");
+    const drifters = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-drift]")
+    );
     const workPanels = Array.from(
       document.querySelectorAll<HTMLElement>('[data-panel="work"]')
     );
@@ -46,17 +49,19 @@ export default function ScrollChoreography() {
         heroVideo.style.transform = `scale(1.06) translateY(${p * -6}%)`;
       }
 
-      // ---- every panel: drift up and dim as the next covers it ----
-      chapters.forEach((chapter, i) => {
+      // ---- every panel: the copy drifts up as the next panel rises ----
+      //
+      // This deliberately targets the text layer, never .inner. .inner
+      // holds the full-bleed video, so translating it lifted the footage
+      // off the bottom of the panel and exposed a band of bare panel
+      // background, and fading it washed the footage out mid-scroll.
+      // The media now stays put and fully opaque; only the copy moves,
+      // which reads as depth rather than a transition effect.
+      drifters.forEach((el) => {
+        const chapter = el.closest<HTMLElement>(".chapter");
+        if (!chapter) return;
         const p = progressOf(chapter);
-        const inner = chapter.querySelector<HTMLElement>(".inner");
-        if (!inner) return;
-        if (i === 0) {
-          inner.style.opacity = String(1 - clamp((p - 0.55) / 0.45, 0, 1));
-          return;
-        }
-        inner.style.transform = `translateY(${-p * 7}vh)`;
-        inner.style.opacity = String(1 - clamp((p - 0.6) / 0.4, 0, 1) * 0.85);
+        el.style.transform = `translateY(${-p * 3.2}vh)`;
       });
 
       // ---- work panels: slow push-in, title rises from its mask ----

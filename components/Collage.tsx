@@ -8,7 +8,8 @@ export default function Collage() {
   return (
     <div className="chapter" style={{ height: "180svh" }} id="work">
       <section className="panel dk">
-        <div className={`inner pad ${styles.inner}`}>
+        <div data-drift
+          className={`inner pad ${styles.inner}`}>
           <div className={styles.grid}>
             {collage.tiles.map((tile, i) => (
               <Reveal key={tile.src} delay={i * 0.1} className={styles.tile}>

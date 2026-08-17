@@ -31,7 +31,8 @@ export default function Projects() {
   return (
     <div className="chapter" style={{ height: "240svh" }} id="projects">
       <section className="panel">
-        <div className={`inner pad ${styles.inner}`}>
+        <div data-drift
+          className={`inner pad ${styles.inner}`}>
           <div className={styles.head}>
             <Reveal as="h2" mask className={styles.title}>
               Our Projects

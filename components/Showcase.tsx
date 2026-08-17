@@ -68,7 +68,8 @@ export default function Showcase({ data, total }: Props) {
         </div>
         <div className={styles.scrim} />
 
-        <div className={`inner pad ${styles.content}`}>
+        <div data-drift
+          className={`inner pad ${styles.content}`}>
           <span className={styles.num}>
             Work — {data.index} / {String(total).padStart(2, "0")}
           </span>

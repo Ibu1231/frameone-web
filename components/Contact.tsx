@@ -6,7 +6,8 @@ export default function Contact() {
   return (
     <div className="chapter" style={{ height: "100svh" }} id="contact">
       <section className="panel dk">
-        <div className={`inner pad ${styles.inner}`}>
+        <div data-drift
+          className={`inner pad ${styles.inner}`}>
           <Reveal as="span" className="lbl">
             Let&rsquo;s talk
           </Reveal>
