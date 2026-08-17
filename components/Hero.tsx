@@ -24,14 +24,16 @@ export default function Hero() {
     const chapter = chapterRef.current;
     if (!chapter) return;
 
-    let current = -1;
+    let current = 0;
+    // One-way: once the tagline is in, scrolling back up must not pull it
+    // out again — that reads as a glitch rather than a reveal.
     const read = () => {
+      if (current >= 1) return;
       const travel = chapter.offsetHeight - window.innerHeight;
       const p = travel > 0 ? -chapter.getBoundingClientRect().top / travel : 0;
-      const next = p >= STRAP_AT ? 1 : 0;
-      if (next !== current) {
-        current = next;
-        setPhase(next);
+      if (p >= STRAP_AT) {
+        current = 1;
+        setPhase(1);
       }
     };
 
@@ -46,8 +48,19 @@ export default function Hero() {
       window.__lenis?.on("scroll", read);
     }, 0);
 
+    // Scroll drives the reveal, but nobody should have to scroll to
+    // discover the tagline exists — if the page is still untouched after
+    // the title has settled, it comes in on its own.
+    const fallback = window.setTimeout(() => {
+      if (current < 1) {
+        current = 1;
+        setPhase(1);
+      }
+    }, 1900);
+
     return () => {
       window.clearTimeout(attach);
+      window.clearTimeout(fallback);
       window.removeEventListener("scroll", read);
       window.removeEventListener("resize", read);
       lenis?.off?.("scroll", read);
@@ -125,7 +138,7 @@ export default function Hero() {
 
             <div className={styles.centre}>
               <h2 className={styles.wordmark}>
-                <i>We are {studio.name}</i>
+                <i>{studio.name}</i>
               </h2>
               <p className={styles.strap}>{studio.tagline}</p>
             </div>

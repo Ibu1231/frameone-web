@@ -22,9 +22,19 @@
   inset: 0;
   z-index: 1;
   pointer-events: none;
+  /* The title is set plain, with no shadow, and sits mid-screen where
+     edge gradients do not reach — so a soft even wash carries it, plus
+     a centre vignette that lifts contrast exactly where the wordmark
+     sits without reading as a box. */
   background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.46) 0%, rgba(0, 0, 0, 0) 24%),
-    linear-gradient(0deg, rgba(0, 0, 0, 0.66) 0%, rgba(0, 0, 0, 0) 40%);
+    linear-gradient(180deg, rgba(0, 0, 0, 0.44) 0%, rgba(0, 0, 0, 0) 24%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.64) 0%, rgba(0, 0, 0, 0) 40%),
+    radial-gradient(
+      120% 78% at 50% 46%,
+      rgba(0, 0, 0, 0.34) 0%,
+      rgba(0, 0, 0, 0.12) 46%,
+      rgba(0, 0, 0, 0) 78%
+    );
 }
 
 .stack {
@@ -69,7 +79,6 @@
   line-height: 0.92;
   color: #fff;
   text-align: center;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
   overflow: hidden;
   display: block;
 }
@@ -96,7 +105,6 @@
   color: rgba(255, 255, 255, 0.92);
   text-align: center;
   white-space: nowrap;
-  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.55);
   opacity: 0;
   transform: translateY(14px);
   transition:
@@ -109,11 +117,13 @@
   transform: none;
 }
 
+/* Stay on one line on phones too: tighten the tracking rather than
+   wrapping, which keeps it reading as a strap line and not a sentence. */
 @media (max-width: 620px) {
   .strap {
-    white-space: normal;
-    max-width: 22ch;
-    line-height: 1.4;
+    white-space: nowrap;
+    font-size: clamp(0.6rem, 2.95vw, 0.82rem);
+    letter-spacing: 0.09em;
   }
 }
 
