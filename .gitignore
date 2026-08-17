@@ -25,10 +25,18 @@
 # be served: anything in /public is copied verbatim into the export.
 /assets-source
 
-# Per-genre folders under /public/videos hold delivery masters dropped in
-# for encoding (hundreds of MB each). Only the flat, web-encoded files
-# beside them — hero-1080.mp4 and the like — belong in the repo.
-/public/videos/*/
+# Camera/edit masters must never be committed or deployed. This ignores
+# them by container rather than by folder: the previous rule ignored all
+# of /public/videos/<genre>/, which silently excluded the web encodes
+# living there too, so the built site shipped without them.
+# Web-ready .mp4 under /public/videos IS tracked.
+*.mov
+*.MOV
+*.mxf
+*.MXF
+*.mkv
+*.avi
+/public/videos/**/*-master.mp4
 
 # misc
 .DS_Store

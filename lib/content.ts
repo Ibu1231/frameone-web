@@ -108,8 +108,11 @@ export type Clip = {
   src: string;
   poster: string;
   alt: string;
-  /** Vertical social cuts — 9:16, not 16:9. */
-  portrait: boolean;
+  /** True dimensions. The set is not one shape — 9:16 social cuts sit
+   *  alongside a 4:3 edit — so each clip carries its own ratio rather
+   *  than being forced into a shared slot. */
+  width: number;
+  height: number;
 };
 
 export const automotiveClips: Clip[] = [
@@ -117,13 +120,29 @@ export const automotiveClips: Clip[] = [
     src: "/videos/automotive/raceday.mp4",
     poster: "/images/automotive/raceday-poster.jpg",
     alt: "Afterpeak — race day film",
-    portrait: true,
+    width: 1080,
+    height: 1920,
+  },
+  {
+    src: "/videos/automotive/gt-cup.mp4",
+    poster: "/images/automotive/gt-cup-poster.jpg",
+    alt: "Royal Enfield GT Cup — rider selection round, day one",
+    width: 1080,
+    height: 1920,
   },
   {
     src: "/videos/automotive/qualifying.mp4",
     poster: "/images/automotive/qualifying-poster.jpg",
     alt: "Afterpeak — F1 qualifying day film",
-    portrait: true,
+    width: 1080,
+    height: 1920,
+  },
+  {
+    src: "/videos/automotive/the-climb.mp4",
+    poster: "/images/automotive/the-climb-poster.jpg",
+    alt: "Royal Enfield — Episode 2, The Climb",
+    width: 1600,
+    height: 1200,
   },
 ];
 

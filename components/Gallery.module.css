@@ -144,19 +144,17 @@
   contain: layout paint;
 }
 
-/* Films sit inline in the grid, woven among the stills. */
+/* Films sit inline in the grid, woven among the stills. Their ratio is
+   set per clip from its true dimensions. */
 .film {
   position: relative;
   overflow: hidden;
   background: #1a1917;
-  aspect-ratio: 16 / 9;
 }
 
-/* These cuts are 9:16, so the slot matches rather than pillarboxing. */
-/* 9:16 cuts take a taller slot and span two rows so the grid stays
-   even around them. */
-.film.portrait {
-  aspect-ratio: 9 / 16;
+/* Anything markedly taller than the grid's own cell spans two rows so
+   the surrounding tiles stay even. */
+.film[style*="1080 / 1920"] {
   grid-row: span 2;
 }
 

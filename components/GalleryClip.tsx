@@ -40,7 +40,13 @@ export default function GalleryClip({ clip, onOpen }: Props) {
   }, []);
 
   return (
-    <figure className={`${styles.film} ${clip.portrait ? styles.portrait : ""}`}>
+    <figure
+      className={styles.film}
+      /* Each clip states its own ratio, so a 4:3 edit and a 9:16 cut
+         both get a slot that fits them rather than being cropped into
+         a shared one. */
+      style={{ aspectRatio: `${clip.width} / ${clip.height}` }}
+    >
       <button
         type="button"
         className={styles.open}
