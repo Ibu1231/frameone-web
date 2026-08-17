@@ -9,6 +9,8 @@
 
 export type Photo = {
   src: string;
+  /** 700px variant, served to small slots via srcset. */
+  srcSmall: string;
   alt: string;
   width: number;
   height: number;
@@ -17,15 +19,16 @@ export type Photo = {
 /** Reel stills are all 1400x788 (16:9 from the 4K master). */
 const reel = (file: string, alt: string): Photo => ({
   src: `/images/reel/${file}.jpg`,
+  srcSmall: `/images/reel/${file}-sm.jpg`,
   alt,
   width: 1400,
   height: 788,
 });
 
 export const photos = {
-  beam: { src: "/images/beam.jpg", alt: "Laser rig fanning out over a live DJ set", width: 1301, height: 704 },
-  mask: { src: "/images/mask.jpg", alt: "Masked performer on stage against an LED wall", width: 1247, height: 854 },
-  confetti: { src: "/images/confetti.jpg", alt: "Guitarist walking through falling confetti", width: 893, height: 590 },
+  beam: { src: "/images/beam.jpg", srcSmall: "/images/beam-sm.jpg", alt: "Laser rig fanning out over a live DJ set", width: 1301, height: 704 },
+  mask: { src: "/images/mask.jpg", srcSmall: "/images/mask-sm.jpg", alt: "Masked performer on stage against an LED wall", width: 1247, height: 854 },
+  confetti: { src: "/images/confetti.jpg", srcSmall: "/images/confetti-sm.jpg", alt: "Guitarist walking through falling confetti", width: 893, height: 590 },
 } satisfies Record<string, Photo>;
 
 export const heroVideo = {
@@ -251,6 +254,25 @@ export const categories: Category[] = [
     ],
   },
 ];
+
+/**
+ * Every frame in a genre, pooled across its projects into one set.
+ * Projects legitimately share stills, so identical sources are folded
+ * together — the gallery is one continuous body of work, not a set of
+ * sub-galleries stitched end to end.
+ */
+export function poolGallery(category: Category): Photo[] {
+  const seen = new Set<string>();
+  const pooled: Photo[] = [];
+  for (const project of category.projects) {
+    for (const photo of project.photos) {
+      if (seen.has(photo.src)) continue;
+      seen.add(photo.src);
+      pooled.push(photo);
+    }
+  }
+  return pooled;
+}
 
 /** Marquee strip beneath Our Projects. */
 export const genreStrip = [

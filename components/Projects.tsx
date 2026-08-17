@@ -1,17 +1,15 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { categories, genreStrip, type Project } from "@/lib/content";
+import { categories, genreStrip, type Category } from "@/lib/content";
 import Reveal from "./Reveal";
 import Gallery from "./Gallery";
 import styles from "./Projects.module.css";
 
-type Open = { project: Project; categoryTitle: string } | null;
-
 const projectCount = categories.reduce((n, c) => n + c.projects.length, 0);
 
 export default function Projects() {
-  const [open, setOpen] = useState<Open>(null);
+  const [open, setOpen] = useState<Category | null>(null);
   const [active, setActive] = useState<string | null>(null);
 
   /** Feeds each row its own -1..1 pointer offset for the drift. */
@@ -31,8 +29,7 @@ export default function Projects() {
   return (
     <div className="chapter" style={{ height: "240svh" }} id="projects">
       <section className="panel">
-        <div data-drift
-          className={`inner pad ${styles.inner}`}>
+        <div data-drift className={`inner pad ${styles.inner}`}>
           <div className={styles.head}>
             <Reveal as="h2" mask className={styles.title}>
               Our Projects
@@ -44,9 +41,7 @@ export default function Projects() {
 
           <div
             className={`${styles.cats} ${active ? styles.engaged : ""}`}
-            onPointerLeave={() => {
-              setActive(null);
-            }}
+            onPointerLeave={() => setActive(null)}
           >
             {categories.map((cat, ci) => (
               <Reveal
@@ -57,39 +52,37 @@ export default function Projects() {
                 }`}
                 id={`category-${cat.slug}`}
               >
-                <div
-                  onPointerEnter={() => {
-                    setActive(cat.slug);
-                  }}
+                {/* The whole genre row is one target, opening that genre's
+                    pooled gallery. The project names beneath say what the
+                    genre contains; they are no longer separate
+                    destinations. */}
+                <button
+                  type="button"
+                  className={styles.row}
+                  onClick={() => setOpen(cat)}
+                  onPointerEnter={() => setActive(cat.slug)}
                   onPointerMove={track}
                   onPointerLeave={leave}
+                  onFocus={() => setActive(cat.slug)}
+                  aria-haspopup="dialog"
                 >
-                  <div className={styles.catHead}>
+                  <span className={styles.catHead}>
                     <span className={styles.catNum}>
                       {String(ci + 1).padStart(2, "0")}
                     </span>
-                    <h3 className={styles.catTitle}>{cat.title}</h3>
+                    <span className={styles.catTitle}>{cat.title}</span>
                     <span className={styles.catBlurb}>{cat.blurb}</span>
-                  </div>
+                  </span>
 
-                  <div className={styles.projects}>
+                  <span className={styles.projects}>
                     {cat.projects.map((project) => (
-                      <button
-                        key={project.slug}
-                        type="button"
-                        className={styles.project}
-                        onClick={() =>
-                          setOpen({ project, categoryTitle: cat.title })
-                        }
-                        onFocus={() => setActive(cat.slug)}
-                        aria-haspopup="dialog"
-                      >
+                      <span key={project.slug} className={styles.project}>
                         {project.title}
-                        <em>{String(project.photos.length).padStart(2, "0")}</em>
-                      </button>
+                      </span>
                     ))}
-                  </div>
-                </div>
+                    <span className={styles.enter}>View gallery →</span>
+                  </span>
+                </button>
               </Reveal>
             ))}
           </div>
@@ -104,13 +97,10 @@ export default function Projects() {
         </div>
       </section>
 
-
+      {/* Keyed by genre: switching genres must mount a fresh gallery,
+          not reuse one still holding the previous closing state. */}
       {open && (
-        <Gallery
-          project={open.project}
-          categoryTitle={open.categoryTitle}
-          onClose={() => setOpen(null)}
-        />
+        <Gallery key={open.slug} category={open} onClose={() => setOpen(null)} />
       )}
     </div>
   );

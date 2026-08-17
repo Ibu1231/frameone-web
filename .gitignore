@@ -25,6 +25,11 @@
 # be served: anything in /public is copied verbatim into the export.
 /assets-source
 
+# Per-genre folders under /public/videos hold delivery masters dropped in
+# for encoding (hundreds of MB each). Only the flat, web-encoded files
+# beside them — hero-1080.mp4 and the like — belong in the repo.
+/public/videos/*/
+
 # misc
 .DS_Store
 *.pem

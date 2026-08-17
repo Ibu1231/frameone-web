@@ -55,6 +55,21 @@
   opacity: 0.38;
 }
 
+/* The whole row is a button now. */
+.row {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  display: block;
+}
+
 .catHead {
   display: flex;
   align-items: baseline;
@@ -84,6 +99,11 @@
   transform: translateX(clamp(5px, 0.9vw, 14px));
 }
 
+.row:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 6px;
+}
+
 .catBlurb {
   font-size: 10.5px;
   letter-spacing: 0.12em;
@@ -99,6 +119,7 @@
 /* ---------- project names ---------- */
 .projects {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
   align-items: baseline;
   gap: clamp(12px, 2vw, 30px);
@@ -109,56 +130,33 @@
 }
 
 .project {
-  appearance: none;
-  background: none;
-  border: 0;
-  padding: 0;
-  cursor: pointer;
   color: var(--ink);
-  font-family: inherit;
-  /* Given real presence — these are the things worth clicking. */
   font-size: clamp(0.92rem, 1.75vw, 1.45rem);
   font-weight: 700;
   letter-spacing: -0.025em;
   line-height: 1.15;
   display: inline-flex;
   align-items: baseline;
-  gap: 7px;
   position: relative;
   transition: opacity 0.5s var(--ease);
 }
 
-/* Underline draws in from the left on hover. */
-.project::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -3px;
-  height: 2px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.7s var(--ease);
-}
-
-.project:hover::after,
-.project:focus-visible::after {
-  transform: scaleX(1);
-}
-
-.project em {
-  font-style: normal;
-  font-size: 0.58em;
+/* Reads as the destination for the whole row. */
+.enter {
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   font-weight: 600;
-  letter-spacing: 0.12em;
   color: var(--ink-3);
-  transform: translateY(-0.55em);
+  align-self: center;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
 }
 
-/* Dim sibling projects within an engaged row. */
-.projects:hover .project:not(:hover) {
-  opacity: 0.4;
+.cat.active .enter {
+  opacity: 1;
+  transform: none;
 }
 
 /* ---------- marquee genre bar ---------- */

@@ -1,18 +1,86 @@
+/* ============================================================
+   Genre gallery.
+
+   Chosen treatment: a bloom (fade + scale + a brief blur-off), not a
+   crossfade. A crossfade between two full-screen states reads as a cut
+   between slides and gives no sense of moving *into* anything; it also
+   needs both states painted at once. The bloom carries direction — the
+   grid resolves out of the page, the way a lens pulls focus — which is
+   the right language for a film portfolio.
+   ============================================================ */
+
 .backdrop {
   position: fixed;
   inset: 0;
   z-index: 200;
-  background: rgba(10, 10, 9, 0.94);
-  backdrop-filter: blur(8px);
+  /* Opaque. The previous 0.94 alpha + backdrop-filter: blur(8px) forced
+     the compositor to re-blur the whole viewport on every scroll frame,
+     which was the main source of the scroll jank — for a blur that was
+     barely visible under a 94%-opaque fill anyway. */
+  background: #0b0b0a;
   display: flex;
   flex-direction: column;
   opacity: 0;
-  animation: fade 0.5s var(--ease) forwards;
+  animation: bloomIn 0.62s var(--ease) forwards;
 }
 
-@keyframes fade {
+@keyframes bloomIn {
+  from {
+    opacity: 0;
+  }
   to {
     opacity: 1;
+  }
+}
+
+/* The contents bloom open behind the fill: slight scale, slight lift,
+   and a short defocus that resolves. Transform + opacity + filter only,
+   so nothing triggers layout. */
+.stage {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  transform-origin: 50% 42%;
+  animation: bloomStage 0.72s var(--ease) forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes bloomStage {
+  from {
+    opacity: 0;
+    transform: scale(0.965) translateY(10px);
+    filter: blur(7px);
+  }
+  60% {
+    filter: blur(0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+/* Closing reverses the bloom rather than cutting. */
+.closing {
+  animation: bloomOut 0.34s var(--ease) forwards;
+}
+
+.closing .stage {
+  animation: bloomStageOut 0.34s var(--ease) forwards;
+}
+
+@keyframes bloomOut {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes bloomStageOut {
+  to {
+    opacity: 0;
+    transform: scale(0.985) translateY(6px);
   }
 }
 
@@ -72,6 +140,8 @@
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: clamp(14px, 2.6vh, 26px) var(--pad) clamp(28px, 5vh, 56px);
+  /* Isolate the scroller from the rest of the page's layout and paint. */
+  contain: layout paint;
 }
 
 .grid {
@@ -85,32 +155,25 @@
   overflow: hidden;
   background: #1a1917;
   aspect-ratio: 16 / 9;
+  /* Skip rendering work for tiles below the fold entirely. The reserved
+     size keeps the scrollbar honest while they are skipped, so this
+     costs nothing in layout stability. */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 280px;
 }
 
-/* First image of each set takes the full width — gives the grid a
-   deliberate opening rather than a uniform tile field. */
+/* First frame opens the set full width. */
 .shot:first-child {
   grid-column: 1 / -1;
   aspect-ratio: 21 / 9;
+  content-visibility: visible;
 }
 
 .shot img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0;
-  animation: rise 0.9s var(--ease) forwards;
-}
-
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: scale(1.03);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
+  display: block;
 }
 
 .placeholderNote {
@@ -127,10 +190,23 @@
   }
 }
 
+/* Reduced motion keeps the bloom — it is the requested transition and
+   is brief — but drops the defocus and most of the travel, so it reads
+   as a soft open rather than a movement. */
 @media (prefers-reduced-motion: reduce) {
-  .backdrop,
-  .shot img {
-    animation: none;
-    opacity: 1;
+  .stage {
+    animation-name: bloomStageCalm;
+    animation-duration: 0.42s;
+  }
+
+  @keyframes bloomStageCalm {
+    from {
+      opacity: 0;
+      transform: scale(0.99);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
   }
 }
