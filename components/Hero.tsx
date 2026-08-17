@@ -78,28 +78,32 @@ export default function Hero() {
 
           <div className={`pad ${styles.stack} ${ready ? styles.ready : ""}`}>
             <div className={styles.topRow}>
-              <span className="lbl">{studio.name} — Showreel</span>
+              <span className="lbl">Showreel — 2024</span>
+              <span className="lbl">Bangalore · Worldwide</span>
             </div>
 
-            <h2 className={styles.headline}>
-              <span className={styles.line}>
-                <i>Crafting stories,</i>
+            <div className={styles.centre}>
+              <span className={styles.wordmark}>
+                <i>{studio.name}</i>
               </span>
-              <span className={styles.line}>
-                <i>frame by frame.</i>
-              </span>
-            </h2>
+            </div>
 
-            <div className={styles.footer}>
-              <p className={styles.studioLine}>{studio.intro}</p>
-              <div className={styles.meta}>
-                {studio.disciplineSummary.map((line) => (
-                  <span className="lbl" key={line}>
-                    {line}
-                  </span>
-                ))}
+            <div className={styles.bottom}>
+              <p className={styles.tagline}>
+                <i>{studio.tagline}</i>
+              </p>
+
+              <div className={styles.footer}>
+                <p className={styles.studioLine}>{studio.intro}</p>
+                <div className={styles.meta}>
+                  {studio.disciplineSummary.map((line) => (
+                    <span className="lbl" key={line}>
+                      {line}
+                    </span>
+                  ))}
+                </div>
+                <span className={`lbl ${styles.scrollCue}`}>Scroll ↓</span>
               </div>
-              <span className={`lbl ${styles.scrollCue}`}>Scroll ↓</span>
             </div>
           </div>
         </div>

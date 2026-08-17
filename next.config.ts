@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  /* Lets phones on the LAN reach the dev server's hot-reload socket.
+     Development only — it has no effect on the static export. */
+  allowedDevOrigins: ["192.168.31.151", "localhost"],
+
   /* Static HTML export — produces ./out, deployable to any static host
      (Cloudflare Pages, Netlify, Vercel) with no Node server. */
   output: "export",

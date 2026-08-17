@@ -1,106 +1,199 @@
 .inner {
   justify-content: flex-start;
-  padding-top: clamp(78px, 11vh, 118px);
+  padding-top: clamp(74px, 10vh, 112px);
 }
 
+/* ---------- header ---------- */
 .head {
-  margin-bottom: clamp(14px, 2.6vh, 26px);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: clamp(12px, 2.2vh, 24px);
 }
 
-.head h2 {
-  font-size: clamp(1.5rem, 4.6vw, 3.6rem);
+.title {
+  font-size: clamp(1.9rem, 6.4vw, 5.2rem);
+  letter-spacing: -0.04em;
+  line-height: 0.86;
 }
 
-.label {
-  display: block;
-  margin-bottom: clamp(10px, 2vh, 18px);
+.count {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  font-weight: 600;
+  white-space: nowrap;
 }
 
-/* Categories stack; each holds its own project rows. */
+/* ---------- category rows ---------- */
 .cats {
   margin-top: auto;
   margin-bottom: auto;
   width: 100%;
+  min-height: 0;
   overflow-y: auto;
 }
 
 .cat {
   border-top: 1px solid var(--rule);
-  padding: clamp(8px, 1.5vh, 15px) 0;
+  padding: clamp(9px, 1.6vh, 17px) 0;
+  position: relative;
+  /* Motion origin for the pointer-driven drift. */
+  --mx: 0;
+  --my: 0;
+  transition: opacity 0.7s var(--ease);
 }
 
 .cat:last-of-type {
   border-bottom: 1px solid var(--rule);
 }
 
+/* Everything else recedes while one row is engaged. */
+.cats.engaged .cat:not(.active) {
+  opacity: 0.38;
+}
+
 .catHead {
   display: flex;
   align-items: baseline;
   gap: clamp(10px, 2vw, 22px);
+  /* The row drifts a few px toward the cursor — enough to feel alive,
+     small enough to stay quiet. */
+  transform: translate3d(calc(var(--mx) * 9px), calc(var(--my) * 4px), 0);
+  transition: transform 0.85s var(--ease);
 }
 
 .catNum {
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.2em;
   color: var(--ink-3);
+  font-weight: 600;
   flex: none;
 }
 
 .catTitle {
-  font-size: clamp(1rem, 2.6vw, 1.9rem);
-  letter-spacing: -0.03em;
+  font-size: clamp(1.1rem, 3vw, 2.3rem);
+  letter-spacing: -0.035em;
+  line-height: 1;
+  transition: transform 0.85s var(--ease);
+}
+
+.cat.active .catTitle {
+  transform: translateX(clamp(5px, 0.9vw, 14px));
 }
 
 .catBlurb {
-  font-size: 10px;
-  letter-spacing: 0.14em;
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+  line-height: 1.5;
   color: var(--ink-2);
   margin-left: auto;
   text-align: right;
-  max-width: 32ch;
+  max-width: 34ch;
+  font-weight: 500;
 }
 
-/* Project names — the clickable things. */
+/* ---------- project names ---------- */
 .projects {
   display: flex;
   flex-wrap: wrap;
-  gap: clamp(6px, 1vw, 12px);
-  margin-top: clamp(7px, 1.2vh, 12px);
-  padding-left: calc(10px + clamp(10px, 2vw, 22px));
+  align-items: baseline;
+  gap: clamp(12px, 2vw, 30px);
+  margin-top: clamp(6px, 1.1vh, 12px);
+  padding-left: calc(11px + clamp(10px, 2vw, 22px));
+  transform: translate3d(calc(var(--mx) * 5px), 0, 0);
+  transition: transform 0.9s var(--ease);
 }
 
 .project {
   appearance: none;
-  background: transparent;
-  border: 1px solid var(--rule);
-  border-radius: 100px;
-  color: var(--ink);
-  padding: 7px 15px;
-  font-size: clamp(10px, 0.86vw, 12px);
-  letter-spacing: 0.04em;
+  background: none;
+  border: 0;
+  padding: 0;
   cursor: pointer;
-  transition: border-color 0.6s var(--ease), background 0.6s var(--ease),
-    color 0.6s var(--ease);
+  color: var(--ink);
+  font-family: inherit;
+  /* Given real presence — these are the things worth clicking. */
+  font-size: clamp(0.92rem, 1.75vw, 1.45rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
   display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  align-items: baseline;
+  gap: 7px;
+  position: relative;
+  transition: opacity 0.5s var(--ease);
 }
 
-.project:hover {
-  background: var(--ink);
-  border-color: var(--ink);
-  color: var(--paper);
+/* Underline draws in from the left on hover. */
+.project::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.7s var(--ease);
+}
+
+.project:hover::after,
+.project:focus-visible::after {
+  transform: scaleX(1);
 }
 
 .project em {
   font-style: normal;
-  opacity: 0.55;
-  font-size: 0.85em;
+  font-size: 0.58em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--ink-3);
+  transform: translateY(-0.55em);
 }
 
-.project:hover em {
-  opacity: 0.8;
+/* Dim sibling projects within an engaged row. */
+.projects:hover .project:not(:hover) {
+  opacity: 0.4;
+}
+
+/* ---------- cursor-following preview ---------- */
+.peek {
+  position: fixed;
+  width: clamp(190px, 20vw, 300px);
+  aspect-ratio: 16 / 10;
+  pointer-events: none;
+  z-index: 60;
+  overflow: hidden;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.9);
+  transition: opacity 0.5s var(--ease), transform 0.6s var(--ease);
+}
+
+.peek.on {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.peek img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.peekLabel {
+  position: absolute;
+  left: 9px;
+  bottom: 8px;
+  color: #fff;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9);
 }
 
 /* ---------- marquee genre bar ---------- */
@@ -109,8 +202,7 @@
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
   padding: 10px 0;
-  margin-bottom: clamp(14px, 2.6vh, 28px);
-  position: relative;
+  margin-bottom: clamp(12px, 2.4vh, 26px);
 }
 
 .track {
@@ -151,19 +243,31 @@
   }
 }
 
-/* The moving genre bar is a requested design element, so it keeps
-   moving under reduced motion — just considerably slower. */
 @media (prefers-reduced-motion: reduce) {
   .track {
     animation-duration: 90s;
   }
+  .catHead,
+  .projects {
+    transform: none;
+  }
 }
 
-@media (max-width: 820px) {
+@media (max-width: 900px) {
   .catBlurb {
     display: none;
   }
   .projects {
     padding-left: 0;
+    gap: 14px;
+  }
+  .peek {
+    display: none;
+  }
+  .head {
+    display: block;
+  }
+  .count {
+    display: none;
   }
 }

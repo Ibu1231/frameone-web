@@ -15,6 +15,11 @@
 .in {
   opacity: 1;
   transform: none;
+  /* Release the compositor layer once the reveal is done. Leaving
+     will-change on keeps the element on its own GPU layer, where
+     subpixel antialiasing is disabled and text renders noticeably
+     softer. */
+  will-change: auto;
 }
 
 /* Line-by-line variant: the element is masked and its inner span rises
@@ -33,6 +38,7 @@
 
 .mask.in > span {
   transform: none;
+  will-change: auto;
 }
 
 /* Reduced motion still gets the reveal — as a pure fade. Movement is
