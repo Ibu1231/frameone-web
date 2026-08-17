@@ -87,3 +87,56 @@ The build output is static, so any of Cloudflare Pages, Netlify, or Vercel works
 - **Output directory:** `out`
 
 The production domain is `frameonehq.com`.
+
+## Media hosting
+
+Video is the heaviest thing on the site. It currently ships **from the
+repo** — `public/videos` is committed, so a clean clone builds a working
+site with no external dependency. That is deliberate for now.
+
+Every video URL resolves through `lib/media.ts`. Set one environment
+variable and the same paths resolve to a CDN instead, with no component
+changes:
+
+```
+NEXT_PUBLIC_MEDIA_CDN=https://media.frameonehq.com
+```
+
+It is read at build time (this is a static export), so switching means
+setting the variable in the host's build settings and redeploying.
+
+### Moving video to Cloudflare R2
+
+1. Create an R2 bucket, then enable public access on it (or attach a
+   custom domain such as `media.frameonehq.com`).
+2. `npx wrangler login` once.
+3. Upload — paths are preserved, so `/videos/automotive/gt-cup.mp4`
+   lands at the same path in the bucket:
+
+   ```bash
+   npm run media:upload -- --bucket <bucket-name>
+   ```
+
+   Add `--dry-run` first to see what would go.
+4. Set `NEXT_PUBLIC_MEDIA_CDN` in the host's environment and rebuild.
+5. Confirm the deployed site plays video from the CDN, **then** remove
+   `public/videos/*.mp4` from the repo and add them to `.gitignore`.
+   Doing that before step 4 is verified would ship a site with no video.
+
+Stills stay in the repo either way: a few MB in total, needed for first
+paint, and simpler same-origin.
+
+### Why R2 rather than Cloudflare Stream
+
+R2 is a straight file swap — the site keeps its own `<video>` elements
+and the encodes already made. Stream would add adaptive bitrate, so a
+viewer on a weak connection gets a lower rendition instead of buffering,
+but it needs an HLS player and a different embed. Worth moving to if
+buffering shows up in practice; not worth the indirection before then.
+
+### Masters
+
+Camera and edit masters live in `assets-source/`, outside the deploy
+path, and are gitignored by container type (`.mov`, `.mxf`, `.mkv`,
+`.avi`). Anything under `public/` is copied verbatim into the export, so
+masters must never be placed there — they would be served to visitors.

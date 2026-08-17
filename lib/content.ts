@@ -7,6 +7,8 @@
  * arrive. Swap the `photos` arrays below and nothing else needs to move.
  */
 
+import { media } from "./media";
+
 export type Photo = {
   src: string;
   /** 700px variant, served to small slots via srcset. */
@@ -32,8 +34,8 @@ export const photos = {
 } satisfies Record<string, Photo>;
 
 export const heroVideo = {
-  src: "/videos/hero-1080.mp4",
-  srcMobile: "/videos/hero-720.mp4",
+  src: media("/videos/hero-1080.mp4"),
+  srcMobile: media("/videos/hero-720.mp4"),
   poster: "/images/hero-poster.jpg",
   width: 1920,
   height: 1080,
@@ -42,8 +44,8 @@ export const heroVideo = {
 
 /** Full-bleed backdrop for Who We Are. Seamlessly looped. */
 export const studioVideo = {
-  src: "/videos/athirappalli-1080.mp4",
-  srcMobile: "/videos/athirappalli-720.mp4",
+  src: media("/videos/athirappalli-1080.mp4"),
+  srcMobile: media("/videos/athirappalli-720.mp4"),
   poster: "/images/athirappalli-poster.jpg",
   alt: "Figure silhouetted against Athirappilly falls at golden hour",
 };
@@ -117,28 +119,28 @@ export type Clip = {
 
 export const automotiveClips: Clip[] = [
   {
-    src: "/videos/automotive/raceday.mp4",
+    src: media("/videos/automotive/raceday.mp4"),
     poster: "/images/automotive/raceday-poster.jpg",
     alt: "Afterpeak — race day film",
     width: 1080,
     height: 1920,
   },
   {
-    src: "/videos/automotive/gt-cup.mp4",
+    src: media("/videos/automotive/gt-cup.mp4"),
     poster: "/images/automotive/gt-cup-poster.jpg",
     alt: "Royal Enfield GT Cup — rider selection round, day one",
     width: 1080,
     height: 1920,
   },
   {
-    src: "/videos/automotive/qualifying.mp4",
+    src: media("/videos/automotive/qualifying.mp4"),
     poster: "/images/automotive/qualifying-poster.jpg",
     alt: "Afterpeak — F1 qualifying day film",
     width: 1080,
     height: 1920,
   },
   {
-    src: "/videos/automotive/the-climb.mp4",
+    src: media("/videos/automotive/the-climb.mp4"),
     poster: "/images/automotive/the-climb-poster.jpg",
     alt: "Royal Enfield — Episode 2, The Climb",
     width: 1600,
