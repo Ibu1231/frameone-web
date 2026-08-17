@@ -26,3 +26,13 @@ export function media(path: string): string {
 
 /** True when media is being served from a CDN rather than the repo. */
 export const usingCdn = BASE.length > 0;
+
+/**
+ * Origin to warm a connection to, or null when media is same-origin.
+ *
+ * A cross-origin request pays for a DNS lookup, TCP handshake and TLS
+ * negotiation before the first byte — typically 100-300ms. Preconnecting
+ * gets that out of the way while the page is still parsing, so the hero
+ * video starts as soon as its bytes are wanted rather than after.
+ */
+export const mediaOrigin = BASE ? new URL(BASE).origin : null;

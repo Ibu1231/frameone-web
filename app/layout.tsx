@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { studio } from "@/lib/content";
+import { heroVideo, studio } from "@/lib/content";
+import { mediaOrigin } from "@/lib/media";
 import "./globals.css";
 
 const grotesk = localFont({
@@ -49,6 +50,25 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={grotesk.variable}>
+      <head>
+        {/* The hero poster is the first thing painted, so it is fetched
+            at high priority rather than waiting to be discovered when
+            the video element is parsed. */}
+        <link
+          rel="preload"
+          as="image"
+          href={heroVideo.poster}
+          fetchPriority="high"
+        />
+        {/* Video lives on another origin, so open that connection now
+            instead of paying for DNS + TLS when playback is wanted. */}
+        {mediaOrigin && (
+          <>
+            <link rel="preconnect" href={mediaOrigin} crossOrigin="anonymous" />
+            <link rel="dns-prefetch" href={mediaOrigin} />
+          </>
+        )}
+      </head>
       <body>{children}</body>
     </html>
   );

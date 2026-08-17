@@ -62,7 +62,7 @@ export default function Showcase({ data, total }: Props) {
                 src={slide.srcSmall}
                 alt=""
                 aria-hidden="true"
-                loading={i === 0 ? "eager" : "lazy"}
+                loading="lazy"
                 decoding="async"
                 data-work-img
               />
@@ -75,7 +75,7 @@ export default function Showcase({ data, total }: Props) {
                 alt={i === index ? slide.alt : ""}
                 width={slide.width}
                 height={slide.height}
-                loading={i === 0 ? "eager" : "lazy"}
+                loading="lazy"
                 decoding="async"
               />
             </div>

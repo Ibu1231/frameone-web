@@ -14,7 +14,7 @@
  * the concrete URLs they become. Runs after every build.
  */
 
-import { readFileSync, readdirSync, existsSync, statSync } from "node:fs";
+import { readFileSync, readdirSync, existsSync, statSync, rmSync } from "node:fs";
 import { join } from "node:path";
 
 const OUT = "out";
@@ -73,6 +73,20 @@ for (const url of referenced) {
     break;
   }
   if (!ok) continue;
+}
+
+/**
+ * Anything Next copied into the export that nothing references is dead
+ * weight. With video served from a CDN that is out/videos — 106MB of it,
+ * which would otherwise take the deploy from 13MB to 119MB and risk the
+ * 25MB per-file limit on Cloudflare Pages. Decided from the built output
+ * rather than an env var, because .env values are not visible to npm
+ * lifecycle scripts. Source files under public/ are untouched.
+ */
+const localVideos = [...referenced].some((u) => u.startsWith("/videos/"));
+if (!localVideos && existsSync(join(OUT, "videos"))) {
+  rmSync(join(OUT, "videos"), { recursive: true, force: true });
+  console.log("• nothing references /videos — removed it from the export");
 }
 
 if (problems.length) {

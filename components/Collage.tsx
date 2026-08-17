@@ -41,7 +41,7 @@ function GenreSlideshow({ panel, active }: { panel: CollagePanel; active: boolea
             alt={i === index ? frame.alt : ""}
             width={frame.width}
             height={frame.height}
-            loading={i === 0 ? "eager" : "lazy"}
+            loading="lazy"
             decoding="async"
           />
         </div>
