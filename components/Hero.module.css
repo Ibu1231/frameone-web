@@ -30,10 +30,11 @@
     linear-gradient(180deg, rgba(0, 0, 0, 0.44) 0%, rgba(0, 0, 0, 0) 24%),
     linear-gradient(0deg, rgba(0, 0, 0, 0.64) 0%, rgba(0, 0, 0, 0) 40%),
     radial-gradient(
-      120% 78% at 50% 46%,
-      rgba(0, 0, 0, 0.34) 0%,
-      rgba(0, 0, 0, 0.12) 46%,
-      rgba(0, 0, 0, 0) 78%
+      116% 82% at 50% 46%,
+      rgba(0, 0, 0, 0.5) 0%,
+      rgba(0, 0, 0, 0.3) 38%,
+      rgba(0, 0, 0, 0.1) 64%,
+      rgba(0, 0, 0, 0) 84%
     );
 }
 
@@ -105,16 +106,26 @@
   color: rgba(255, 255, 255, 0.92);
   text-align: center;
   white-space: nowrap;
-  opacity: 0;
-  transform: translateY(14px);
-  transition:
-    opacity 1s var(--ease),
-    transform 1s var(--ease);
+  /* Driven by a CSS animation, not a JS-applied class, so the tagline
+     always arrives even if scripting is slow, blocked, or fails
+     outright. Scrolling only brings it forward. */
+  animation: strapIn 0.95s var(--ease) 1.4s both;
 }
 
+/* Scrolling into the hero starts it immediately instead of waiting. */
 .phase1 .strap {
-  opacity: 1;
-  transform: none;
+  animation-delay: 0s;
+}
+
+@keyframes strapIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* Stay on one line on phones too: tighten the tracking rather than
