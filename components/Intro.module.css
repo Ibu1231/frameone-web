@@ -7,7 +7,7 @@
   inset: 0;
   z-index: 200;
   background: #0a0a0a;
-  transition: opacity 420ms cubic-bezier(0.33, 1, 0.68, 1);
+  transition: opacity 620ms cubic-bezier(0.33, 1, 0.68, 1);
 }
 
 /* The ground goes while the wordmark is still travelling, so the page
@@ -30,7 +30,9 @@
   line-height: 0.92;
   color: var(--red);
   will-change: transform;
-  transition: transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
+  /* Long and eased-out: the wordmark should look like it is being
+     placed, not flung. Matches TRAVEL in Intro.tsx. */
+  transition: transform 1250ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Opening frame: centred and a touch larger. Dropping back to

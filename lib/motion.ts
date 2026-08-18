@@ -6,33 +6,10 @@ import { useEffect, useState, useSyncExternalStore } from "react";
  * The site's motion clock.
  *
  * Nothing on this site animates on scroll any more. Every reveal hangs
- * off a single clock that starts once — when the intro finishes, or
- * immediately if the intro has already run this session — and each
- * element is given a delay from that moment. Scrolling scrolls; it does
- * not drive animation state.
+ * off a single clock that starts once — when the intro finishes — and
+ * each element is given a delay from that moment. Scrolling scrolls;
+ * it does not drive animation state.
  */
-
-const INTRO_KEY = "frameone:intro-played";
-
-/** True once the intro has run in this browser session. */
-export function introAlreadyPlayed(): boolean {
-  if (typeof window === "undefined") return false;
-  try {
-    return window.sessionStorage.getItem(INTRO_KEY) === "1";
-  } catch {
-    // Private mode can throw on access. Playing the intro again is a far
-    // better failure than crashing the page.
-    return false;
-  }
-}
-
-export function markIntroPlayed(): void {
-  try {
-    window.sessionStorage.setItem(INTRO_KEY, "1");
-  } catch {
-    /* nothing to do — the intro simply plays again */
-  }
-}
 
 let started = false;
 const listeners = new Set<() => void>();

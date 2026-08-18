@@ -2,15 +2,15 @@
 
 import { useEffect, useRef, useState } from "react";
 import { studio } from "@/lib/content";
-import { introAlreadyPlayed, markIntroPlayed, startMotion } from "@/lib/motion";
+import { startMotion } from "@/lib/motion";
 import styles from "./Intro.module.css";
 
 /** Beat on the centred wordmark before it travels. */
-const HOLD = 380;
+const HOLD = 650;
 /** Travel, centre to corner. */
-const TRAVEL = 720;
+const TRAVEL = 1250;
 /** Ground fading away while the rest of the page arrives underneath. */
-const CLEAR = 420;
+const CLEAR = 620;
 
 /**
  * The entrance. The wordmark sits alone on a dark ground, then moves to
@@ -24,8 +24,8 @@ const CLEAR = 420;
  * in sync, and the whole move runs on a transform rather than on
  * top/left.
  *
- * Once per session, not once per route: coming back to page 1 from a
- * gallery should not replay it.
+ * Plays on every load. It is the entrance to the site, so arriving at
+ * the site is what triggers it.
  */
 export default function Intro() {
   const markRef = useRef<HTMLSpanElement>(null);
@@ -34,12 +34,6 @@ export default function Intro() {
   );
 
   useEffect(() => {
-    if (introAlreadyPlayed()) {
-      startMotion();
-      setPhase("gone");
-      return;
-    }
-
     const mark = markRef.current;
     if (!mark) return;
 
@@ -58,7 +52,6 @@ export default function Intro() {
     );
 
     const toClear = window.setTimeout(() => {
-      markIntroPlayed();
       // The page starts arriving while the ground is still fading, so
       // the two overlap instead of queueing.
       startMotion();
