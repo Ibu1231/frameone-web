@@ -8,7 +8,7 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto auto;
+  grid-template-rows: repeat(2, 1fr);
   gap: clamp(10px, 1.3vw, 22px);
   width: 100%;
   flex: 1;
@@ -49,23 +49,16 @@
 .tile:disabled {
   cursor: default;
 }
-
-/* The frame carries the orientation; the tile is only as wide as the
-   frame its ratio produces at the current row height. */
-/* Every window is exactly 16:9. Declaring the ratio rather than letting
-   leftover row height decide it is what makes the tile a target a film
-   can be exported to hit — a 16:9 file then fills it edge to edge with
-   nothing cropped and no bars. */
-.frame {
-  aspect-ratio: 16 / 9;
-}
-
-/* The film takes whatever height the row leaves, which is what keeps
-   all six on one page at any viewport. */
+/* No declared aspect-ratio. A fixed ratio and a fixed row height fight
+   each other — the ratio wins, the tile grows past its row, and
+   overflow: hidden then eats the genre name. The window takes its
+   column width and whatever height the row leaves, which lands close to
+   16:9 at every size; object-fit: cover fills it either way. */
 .frame {
   display: block;
   position: relative;
-  flex: none;
+  flex: 1;
+  min-height: 0;
   overflow: hidden;
   /* Slightly tighter than the mount, the way an inner window reads
      inside a rounded outer edge. */
