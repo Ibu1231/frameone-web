@@ -8,12 +8,24 @@
  */
 
 import { media } from "./media";
+import manifest from "./media-manifest.json";
 
 export type Photo = {
   src: string;
   /** 700px variant, served to small slots via srcset. */
   srcSmall: string;
   alt: string;
+  width: number;
+  height: number;
+};
+
+export type Clip = {
+  src: string;
+  poster: string;
+  alt: string;
+  /** True dimensions. The set is not one shape — 9:16 social cuts sit
+   *  alongside 4:3 and 16:9 edits — so each clip carries its own ratio
+   *  rather than being forced into a shared slot. */
   width: number;
   height: number;
 };
@@ -75,78 +87,72 @@ export const whoWeAre = {
   body: "At FrameOne, we don't just capture moments — we turn them into stories people remember. From high-energy live events and cinematic brand films to fashion and automotive productions, we bring together creative vision, technical precision, and flawless execution to create visuals that demand attention. With an end-to-end production approach and a team that thrives under pressure, we transform ideas into powerful visual experiences — because every frame should have a purpose, and every story deserves to be unforgettable.",
 };
 
-/* ---------------- Automotive — client media ---------------- */
+/* ---------------- Automotive — client media ----------------
+ * Built from lib/media-manifest.json, which scripts/process-media.mjs
+ * writes when it encodes a genre. Dimensions come from the encoded
+ * files rather than being declared by hand — assuming them is what
+ * cropped the portrait frames last time.
+ *
+ * Titles live here because a folder slug is not a display name.
+ */
+type ManifestPhoto = { file: string; width: number; height: number };
+type ManifestClip = { slug: string; width: number; height: number; audio: boolean };
+type ManifestProject = { photos: ManifestPhoto[]; clips: ManifestClip[] };
+type Manifest = Record<string, Record<string, ManifestProject>>;
 
-/** F1 stills. Originals (up to 5472x3648) are archived in
- *  assets-source; these are the web derivatives. */
-const auto = (n: string, alt: string, portrait = false): Photo => ({
-  src: `/images/automotive/${n}-lg.jpg`,
-  srcSmall: `/images/automotive/${n}-sm.jpg`,
-  alt,
-  width: 1800,
-  // Three of the set are shot portrait. Declaring them all landscape
-  // gave every consumer the wrong aspect to reserve and to fit against.
-  height: portrait ? 2700 : 1200,
-});
-
-export const automotivePhotos: Photo[] = [
-  auto("f1-01", "Driver portrait in the pit lane"),
-  auto("f1-02", "Car on track through the esses", true),
-  auto("f1-03", "Pit crew mid tyre change"),
-  auto("f1-04", "Front wing detail on the grid"),
-  auto("f1-05", "Car at speed under braking"),
-  auto("f1-06", "Garage monitors during qualifying"),
-  auto("f1-07", "Grandstand crowd on race day"),
-  auto("f1-08", "Car exiting the final corner"),
-  auto("f1-09", "Tyre stacks in the paddock"),
-  auto("f1-10", "Driver helmet before the formation lap"),
-  auto("f1-11", "Track-side panning shot at speed", true),
-  auto("f1-12", "Team radio and timing screens", true),
-  auto("f1-13", "Car on the main straight"),
-  auto("f1-14", "Podium celebration"),
-];
-
-export type Clip = {
-  src: string;
-  poster: string;
-  alt: string;
-  /** True dimensions. The set is not one shape — 9:16 social cuts sit
-   *  alongside a 4:3 edit — so each clip carries its own ratio rather
-   *  than being forced into a shared slot. */
-  width: number;
-  height: number;
+const PROJECT_INFO: Record<string, { title: string; meta: string }> = {
+  "f1-abudhabi": { title: "F1 Abu Dhabi 2025", meta: "Motorsport · Stills & film" },
+  "flying-flea": { title: "Royal Enfield Flying Flea Launch", meta: "Launch · Brand" },
+  "jawa-ride-blr": { title: "Jawa Ride Shoot", meta: "Ride · Bangalore" },
+  "re-odyssey": { title: "Royal Enfield Himalayan Odyssey 2026", meta: "Expedition · Brand film" },
 };
 
-export const automotiveClips: Clip[] = [
-  {
-    src: media("/videos/automotive/raceday.mp4"),
-    poster: "/images/automotive/raceday-poster.jpg",
-    alt: "Afterpeak — race day film",
-    width: 1080,
-    height: 1920,
-  },
-  {
-    src: media("/videos/automotive/gt-cup.mp4"),
-    poster: "/images/automotive/gt-cup-poster.jpg",
-    alt: "Royal Enfield GT Cup — rider selection round, day one",
-    width: 1080,
-    height: 1920,
-  },
-  {
-    src: media("/videos/automotive/qualifying.mp4"),
-    poster: "/images/automotive/qualifying-poster.jpg",
-    alt: "Afterpeak — F1 qualifying day film",
-    width: 1080,
-    height: 1920,
-  },
-  {
-    src: media("/videos/automotive/the-climb.mp4"),
-    poster: "/images/automotive/the-climb-poster.jpg",
-    alt: "Royal Enfield — Episode 2, The Climb",
-    width: 1600,
-    height: 1200,
-  },
-];
+/** Builds a genre's projects from the manifest. */
+function projectsFrom(genre: string): Project[] {
+  const genreEntry = (manifest as Manifest)[genre] ?? {};
+  return Object.entries(genreEntry)
+    .map(([slug, entry]) => {
+      const info = PROJECT_INFO[slug] ?? { title: slug, meta: "Project" };
+      const photos: Photo[] = entry.photos.map((p) => ({
+        // Both sizes are served from the repo. Cloudflare Pages already
+        // delivers /public from the same edge network as R2, so there is
+        // no speed gain in moving them — and same-origin avoids a second
+        // connection handshake. Only video is on the CDN, for deploy size.
+        src: `/images/${genre}/${slug}/${p.file}-lg.jpg`,
+        srcSmall: `/images/${genre}/${slug}/${p.file}-sm.jpg`,
+        // Neutral by design: these describe position, not content. Real
+        // captions need someone who has seen the frames.
+        alt: `${info.title} — frame ${p.file}`,
+        width: p.width,
+        height: p.height,
+      }));
+      const clips: Clip[] = entry.clips.map((c) => ({
+        src: media(`/videos/${genre}/${c.slug}.mp4`),
+        poster: `/images/${genre}/${slug}/${c.slug}-poster.jpg`,
+        alt: `${info.title} — film`,
+        width: c.width,
+        height: c.height,
+      }));
+      return {
+        slug,
+        title: info.title,
+        meta: info.meta,
+        cover: photos[0],
+        photos,
+        clips: clips.length ? clips : undefined,
+      } as Project;
+    })
+    .filter((p) => p.photos.length > 0 || (p.clips?.length ?? 0) > 0);
+}
+
+/** A spread of automotive frames for the collage panel, taken across
+ *  projects rather than all from one shoot. */
+function automotiveCollageFrames(): Photo[] {
+  const all = projectsFrom("automotive").flatMap((p) => p.photos);
+  if (all.length <= 4) return all;
+  const step = Math.floor(all.length / 4);
+  return [0, 1, 2, 3].map((i) => all[i * step]);
+}
 
 /* ---------------- Page 3 — Collage ----------------
  * Three self-contained slideshows. Each pulls only from its own genre;
@@ -185,13 +191,9 @@ export const collage = {
     {
       key: "automotive",
       label: "Automotive",
-      // Real client work now that the F1 set has landed.
-      frames: [
-        automotivePhotos[1],
-        automotivePhotos[4],
-        automotivePhotos[7],
-        automotivePhotos[12],
-      ],
+      // Drawn from the real automotive work via the manifest, so this
+      // panel follows whatever is actually on disk.
+      frames: automotiveCollageFrames(),
     },
   ] satisfies CollagePanel[],
 };
@@ -306,28 +308,8 @@ export const categories: Category[] = [
   {
     slug: "automotive",
     title: "Automotive",
-    blurb: "Race weekends, rig and rolling work, reveal films.",
-    projects: [
-      {
-        slug: "afterpeak-f1",
-        title: "Afterpeak — F1 Race Weekend",
-        meta: "Motorsport · Stills & film",
-        cover: automotivePhotos[0],
-        photos: automotivePhotos,
-        clips: automotiveClips,
-      },
-      {
-        slug: "coast-run",
-        title: "Coast Run",
-        meta: "Automotive · Rolling",
-        cover: reel("auto-porsche", "Sports car tracked at speed on open road"),
-        photos: [
-          reel("auto-porsche", "Sports car tracked at speed on open road"),
-          reel("auto-moto", "Motorcycle tracking shot on wet sand"),
-          reel("travel-enfield", "Rider on a Royal Enfield along the shoreline"),
-        ],
-      },
-    ],
+    blurb: "Race weekends, launches, rides and expedition films.",
+    projects: projectsFrom("automotive"),
   },
   {
     slug: "corporate",
@@ -439,6 +421,46 @@ export function galleryItems(category: Category): GalleryItem[] {
     items.splice(at, 0, { kind: "clip", clip });
   });
   return items;
+}
+
+
+/**
+ * The gallery grouped by project rather than pooled into one run.
+ * Each section keeps its own films woven among its own stills, so a
+ * viewer can see which shoot a frame belongs to.
+ */
+export type ProjectSection = {
+  slug: string;
+  title: string;
+  meta: string;
+  items: GalleryItem[];
+  photos: Photo[];
+};
+
+export function projectSections(category: Category): ProjectSection[] {
+  return category.projects
+    .map((project) => {
+      const photos = project.photos;
+      const clips = project.clips ?? [];
+      const items: GalleryItem[] = photos.map((photo) => ({ kind: "photo", photo }));
+      // Films spread through the section's own stills, computed rather
+      // than random so server and client agree and order is stable.
+      if (clips.length) {
+        const step = (items.length + 1) / (clips.length + 1);
+        clips.forEach((clip, i) => {
+          const at = Math.min(items.length, Math.max(1, Math.round(step * (i + 1)) + i));
+          items.splice(at, 0, { kind: "clip", clip });
+        });
+      }
+      return {
+        slug: project.slug,
+        title: project.title,
+        meta: project.meta,
+        items,
+        photos,
+      };
+    })
+    .filter((s) => s.items.length > 0);
 }
 
 /** Marquee strip beneath Our Projects. */

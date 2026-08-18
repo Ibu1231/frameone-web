@@ -276,3 +276,53 @@
     }
   }
 }
+
+/* ---------- per-project sections ---------- */
+.section {
+  margin-bottom: clamp(26px, 4.5vh, 52px);
+}
+
+.section:last-of-type {
+  margin-bottom: 0;
+}
+
+/* Sticks while its own frames scroll past, so it is always clear which
+   shoot you are looking at. */
+.sectionHead {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: clamp(8px, 1.4vh, 14px) 0 clamp(8px, 1.2vh, 12px);
+  margin-bottom: clamp(6px, 1vh, 12px);
+  border-bottom: 1px solid rgba(233, 230, 225, 0.18);
+  background: #0b0b0a;
+}
+
+.sectionTitle {
+  font-size: clamp(0.95rem, 2.2vw, 1.6rem);
+  color: #fff;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.sectionMeta {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #9c9a95;
+}
+
+/* The lead-frame treatment was per-gallery; with sections it would fire
+   once per project and read as noise, so every tile is uniform now. */
+.section .shot:first-child {
+  grid-column: auto;
+  aspect-ratio: 16 / 9;
+  content-visibility: auto;
+}

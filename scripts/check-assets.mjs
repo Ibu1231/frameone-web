@@ -89,6 +89,22 @@ if (!localVideos && existsSync(join(OUT, "videos"))) {
   console.log("• nothing references /videos — removed it from the export");
 }
 
+// Same for the full-size stills once they resolve to the CDN: Next
+// copies all of public/, so they would ship unused. Thumbnails are left
+// alone — the grids paint from those.
+if (![...referenced].some((u) => u.endsWith("-lg.jpg"))) {
+  let n = 0, freed = 0;
+  const sweep = (dir) => {
+    for (const e of readdirSync(dir)) {
+      const full = join(dir, e);
+      if (statSync(full).isDirectory()) sweep(full);
+      else if (e.endsWith("-lg.jpg")) { freed += statSync(full).size; rmSync(full); n++; }
+    }
+  };
+  if (existsSync(join(OUT, "images"))) sweep(join(OUT, "images"));
+  if (n) console.log(`• ${n} full-size stills resolve to the CDN — removed ${(freed / 1048576).toFixed(1)}MB from the export`);
+}
+
 if (problems.length) {
   console.error(`\n✗ ${problems.length} broken asset reference(s):\n`);
   for (const { url, why } of problems) console.error(`  ${url}\n    ${why}\n`);

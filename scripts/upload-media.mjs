@@ -27,7 +27,10 @@ if (!bucket || bucket.startsWith("--")) {
   process.exit(1);
 }
 
-const ROOT = "public/videos";
+// Videos, plus the full-size stills. Thumbnails (-sm) deliberately stay
+// in the repo: they are what the grids paint from, and same-origin saves
+// a connection handshake on the critical path.
+const ROOTS = ["public/videos", "public/images"];
 
 /** Every file under public/videos, as repo-relative paths. */
 function walk(dir) {
@@ -37,10 +40,12 @@ function walk(dir) {
   });
 }
 
-const files = walk(ROOT).filter((f) => f.endsWith(".mp4"));
+const files = ROOTS.flatMap((r) => walk(r)).filter(
+  (f) => f.endsWith(".mp4") || f.endsWith("-lg.jpg")
+);
 
 if (files.length === 0) {
-  console.error(`No .mp4 files found under ${ROOT}`);
+  console.error("Nothing to upload.");
   process.exit(1);
 }
 
@@ -73,7 +78,7 @@ for (const file of files) {
       "--file",
       file,
       "--content-type",
-      "video/mp4",
+      file.endsWith(".mp4") ? "video/mp4" : "image/jpeg",
       // A year: these files are immutable — a new cut gets a new name.
       "--cache-control",
       "public, max-age=31536000, immutable",

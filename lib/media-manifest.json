@@ -1,0 +1,581 @@
+{
+  "automotive": {
+    "f1-abudhabi": {
+      "photos": [
+        {
+          "file": "01",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "02",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "03",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "04",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "05",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "06",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "07",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "08",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "09",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "10",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "11",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "12",
+          "width": 1699,
+          "height": 2548
+        },
+        {
+          "file": "13",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "14",
+          "width": 1800,
+          "height": 1200
+        }
+      ],
+      "clips": [
+        {
+          "slug": "afterpeak-raceday-d-3-c",
+          "width": 1080,
+          "height": 1920,
+          "audio": true
+        },
+        {
+          "slug": "afterpeak-f1-qualifying-day-d1",
+          "width": 1080,
+          "height": 1920,
+          "audio": true
+        }
+      ]
+    },
+    "flying-flea": {
+      "photos": [
+        {
+          "file": "01",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "02",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "03",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "04",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "05",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "06",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "07",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "08",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "09",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "10",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "11",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "12",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "13",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "14",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "15",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "16",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "17",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "18",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "19",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "20",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "21",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "22",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "23",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "24",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "25",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "26",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "27",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "28",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "29",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "30",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "31",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "32",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "33",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "34",
+          "width": 1800,
+          "height": 2700
+        }
+      ],
+      "clips": []
+    },
+    "jawa-ride-blr": {
+      "photos": [
+        {
+          "file": "01",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "02",
+          "width": 1800,
+          "height": 2250
+        },
+        {
+          "file": "03",
+          "width": 1800,
+          "height": 1199
+        },
+        {
+          "file": "04",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "05",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "06",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "07",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "08",
+          "width": 1800,
+          "height": 1200
+        }
+      ],
+      "clips": []
+    },
+    "re-odyssey": {
+      "photos": [
+        {
+          "file": "01",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "02",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "03",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "04",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "05",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "06",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "07",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "08",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "09",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "10",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "11",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "12",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "13",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "14",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "15",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "16",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "17",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "18",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "19",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "20",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "21",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "22",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "23",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "24",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "25",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "26",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "27",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "28",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "29",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "30",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "31",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "32",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "33",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "34",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "35",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "36",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "37",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "38",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "39",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "40",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "41",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "42",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "43",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "44",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "45",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "46",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "47",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "48",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "49",
+          "width": 1800,
+          "height": 1200
+        }
+      ],
+      "clips": [
+        {
+          "slug": "re-ep2-the-climb",
+          "width": 1920,
+          "height": 1440,
+          "audio": true
+        },
+        {
+          "slug": "reel401",
+          "width": 1920,
+          "height": 1440,
+          "audio": true
+        },
+        {
+          "slug": "re-gt-cup-rider-sel-croundd-day-1-reel-1",
+          "width": 1080,
+          "height": 1920,
+          "audio": true
+        }
+      ]
+    }
+  }
+}

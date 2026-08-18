@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Category, Photo } from "@/lib/content";
-import { poolGallery, poolClips, galleryItems } from "@/lib/content";
+import { poolGallery, poolClips, projectSections } from "@/lib/content";
 import Lightbox from "./Lightbox";
 import GalleryClip from "./GalleryClip";
 import styles from "./Gallery.module.css";
@@ -15,12 +15,14 @@ type Props = {
 /** Slot widths the grid actually uses, so the browser can pick the
  *  700px file for tiles rather than always decoding the 1400px one. */
 const SIZES = "(max-width: 820px) 100vw, (max-width: 1400px) 50vw, 33vw";
-const LEAD_SIZES = "100vw";
 
 export default function Gallery({ category, onClose }: Props) {
   const photos: Photo[] = poolGallery(category);
   const clips = poolClips(category);
-  const items = galleryItems(category);
+  const sections = projectSections(category);
+  // The lightbox pages across the whole genre, so it needs one flat
+  // list in the same order the sections render.
+  const items = sections.flatMap((s) => s.items);
   const [lightbox, setLightbox] = useState<number | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -123,41 +125,63 @@ export default function Gallery({ category, onClose }: Props) {
             gallery read as frozen. data-lenis-prevent tells Lenis to
             leave events inside this subtree alone. */}
         <div className={styles.scroll} data-lenis-prevent>
-          {/* Films are woven through the stills rather than stacked at
-              the top, so the set reads as one body of work. */}
-          <div className={styles.grid}>
-            {items.map((item, i) =>
-              item.kind === "clip" ? (
-                <GalleryClip
-                  key={item.clip.src}
-                  clip={item.clip}
-                  onOpen={() => setLightbox(i)}
-                />
-              ) : (
-                <figure key={`${item.photo.src}-${i}`} className={styles.shot}>
-                  <button
-                    type="button"
-                    className={styles.open}
-                    onClick={() => setLightbox(i)}
-                    aria-label={`View ${item.photo.alt} full size`}
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={item.photo.src}
-                      srcSet={`${item.photo.srcSmall} 700w, ${item.photo.src} ${item.photo.width}w`}
-                      sizes={i === 0 ? LEAD_SIZES : SIZES}
-                      alt={item.photo.alt}
-                      width={item.photo.width}
-                      height={item.photo.height}
-                      loading={i < 2 ? "eager" : "lazy"}
-                      decoding="async"
-                      fetchPriority={i === 0 ? "high" : "auto"}
-                    />
-                  </button>
-                </figure>
-              )
-            )}
-          </div>
+          {/* One section per project, each with its own films woven
+              among its own stills. `offset` keeps the lightbox index
+              aligned with the flat list it pages through. */}
+          {sections.map((section, si) => {
+            const offset = sections
+              .slice(0, si)
+              .reduce((n, s) => n + s.items.length, 0);
+
+            return (
+              <section key={section.slug} className={styles.section}>
+                <header className={styles.sectionHead}>
+                  <h4 className={styles.sectionTitle}>{section.title}</h4>
+                  <span className={styles.sectionMeta}>
+                    {section.meta} · {section.photos.length} frames
+                  </span>
+                </header>
+
+                <div className={styles.grid}>
+                  {section.items.map((item, i) => {
+                    const flat = offset + i;
+                    return item.kind === "clip" ? (
+                      <GalleryClip
+                        key={item.clip.src}
+                        clip={item.clip}
+                        onOpen={() => setLightbox(flat)}
+                      />
+                    ) : (
+                      <figure
+                        key={`${item.photo.src}-${i}`}
+                        className={styles.shot}
+                      >
+                        <button
+                          type="button"
+                          className={styles.open}
+                          onClick={() => setLightbox(flat)}
+                          aria-label={`View ${item.photo.alt} full size`}
+                        >
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={item.photo.src}
+                            srcSet={`${item.photo.srcSmall} 700w, ${item.photo.src} ${item.photo.width}w`}
+                            sizes={SIZES}
+                            alt={item.photo.alt}
+                            width={item.photo.width}
+                            height={item.photo.height}
+                            loading={si === 0 && i < 2 ? "eager" : "lazy"}
+                            decoding="async"
+                          />
+                        </button>
+                      </figure>
+                    );
+                  })}
+                </div>
+              </section>
+            );
+          })}
+
           {/* Only genres still running on showreel stand-ins say so. */}
           {photos.some((p) => p.src.includes("/reel/")) && (
             <p className={styles.placeholderNote}>
