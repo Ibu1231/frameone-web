@@ -63,3 +63,13 @@
     display: none;
   }
 }
+
+/* Held until its beat on the motion clock. */
+.nav {
+  opacity: 0;
+  transition: opacity 800ms var(--ease);
+}
+
+.in {
+  opacity: 1;
+}

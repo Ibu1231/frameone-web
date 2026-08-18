@@ -1,18 +1,18 @@
+import Intro from "@/components/Intro";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import Collage from "@/components/Collage";
 import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
-import ScrollChoreography from "@/components/ScrollChoreography";
 import SmoothScroll from "@/components/SmoothScroll";
 import { studio } from "@/lib/content";
 
 export default function Home() {
   return (
     <>
+      <Intro />
       <SmoothScroll />
       <Nav />
-      <ScrollChoreography />
 
       <main id="top">
         {/* The visible headline is decorative (split across masked

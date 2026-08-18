@@ -1,30 +1,25 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { heroVideo, studio, whoWeAre } from "@/lib/content";
+import { BEAT, useReveal } from "@/lib/motion";
 import styles from "./Hero.module.css";
 
-/** Delay before the Who We Are copy arrives, in ms. It is the second
- *  thing you read, so it should not land at the same moment as the
- *  title. */
-const STORY_AT = 1500;
+/* The hero's stagger, in order down the page. Each beat lands after
+   the one above it rather than waiting to be scrolled to. */
+const FILM_AT = 0;
+const MARK_AT = BEAT;
+const META_AT = BEAT * 3;
+const STORY_AT = BEAT * 5;
+const FOOTER_AT = BEAT * 7;
 
 export default function Hero() {
-  const [ready, setReady] = useState(false);
-  const chapterRef = useRef<HTMLDivElement>(null);
+  const film = useReveal(FILM_AT);
+  const ready = useReveal(MARK_AT);
+  const meta = useReveal(META_AT);
+  const told = useReveal(STORY_AT);
+  const footer = useReveal(FOOTER_AT);
   const videoRef = useRef<HTMLVideoElement>(null);
-
-  const [told, setTold] = useState(false);
-
-  useEffect(() => {
-    const id = window.setTimeout(() => setReady(true), 120);
-    return () => window.clearTimeout(id);
-  }, []);
-
-  useEffect(() => {
-    const id = window.setTimeout(() => setTold(true), STORY_AT);
-    return () => window.clearTimeout(id);
-  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -70,10 +65,10 @@ export default function Hero() {
   }, []);
 
   return (
-    <div className="chapter" style={{ height: "190svh" }} ref={chapterRef}>
+    <div className="chapter" style={{ height: "190svh" }}>
       <section className="panel" data-panel="hero">
         <div className="inner">
-          <div className={styles.media}>
+          <div className={`${styles.media} ${film ? styles.filmIn : ""}`}>
             <video
               ref={videoRef}
               src={heroVideo.src}
@@ -89,8 +84,8 @@ export default function Hero() {
           </div>
           <div className={styles.scrim} />
 
-          <div data-drift
-            className={`pad ${styles.stack} ${ready ? styles.ready : ""}`}>
+          <div
+            className={`pad ${styles.stack} ${ready ? styles.ready : ""} ${meta ? styles.metaIn : ""} ${footer ? styles.footerIn : ""}`}>
             <div className={styles.topRow}>
               <h2 className={styles.wordmark}>
                 <i>{studio.name}</i>

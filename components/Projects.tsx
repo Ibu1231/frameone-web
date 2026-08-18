@@ -29,12 +29,12 @@ export default function Projects() {
   return (
     <div className="chapter" style={{ height: "240svh" }} id="projects">
       <section className="panel">
-        <div data-drift className={`inner pad ${styles.inner}`}>
+        <div className={`inner pad ${styles.inner}`}>
           <div className={styles.head}>
-            <Reveal as="h2" mask className={`gradTitle ${styles.title}`}>
+            <Reveal as="h2" mask delay={2} className={`gradTitle ${styles.title}`}>
               Our Projects
             </Reveal>
-            <Reveal as="span" delay={0.08} className={styles.count}>
+            <Reveal as="span" delay={2.14} className={styles.count}>
               {categories.length} genres · {projectCount} projects
             </Reveal>
           </div>
@@ -46,7 +46,7 @@ export default function Projects() {
             {categories.map((cat, ci) => (
               <Reveal
                 key={cat.slug}
-                delay={ci * 0.05}
+                delay={2.28 + ci * 0.1}
                 className={`${styles.cat} ${
                   active === cat.slug ? styles.active : ""
                 }`}

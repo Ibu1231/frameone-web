@@ -1,0 +1,47 @@
+/* Entrance ground. Deliberately plain — flat near-black from the
+   palette's dark end, no texture and no gradient, so the wordmark is the
+   only thing on screen. */
+
+.wrap {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: #0a0a0a;
+  transition: opacity 420ms cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+/* The ground goes while the wordmark is still travelling, so the page
+   is arriving underneath rather than after. */
+.clearing {
+  opacity: 0;
+}
+
+/* Rendered at the hero wordmark's exact resting place: same padding,
+   same offset, same size. The transform below is what puts it in the
+   middle for the opening frame. */
+.mark {
+  position: absolute;
+  top: clamp(76px, 10vh, 108px);
+  left: var(--pad);
+  font-family: var(--font-grotesk), system-ui, sans-serif;
+  font-size: clamp(2.1rem, 4.6vw, 3.9rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 0.92;
+  color: var(--red);
+  will-change: transform;
+  transition: transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Opening frame: centred and a touch larger. Dropping back to
+   `transform: none` is the whole move. */
+.centred {
+  transform: translate(var(--dx, 0px), var(--dy, 0px)) scale(1.32);
+  transition: none;
+}
+
+@media (max-width: 860px) {
+  .mark {
+    font-size: clamp(1.7rem, 8vw, 2.6rem);
+  }
+}

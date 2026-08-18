@@ -6,12 +6,11 @@ export default function Contact() {
   return (
     <div className="chapter" style={{ height: "100svh" }} id="contact">
       <section className="panel dk">
-        <div data-drift
-          className={`inner pad ${styles.inner}`}>
-          <Reveal as="span" className="lbl">
+        <div className={`inner pad ${styles.inner}`}>
+          <Reveal as="span" delay={3} className="lbl">
             Let&rsquo;s talk
           </Reveal>
-          <Reveal as="h2" mask className={`gradTitle ${styles.heading}`}>
+          <Reveal as="h2" mask delay={3.14} className={`gradTitle ${styles.heading}`}>
             Let&rsquo;s make something worth watching.
           </Reveal>
 

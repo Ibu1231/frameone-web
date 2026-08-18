@@ -1,19 +1,14 @@
 "use client";
 
-import {
-  useEffect,
-  useRef,
-  useState,
-  type ElementType,
-  type ReactNode,
-} from "react";
+import { type ElementType, type ReactNode } from "react";
+import { useReveal } from "@/lib/motion";
 import styles from "./Reveal.module.css";
 
 type Props = {
   children: ReactNode;
   /** Element to render. Defaults to a div. */
   as?: ElementType;
-  /** Stagger, in seconds, for items revealing as a group. */
+  /** Position in the stagger, in seconds from the motion clock start. */
   delay?: number;
   /** Mask-and-rise treatment, for headings. */
   mask?: boolean;
@@ -23,9 +18,12 @@ type Props = {
 };
 
 /**
- * Reveals its children once scrolled into view, using the shared site
- * timing. Fires once and then stops observing — re-animating on every
- * pass reads as restless rather than considered.
+ * Reveals its children on the site's motion clock.
+ *
+ * This used to wait for an IntersectionObserver, which meant nothing
+ * moved until the reader scrolled to it. Now every reveal hangs off the
+ * shared clock and arrives on its own delay, so a section plays its
+ * entrance in order whether or not it is being looked at.
  */
 export default function Reveal({
   children,
@@ -35,33 +33,7 @@ export default function Reveal({
   className = "",
   id,
 }: Props) {
-  const ref = useRef<HTMLElement>(null);
-  const [shown, setShown] = useState(false);
-
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-
-    // Already in view on load (the hero, mostly): show without waiting.
-    if (node.getBoundingClientRect().top < window.innerHeight * 0.9) {
-      setShown(true);
-      return;
-    }
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setShown(true);
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
-    );
-    io.observe(node);
-    return () => io.disconnect();
-  }, []);
+  const shown = useReveal(delay * 1000);
 
   const base = mask ? styles.mask : styles.reveal;
   const classes = [base, shown ? styles.in : "", className]
@@ -70,23 +42,12 @@ export default function Reveal({
 
   const Tag = as as ElementType<{
     id?: string;
-    ref?: React.Ref<HTMLElement>;
     className?: string;
-    style?: React.CSSProperties;
     children?: ReactNode;
   }>;
 
   return (
-    <Tag
-      id={id}
-      ref={ref}
-      className={classes}
-      style={
-        delay
-          ? ({ "--reveal-delay": `${delay}s` } as React.CSSProperties)
-          : undefined
-      }
-    >
+    <Tag id={id} className={classes}>
       {mask ? <span>{children}</span> : children}
     </Tag>
   );
