@@ -1,0 +1,155 @@
+/* Polaroid grid: black mounts on the paper ground, film seated in each
+   one. Three to a row, two rows, sized to fit a single viewport — the
+   rows are 1fr so the frames give up height rather than the page
+   growing a scroll. */
+
+/* Six tiles, three to a row. Every window is the same 16:9 shape, so a
+   film exported to match fills it exactly — no crop, no bars. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: clamp(10px, 1.3vw, 22px);
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+}
+
+
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: clamp(6px, 0.6vw, 10px);
+  padding-bottom: clamp(7px, 0.7vw, 11px);
+  background: #0a0a0a;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+  /* A real polaroid mount has softened corners, not cut ones. */
+  border-radius: clamp(9px, 0.85vw, 15px);
+  /* The mount lifts fractionally on approach — a polaroid being picked
+     off the table, not a card animation. */
+  transition:
+    transform 0.7s var(--ease),
+    box-shadow 0.7s var(--ease);
+  box-shadow: 0 1px 2px rgba(16, 16, 16, 0.18);
+}
+
+.tile:hover:not(:disabled),
+.tile:focus-visible {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 30px rgba(16, 16, 16, 0.3);
+}
+
+.tile:disabled {
+  cursor: default;
+}
+
+/* The frame carries the orientation; the tile is only as wide as the
+   frame its ratio produces at the current row height. */
+/* Every window is exactly 16:9. Declaring the ratio rather than letting
+   leftover row height decide it is what makes the tile a target a film
+   can be exported to hit — a 16:9 file then fills it edge to edge with
+   nothing cropped and no bars. */
+.frame {
+  aspect-ratio: 16 / 9;
+}
+
+/* The film takes whatever height the row leaves, which is what keeps
+   all six on one page at any viewport. */
+.frame {
+  display: block;
+  position: relative;
+  flex: none;
+  overflow: hidden;
+  /* Slightly tighter than the mount, the way an inner window reads
+     inside a rounded outer edge. */
+  border-radius: clamp(5px, 0.5vw, 9px);
+  background: #0a0a0a;
+}
+
+.frame video {
+  width: 100%;
+  height: 100%;
+  /* Fills the window with no letterboxing. This only stays crop-free
+     while the source is 16:9 — see GENRE_FILMS in lib/content.ts for
+     the export target. */
+  object-fit: cover;
+  display: block;
+}
+
+/* Slight bottom darkening so the title band never fights the brightest
+   part of a frame. */
+.sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 68%,
+    rgba(0, 0, 0, 0.34) 100%
+  );
+  transition: opacity 0.6s var(--ease);
+}
+
+.mount {
+  display: block;
+  padding-top: clamp(6px, 0.7vw, 11px);
+  flex: none;
+}
+
+.title {
+  font-size: clamp(0.7rem, 1.15vw, 1.15rem);
+  line-height: 1;
+}
+
+/* ---------- hover: the project on screen ---------- */
+/* Anchored to the frame, not the tile, so it lines up with the film
+   window exactly — it used to float above the mount and leave a band of
+   bare black between the two. */
+.reveal {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: clamp(7px, 0.8vw, 12px) clamp(9px, 1vw, 14px);
+  font-size: clamp(8.5px, 0.62vw, 10.5px);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.35;
+  color: rgba(233, 233, 233, 0.94);
+  background: linear-gradient(0deg, rgba(10, 10, 10, 0.94) 0%, rgba(10, 10, 10, 0) 100%);
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.45s var(--ease),
+    transform 0.45s var(--ease);
+  pointer-events: none;
+}
+
+.tile:hover .reveal,
+.tile:focus-visible .reveal {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .reveal {
+    display: none;
+  }
+}

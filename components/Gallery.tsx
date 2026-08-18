@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { Category, Photo } from "@/lib/content";
 import { poolGallery, poolClips, projectSections } from "@/lib/content";
 import Lightbox from "./Lightbox";
+import Reels from "./Reels";
 import GalleryClip from "./GalleryClip";
 import styles from "./Gallery.module.css";
 
@@ -24,6 +25,8 @@ export default function Gallery({ category, onClose }: Props) {
   // list in the same order the sections render.
   const items = sections.flatMap((s) => s.items);
   const [lightbox, setLightbox] = useState<number | null>(null);
+  /** Index into the genre’s films of the one open in the reel scroller. */
+  const [reel, setReel] = useState<number | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const [closing, setClosing] = useState(false);
@@ -101,7 +104,7 @@ export default function Gallery({ category, onClose }: Props) {
       <div className={styles.stage}>
         <div className={styles.bar}>
           <div className={styles.titleWrap}>
-            <h3 className={styles.title}>{category.title}</h3>
+            <h3 className={`gradTitle onDark ${styles.title}`}>{category.title}</h3>
             <span className={styles.meta}>
               {category.projects.length} projects · {photos.length} frames
               {clips.length > 0 &&
@@ -136,7 +139,7 @@ export default function Gallery({ category, onClose }: Props) {
             return (
               <section key={section.slug} className={styles.section}>
                 <header className={styles.sectionHead}>
-                  <h4 className={styles.sectionTitle}>{section.title}</h4>
+                  <h4 className={`gradTitle onDark ${styles.sectionTitle}`}>{section.title}</h4>
                   <span className={styles.sectionMeta}>
                     {section.meta} · {section.photos.length} frames
                   </span>
@@ -149,7 +152,10 @@ export default function Gallery({ category, onClose }: Props) {
                       <GalleryClip
                         key={item.clip.src}
                         clip={item.clip}
-                        onOpen={() => setLightbox(flat)}
+                        /* Films open the reel scroller, not the stills
+                           lightbox — the whole genre becomes one
+                           swipeable run from here. */
+                        onOpen={() => setReel(clips.findIndex((c) => c.src === item.clip.src))}
                       />
                     ) : (
                       <figure
@@ -191,6 +197,15 @@ export default function Gallery({ category, onClose }: Props) {
           )}
         </div>
       </div>
+
+      {reel !== null && clips.length > 0 && (
+        <Reels
+          films={clips}
+          start={reel}
+          title={category.title}
+          onClose={() => setReel(null)}
+        />
+      )}
 
       {lightbox !== null && (
         <Lightbox

@@ -67,8 +67,7 @@ export default function Lightbox({ items, index, onIndex, onClose }: Props) {
     >
       <div className={styles.bar}>
         <span className={styles.count}>
-          {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
-          {item.kind === "clip" && " · Film"}
+          {item.kind === "clip" ? "Film" : "Still"}
         </span>
         <div className={styles.nav}>
           <button

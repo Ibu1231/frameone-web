@@ -520,7 +520,6 @@ export const showcases: Showcase[] = SHOWCASE_DEFS.map((def) => {
 });
 
 export const navLinks = [
-  { href: "#who-we-are", label: "Studio" },
   { href: "#work", label: "Work" },
   { href: "#projects", label: "Our Projects" },
   { href: "#contact", label: "Contact" },
@@ -532,3 +531,87 @@ export const socials = [
   { label: "YouTube", href: "#" },
 ];
 
+
+/* ---------------- Polaroid grid (Selected Frames) ----------------
+ * Six genre tiles, three to a row. Only Automotive has client footage
+ * so far; the rest run PLACEHOLDER_FILM.
+ *
+ * ===> TO DROP IN A REAL GENRE FILM <===
+ * Nothing structural changes. Either encode the genre's clips into
+ * lib/media-manifest.json (scripts/process-media.mjs does this) and the
+ * tile picks the first one up automatically, or set `film` on that
+ * genre's entry in WORK_DEFS below. `pending` flips itself.
+ */
+export type WorkTile = {
+  slug: string;
+  title: string;
+  film: string;
+  poster: string;
+  /** Shown on hover: the one project the tile’s film belongs to. */
+  project: string;
+  /** True while the tile is running placeholder footage. */
+  pending: boolean;
+  /** False for genres with no gallery behind them yet. */
+  hasGallery: boolean;
+};
+
+const PLACEHOLDER_FILM = media("/videos/hero-720.mp4");
+
+/**
+ * ===> THE ONE PLACE TO PUT A GENRE FILM <===
+ *
+ * One short loop per genre for its polaroid tile. To add one:
+ *   1. Name the file after the genre slug — sports.mp4, fashion.mp4 —
+ *      and put it under videos/genres/ wherever media is served from.
+ *      With NEXT_PUBLIC_MEDIA_CDN set (see .env.production) that is the
+ *      R2 bucket; with it unset it is public/videos/genres/ in this
+ *      repo.
+ *   2. Flip that genre's line below from null to the path.
+ * Nothing else changes — the tile drops its placeholder and stops
+ * reporting itself as pending.
+ *
+ * Left null, a genre falls back to its first gallery clip if it has
+ * one, and to the showreel placeholder if it does not.
+ */
+const GENRE_FILMS: Record<string, string | null> = {
+  "concerts-festivals": null, // media("/videos/genres/concerts-festivals.mp4")
+  automotive: null, // media("/videos/genres/automotive.mp4")
+  corporate: null, // media("/videos/genres/corporate.mp4")
+  sports: null, // media("/videos/genres/sports.mp4")
+  travel: null, // media("/videos/genres/travel.mp4")
+  fashion: null, // media("/videos/genres/fashion.mp4")
+};
+
+const WORK_DEFS: { slug: string; title?: string }[] = [
+  { slug: "concerts-festivals" },
+  { slug: "automotive" },
+  { slug: "corporate" },
+  { slug: "sports" },
+  { slug: "travel" },
+  { slug: "fashion", title: "Fashion" },
+];
+
+export const workTiles: WorkTile[] = WORK_DEFS.map((def) => {
+  const category = categories.find((c) => c.slug === def.slug);
+  const clip = category ? poolClips(category)[0] : undefined;
+  const still = category ? poolGallery(category)[0] : undefined;
+  return {
+    slug: def.slug,
+    title: def.title ?? category?.title ?? def.slug,
+    film: GENRE_FILMS[def.slug] ?? clip?.src ?? PLACEHOLDER_FILM,
+    poster: clip?.poster ?? still?.src ?? heroVideo.poster,
+    /* The project that owns the film actually on screen — not a list.
+       While a genre is still on placeholder footage there is no such
+       project, so it names that genre’s first real project instead; the
+       moment its own film lands this resolves to the exact match. */
+    project:
+      (clip &&
+        category?.projects.find((p) =>
+          (p.clips ?? []).some((c) => c.src === clip.src),
+        )?.title) ??
+      category?.projects[0]?.title ??
+      "",
+    pending: !GENRE_FILMS[def.slug] && !clip,
+    hasGallery: (category?.projects.length ?? 0) > 0,
+  };
+});

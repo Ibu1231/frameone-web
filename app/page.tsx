@@ -1,13 +1,11 @@
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
-import WhoWeAre from "@/components/WhoWeAre";
 import Collage from "@/components/Collage";
-import Showcase from "@/components/Showcase";
 import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 import ScrollChoreography from "@/components/ScrollChoreography";
 import SmoothScroll from "@/components/SmoothScroll";
-import { showcases, studio } from "@/lib/content";
+import { studio } from "@/lib/content";
 
 export default function Home() {
   return (
@@ -24,12 +22,7 @@ export default function Home() {
         </h1>
 
         <Hero />
-        <WhoWeAre />
         <Collage />
-
-        {showcases.map((data) => (
-          <Showcase key={data.categorySlug} data={data} total={showcases.length} />
-        ))}
 
         <Projects />
         <Contact />

@@ -38,14 +38,35 @@
     );
 }
 
+/* The hero used to end on a hard dark edge, and the paper panel sliding
+   up over it read as a cut. Its lower band now resolves into the paper
+   colour, so by the time the next panel arrives it is paper meeting
+   paper and the join disappears. Sits above the film but below the
+   copy. */
+.fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(80px, 13vh, 170px);
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(217, 214, 208, 0) 0%,
+    rgba(217, 214, 208, 0.55) 58%,
+    var(--paper) 100%
+  );
+}
+
 .stack {
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto 1fr;
   height: 100%;
   padding-top: clamp(76px, 10vh, 108px);
-  padding-bottom: clamp(14px, 2.4vh, 26px);
+  padding-bottom: clamp(86px, 14vh, 180px);
   color: #fff;
 }
 
@@ -61,25 +82,21 @@
   color: rgba(255, 255, 255, 0.76);
 }
 
-/* ---------- centred wordmark ---------- */
-.centre {
-  display: grid;
-  place-items: center;
-  align-content: center;
-  gap: clamp(9px, 1.6vh, 18px);
-  min-height: 0;
-}
-
 .wordmark {
-  /* Deliberately restrained — the footage is the subject, the title
-     names it. */
-  font-size: clamp(1.6rem, 6vw, 4.9rem);
+  /* Corner mark, not a centrepiece: it names the studio and gets out of
+     the way of the footage. Set as "FrameOne" — no uppercasing. */
+  font-size: clamp(2.1rem, 4.6vw, 3.9rem);
   font-weight: 700;
-  text-transform: uppercase;
+  /* Overrides the global h1-h3 uppercasing: this one is set exactly as
+     the studio writes it. */
+  text-transform: none;
   letter-spacing: -0.035em;
   line-height: 0.92;
-  color: #fff;
-  text-align: center;
+  /* Solid red, no gradient: the wordmark is the mark, and a fade across
+     it reads as a rendering fault rather than a title treatment. It
+     keeps the shared title texture — same face, weight, case and
+     tracking as .gradTitle — only the fill differs. */
+  color: var(--red);
   overflow: hidden;
   display: block;
 }
@@ -95,44 +112,43 @@
   transform: none;
 }
 
-/* Tagline sits directly under the title on a single line, and arrives
-   as a second phase once the reader starts scrolling. */
-.strap {
-  font-size: clamp(0.62rem, 1.32vw, 1.05rem);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  line-height: 1;
-  color: rgba(255, 255, 255, 0.92);
-  text-align: center;
-  white-space: nowrap;
-  /* Tied to scroll position, both ways: absent at the top of the page,
-     it arrives as you scroll down and withdraws again on the way back
-     up. */
+/* ---------- Who We Are, consolidated from page 2 ---------- */
+/* Sits bottom-right of the hero: the footage runs full-bleed behind it,
+   so the block is held to a readable measure and pushed to the right
+   edge rather than spanning the viewport. */
+.story {
+  margin-left: auto;
+  max-width: 52ch;
+  text-align: left;
+  display: grid;
+  gap: clamp(6px, 0.9vh, 12px);
+  margin-bottom: clamp(12px, 2.2vh, 26px);
   opacity: 0;
-  transform: translateY(14px);
+  transform: translateY(16px);
   transition:
-    opacity 0.75s var(--ease),
-    transform 0.75s var(--ease);
+    opacity 1.1s var(--ease),
+    transform 1.1s var(--ease);
 }
 
-.phase1 .strap {
+.toldIn {
   opacity: 1;
   transform: none;
 }
 
-/* Stay on one line on phones too: tighten the tracking rather than
-   wrapping, which keeps it reading as a strap line and not a sentence. */
-@media (max-width: 620px) {
-  .strap {
-    white-space: nowrap;
-    font-size: clamp(0.6rem, 2.95vw, 0.82rem);
-    letter-spacing: 0.09em;
-  }
+.storyHeading {
+  font-size: clamp(1.05rem, 2.4vw, 2.05rem);
+  line-height: 1.02;
+}
+
+.storyBody {
+  font-size: clamp(11px, 0.82vw, 13.5px);
+  line-height: 1.55;
+  color: var(--body-dk);
 }
 
 /* ---------- bottom block ---------- */
 .bottom {
+  margin-top: auto;
   display: flex;
   flex-direction: column;
   gap: clamp(10px, 1.8vh, 18px);
@@ -170,7 +186,17 @@
 
 @media (max-width: 860px) {
   .wordmark {
-    font-size: clamp(1.5rem, 8.4vw, 2.6rem);
+    font-size: clamp(1.7rem, 8vw, 2.6rem);
+  }
+  .story {
+    max-width: none;
+    margin-left: 0;
+  }
+  .storyBody {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
   .meta {
     display: none;

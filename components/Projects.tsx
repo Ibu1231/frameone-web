@@ -31,7 +31,7 @@ export default function Projects() {
       <section className="panel">
         <div data-drift className={`inner pad ${styles.inner}`}>
           <div className={styles.head}>
-            <Reveal as="h2" mask className={styles.title}>
+            <Reveal as="h2" mask className={`gradTitle ${styles.title}`}>
               Our Projects
             </Reveal>
             <Reveal as="span" delay={0.08} className={styles.count}>
@@ -70,7 +70,7 @@ export default function Projects() {
                     <span className={styles.catNum}>
                       {String(ci + 1).padStart(2, "0")}
                     </span>
-                    <span className={styles.catTitle}>{cat.title}</span>
+                    <span className={`gradTitle ${styles.catTitle}`}>{cat.title}</span>
                     <span className={styles.catBlurb}>{cat.blurb}</span>
                   </span>
 

@@ -11,7 +11,7 @@ export default function Contact() {
           <Reveal as="span" className="lbl">
             Let&rsquo;s talk
           </Reveal>
-          <Reveal as="h2" mask className={styles.heading}>
+          <Reveal as="h2" mask className={`gradTitle ${styles.heading}`}>
             Let&rsquo;s make something worth watching.
           </Reveal>
 

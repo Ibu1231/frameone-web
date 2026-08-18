@@ -1,64 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { collage, type CollagePanel } from "@/lib/content";
+import { categories, collage, workTiles, type Category } from "@/lib/content";
+import Gallery from "./Gallery";
+import WorkTileCard from "./WorkGrid";
+import grid from "./WorkGrid.module.css";
 import styles from "./Collage.module.css";
 
 /** Chapter progress at which each phase lands. */
 const HEADING_AT = 0.05;
 const TILES_AT = 0.24;
 
-const HOLD = 4200; // ms per frame
-
-/** One genre's slideshow. Frames come only from the panel it is given,
- *  so the three never share a pool. */
-function GenreSlideshow({ panel, active }: { panel: CollagePanel; active: boolean }) {
-  const [index, setIndex] = useState(0);
-
-  // Only cycles once the tiles have actually been revealed.
-  useEffect(() => {
-    if (!active || panel.frames.length < 2) return;
-    const id = window.setInterval(
-      () => setIndex((i) => (i + 1) % panel.frames.length),
-      HOLD
-    );
-    return () => window.clearInterval(id);
-  }, [active, panel.frames.length]);
-
-  return (
-    <>
-      {panel.frames.map((frame, i) => (
-        <div
-          key={frame.src}
-          className={`${styles.slide} ${i === index ? styles.on : ""}`}
-          aria-hidden={i !== index}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={frame.src}
-            srcSet={`${frame.srcSmall} 700w, ${frame.src} ${frame.width}w`}
-            sizes="(max-width: 860px) 50vw, 33vw"
-            alt={i === index ? frame.alt : ""}
-            width={frame.width}
-            height={frame.height}
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
-      ))}
-      <span className={styles.cap}>{panel.label}</span>
-      <span className={styles.dots} aria-hidden="true">
-        {panel.frames.map((f, i) => (
-          <i key={f.src} className={i === index ? styles.lit : ""} />
-        ))}
-      </span>
-    </>
-  );
-}
-
 export default function Collage() {
   const chapterRef = useRef<HTMLDivElement>(null);
   const [stage, setStage] = useState(0);
+  const [open, setOpen] = useState<Category | null>(null);
 
   // Heading first, tiles after — driven by scroll position so the two
   // phases are sequenced rather than arriving together.
@@ -111,18 +67,29 @@ export default function Collage() {
 
           <div data-drift className={`pad ${styles.inner} ${stageClass}`}>
             <span className={`lbl ${styles.label}`}>{collage.label}</span>
-            <h2 className={styles.heading}>{collage.heading}</h2>
+            <h2 className={`gradTitle ${styles.heading}`}>{collage.heading}</h2>
 
-            <div className={styles.grid}>
-              {collage.panels.map((panel) => (
-                <div key={panel.key} className={styles.tile}>
-                  <GenreSlideshow panel={panel} active={stage >= 2} />
-                </div>
+            <div className={`${grid.grid} ${styles.workGrid}`}>
+              {workTiles.map((tile) => (
+                <WorkTileCard
+                  key={tile.slug}
+                  tile={tile}
+                  onOpen={(slug) => {
+                    const category = categories.find((c) => c.slug === slug);
+                    if (category) setOpen(category);
+                  }}
+                />
               ))}
             </div>
           </div>
         </div>
       </section>
+
+      {/* Keyed by genre: switching genres must mount a fresh gallery,
+          not reuse one still holding the previous closing state. */}
+      {open && (
+        <Gallery key={open.slug} category={open} onClose={() => setOpen(null)} />
+      )}
     </div>
   );
 }

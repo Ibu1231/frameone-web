@@ -154,3 +154,125 @@ h3 {
     scroll-behavior: auto;
   }
 }
+
+
+/* ============================================================
+   Title treatment — red gradient fade-out
+   Values below are read off outline.global with getComputedStyle,
+   not eyeballed from screenshots:
+     accent red      rgb(172, 18, 18)   #ac1212
+     deep red        rgb(70, 7, 7)      #460707
+     ground / panel  #121111 / #0a0a0a
+     off-white       #e9e9e9
+     muted sub-text  rgb(179, 185, 186) #b3b9ba
+   Their fade is a text-fill gradient (background-clip: text) at
+   105deg — solid until 13.7%, then alpha-fading to 0.59 at the far end. We run it in red and
+   end. It is NOT layered repeated text. We keep their geometry but
+   run it in red per the site-wide colour rule, and take the tail
+   further down than 0.59 for a stronger dissolve.
+   ============================================================ */
+
+:root {
+  --red: #ac1212;
+  --red-deep: #460707;
+  /* Fade geometry, pulled out so every title stays in sync. */
+  --fade-angle: 105deg;
+  --fade-hold: 13.7123%;
+  --fade-tail: 0.78;
+  /* Body copy: near-black on paper, never red. */
+  --body: #171615;
+  --body-dk: #b3b9ba;
+}
+
+.gradTitle {
+  font-family: var(--font-grotesk), system-ui, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 0.85;
+  background-image: linear-gradient(
+    var(--fade-angle),
+    var(--red) var(--fade-hold),
+    rgba(172, 18, 18, var(--fade-tail)) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Fallback for engines without background-clip: text. */
+@supports not ((background-clip: text) or (-webkit-background-clip: text)) {
+  .gradTitle {
+    color: var(--red);
+  }
+}
+
+/* #ac1212 sits close to the dark ground, so the head of the gradient is
+   lifted on dark bands to keep the same perceived contrast the paper
+   bands get. The tail still resolves into the ground. */
+.panel.dk .gradTitle,
+.gradTitle.onDark {
+  background-image: linear-gradient(
+    var(--fade-angle),
+    #d01616 var(--fade-hold),
+    rgba(172, 18, 18, var(--fade-tail)) 100%
+  );
+}
+
+.subText {
+  font-family: var(--font-grotesk), system-ui, sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  line-height: 1.45;
+  color: var(--body);
+}
+
+.panel.dk .subText,
+.subText.onDark {
+  color: var(--body-dk);
+}
+
+/* ============================================================
+   Textured paper ground
+   Seam rules, learned the hard way:
+     1. The texture is painted on ONE layer only. Painting it on html,
+        body and .panel meant three tile grids with three different
+        origins, and every panel edge showed as a line.
+     2. NOT background-attachment: fixed. That does fix the seams, but
+        a viewport-anchored background on several full-screen elements
+        forces a full repaint of each one on every scroll frame, and
+        with Lenis driving the scroll it made the whole page stutter.
+        The panels are sticky and full-height, so their boxes are
+        already viewport-aligned while pinned — normal scroll
+        attachment lands the tile grid in the same place for free.
+     3. The SVG filter region is declared explicitly. The default region
+        is -10%/-10%/120%/120%, so turbulence was being generated past
+        the tile edge and clipped — that clip was the grid of faint
+        lines.
+     4. No background-blend-mode either — compositing two blended
+        layers over a full-screen box is not free, and black-at-low-
+        alpha over the paper colour reads the same with plain alpha
+        compositing.
+     5. baseFrequency x tile size is a whole number (0.01 x 800 = 8,
+        0.8 x 200 = 160), which is what stitchTiles needs to match
+        noise across the seam rather than approximate it.
+   ============================================================ */
+
+:root {
+  --tex-mottle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='800'%3E%3Cfilter id='m' x='0' y='0' width='100%25' height='100%25' filterUnits='objectBoundingBox' primitiveUnits='userSpaceOnUse'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.01' numOctaves='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='800' height='800' filter='url(%23m)' opacity='0.4'/%3E%3C/svg%3E");
+  --tex-tooth: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='t' x='0' y='0' width='100%25' height='100%25' filterUnits='objectBoundingBox' primitiveUnits='userSpaceOnUse'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23t)' opacity='0.13'/%3E%3C/svg%3E");
+  --tex: var(--tex-mottle), var(--tex-tooth);
+  --tex-size: 800px 800px, 200px 200px;
+}
+
+/* One layer, viewport-anchored. */
+.panel {
+  background-image: var(--tex);
+  background-size: var(--tex-size);
+}
+
+/* The dark bands stay clean — texture over near-black just reads as
+   compression noise. */
+.panel.dk {
+  background-image: none;
+}
