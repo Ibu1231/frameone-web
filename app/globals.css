@@ -276,3 +276,16 @@ h3 {
 .panel.dk {
   background-image: none;
 }
+
+/* ---------- panel-to-panel transition ----------
+   The panels are sticky siblings, so a later one slides up and covers
+   the one before it. Left bare that reads as a raw cut, and fading the
+   hero's lower edge to paper only produced a glowing strip against the
+   dark footage. Instead the incoming panel casts a shadow upward onto
+   the one it is covering: the join becomes a deliberate layering — one
+   sheet sliding over another — rather than an accident. Later panels
+   paint above earlier ones by document order, so no z-index is needed,
+   and the shadow is only visible while a join is actually on screen. */
+.panel {
+  box-shadow: 0 -26px 54px rgba(10, 10, 10, 0.5);
+}

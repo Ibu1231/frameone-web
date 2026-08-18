@@ -38,27 +38,6 @@
     );
 }
 
-/* The hero used to end on a hard dark edge, and the paper panel sliding
-   up over it read as a cut. Its lower band now resolves into the paper
-   colour, so by the time the next panel arrives it is paper meeting
-   paper and the join disappears. Sits above the film but below the
-   copy. */
-.fade {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: clamp(38px, 5vh, 66px);
-  z-index: 1;
-  pointer-events: none;
-  background: linear-gradient(
-    180deg,
-    rgba(217, 214, 208, 0) 0%,
-    rgba(217, 214, 208, 0.12) 62%,
-    var(--paper) 100%
-  );
-}
-
 .stack {
   position: relative;
   z-index: 2;
@@ -66,7 +45,7 @@
   grid-template-rows: auto 1fr;
   height: 100%;
   padding-top: clamp(76px, 10vh, 108px);
-  padding-bottom: clamp(42px, 6vh, 76px);
+  padding-bottom: clamp(14px, 2.4vh, 26px);
   color: #fff;
 }
 

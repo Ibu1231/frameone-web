@@ -88,7 +88,6 @@ export default function Hero() {
             />
           </div>
           <div className={styles.scrim} />
-          <div className={styles.fade} aria-hidden="true" />
 
           <div data-drift
             className={`pad ${styles.stack} ${ready ? styles.ready : ""}`}>
