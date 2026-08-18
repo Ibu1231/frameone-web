@@ -599,7 +599,9 @@ export const workTiles: WorkTile[] = WORK_DEFS.map((def) => {
     slug: def.slug,
     title: def.title ?? category?.title ?? def.slug,
     film: GENRE_FILMS[def.slug] ?? clip?.src ?? PLACEHOLDER_FILM,
-    poster: clip?.poster ?? still?.src ?? heroVideo.poster,
+    /* The small still, not the large one: this is a poster behind a
+       muted loop, never examined at full size. */
+    poster: clip?.poster ?? still?.srcSmall ?? heroVideo.poster,
     /* The project that owns the film actually on screen — not a list.
        While a genre is still on placeholder footage there is no such
        project, so it names that genre’s first real project instead; the

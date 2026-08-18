@@ -15,7 +15,9 @@ type Props = {
 
 /** Slot widths the grid actually uses, so the browser can pick the
  *  700px file for tiles rather than always decoding the 1400px one. */
-const SIZES = "(max-width: 820px) 100vw, (max-width: 1400px) 50vw, 33vw";
+/* Mobile is settled by the <picture> source below, so this only has to
+   describe the desktop grid. */
+const SIZES = "(max-width: 1400px) 50vw, 33vw";
 
 export default function Gallery({ category, onClose }: Props) {
   const photos: Photo[] = poolGallery(category);
@@ -168,17 +170,30 @@ export default function Gallery({ category, onClose }: Props) {
                           onClick={() => setLightbox(flat)}
                           aria-label={`View ${item.photo.alt} full size`}
                         >
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={item.photo.src}
-                            srcSet={`${item.photo.srcSmall} 700w, ${item.photo.src} ${item.photo.width}w`}
-                            sizes={SIZES}
-                            alt={item.photo.alt}
-                            width={item.photo.width}
-                            height={item.photo.height}
-                            loading={si === 0 && i < 2 ? "eager" : "lazy"}
-                            decoding="async"
-                          />
+                          {/* Phones take the small variant outright. Left
+                              to srcset, a DPR-3 handset asks for ~1170px
+                              at 100vw and picks the 1800w file — several
+                              times the bytes it can actually show, on the
+                              connection least able to afford them. A media
+                              source settles it up front instead of leaving
+                              the browser to over-ask. */}
+                          <picture>
+                            <source
+                              media="(max-width: 860px)"
+                              srcSet={item.photo.srcSmall}
+                            />
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src={item.photo.srcSmall}
+                              srcSet={`${item.photo.srcSmall} 700w, ${item.photo.src} ${item.photo.width}w`}
+                              sizes={SIZES}
+                              alt={item.photo.alt}
+                              width={item.photo.width}
+                              height={item.photo.height}
+                              loading={si === 0 && i < 2 ? "eager" : "lazy"}
+                              decoding="async"
+                            />
+                          </picture>
                         </button>
                       </figure>
                     );

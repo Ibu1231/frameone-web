@@ -103,17 +103,21 @@ export default function Lightbox({ items, index, onIndex, onClose }: Props) {
             aria-label={item.clip.alt}
           />
         ) : (
-          /* Full-size source deliberately — this is the "see it
-             properly" view, so no srcset downgrade. */
-          /* eslint-disable-next-line @next/next/no-img-element */
-          <img
-            key={item.photo.src}
-            src={item.photo.src}
-            alt={item.photo.alt}
-            width={item.photo.width}
-            height={item.photo.height}
-            decoding="async"
-          />
+          /* Full size on desktop — this is the "see it properly" view.
+             A phone cannot resolve it and would pay several hundred KB
+             for the privilege, so it takes the small file. */
+          <picture>
+            <source media="(max-width: 860px)" srcSet={item.photo.srcSmall} />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              key={item.photo.src}
+              src={item.photo.src}
+              alt={item.photo.alt}
+              width={item.photo.width}
+              height={item.photo.height}
+              decoding="async"
+            />
+          </picture>
         )}
       </div>
 

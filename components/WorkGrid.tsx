@@ -30,6 +30,12 @@ export default function WorkTileCard({ tile, onOpen }: Props) {
     video.muted = true;
     video.defaultMuted = true;
 
+    // Six tiles sit on screen together, so in-view autoplay means six
+    // simultaneous streams over mobile data before anything is even
+    // tapped. On a phone the poster stands in; the film plays in the reel
+    // view, where it is the point of the screen.
+    if (window.matchMedia("(max-width: 860px)").matches) return;
+
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -51,6 +57,7 @@ export default function WorkTileCard({ tile, onOpen }: Props) {
   const restart = () => {
     const video = videoRef.current;
     if (!video) return;
+    if (window.matchMedia("(max-width: 860px)").matches) return;
     video.currentTime = 0;
     void video.play().catch(() => {});
   };
