@@ -66,7 +66,10 @@ export const studio = {
   name: "FrameOne",
   legalName: "FrameOne Global",
   tagline: "Crafting stories, frame by frame.",
-  email: "hello@frameonehq.com",
+  email: "frameone.global@gmail.com",
+  /* Digits only for wa.me and tel:; the display form is derived. */
+  phone: "918197402298",
+  phoneDisplay: "+91 81974 02298",
   location: "Bangalore, IN",
   reach: "Worldwide",
   intro: "FrameOne Global — media production. Bangalore, operating worldwide.",
@@ -526,10 +529,19 @@ export const navLinks = [
 ];
 
 export const socials = [
-  { label: "Instagram", href: "#" },
-  { label: "Vimeo", href: "#" },
-  { label: "YouTube", href: "#" },
-];
+  {
+    label: "Instagram",
+    handle: "@frameone.hq",
+    href: "https://www.instagram.com/frameone.hq/",
+    icon: "instagram",
+  },
+  {
+    label: "WhatsApp",
+    handle: studio.phoneDisplay,
+    href: `https://wa.me/${studio.phone}`,
+    icon: "whatsapp",
+  },
+] as const;
 
 
 /* ---------------- Polaroid grid (Selected Frames) ----------------

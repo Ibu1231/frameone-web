@@ -1,34 +1,101 @@
+/* Closing panel. Near-black with two deep-red washes, matching the
+   grading used across the rest of the site. All CSS — no image. */
+
+.ground {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      68% 58% at 84% 88%,
+      rgba(120, 16, 12, 0.5) 0%,
+      rgba(70, 7, 7, 0.16) 46%,
+      rgba(10, 10, 10, 0) 76%
+    ),
+    radial-gradient(
+      54% 46% at 8% 12%,
+      rgba(70, 7, 7, 0.34) 0%,
+      rgba(10, 10, 10, 0) 70%
+    ),
+    #0a0a0a;
+}
+
+/* The wordmark set enormous and almost invisible, anchored off the
+   bottom-left so it reads as a watermark rather than as a heading. */
+.ghost {
+  position: absolute;
+  left: -0.06em;
+  bottom: -0.3em;
+  z-index: 0;
+  font-size: clamp(6rem, 26vw, 22rem);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 0.8;
+  color: rgba(233, 233, 233, 0.035);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
 .inner {
+  position: relative;
+  z-index: 1;
   justify-content: space-between;
-  padding-top: clamp(84px, 13vh, 132px);
+  padding-top: clamp(76px, 12vh, 120px);
   padding-bottom: clamp(18px, 3vh, 32px);
 }
 
+.kicker {
+  color: var(--red);
+}
+
+/* Was clamp(2.2rem, 10.4vw, 9.6rem) — at the top of that range it ran
+   the full width of a desktop and swallowed the panel. */
 .heading {
-  font-size: clamp(2.2rem, 10.4vw, 9.6rem);
+  font-size: clamp(1.6rem, 5.6vw, 4.4rem);
+  max-width: 17ch;
   margin-top: auto;
 }
 
 .row {
   display: flex;
   justify-content: space-between;
-  gap: 26px;
+  gap: clamp(18px, 3vw, 40px);
   flex-wrap: wrap;
   align-items: flex-end;
-  margin-top: clamp(20px, 4vh, 44px);
+  margin-top: clamp(18px, 3.4vh, 38px);
 }
 
 .mail {
-  font-size: clamp(0.95rem, 2.5vw, 1.9rem);
+  font-size: clamp(0.85rem, 1.7vw, 1.3rem);
   font-weight: 600;
   letter-spacing: -0.02em;
-  border-bottom: 2px solid currentColor;
-  padding-bottom: 2px;
-  transition: opacity 0.3s;
+  /* Underline drawn separately so it can sweep on hover rather than
+     just changing opacity. */
+  position: relative;
+  padding-bottom: 5px;
+  /* Long address, narrow phone: it wraps rather than pushing the panel
+     sideways. */
+  overflow-wrap: anywhere;
 }
 
-.mail:hover {
-  opacity: 0.5;
+.mail::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1.5px;
+  background: currentColor;
+  transform-origin: left;
+  transition: transform 0.55s var(--ease);
+}
+
+.mail:hover::after,
+.mail:focus-visible::after {
+  transform: scaleX(0);
+  transform-origin: right;
 }
 
 .cols {
@@ -37,17 +104,62 @@
   flex-wrap: wrap;
 }
 
-.cols a,
-.cols p {
-  display: block;
-  font-size: 12px;
+.col p {
+  font-size: 11.5px;
   text-transform: uppercase;
   letter-spacing: 0.03em;
   line-height: 1.75;
 }
 
-.cols a:hover {
-  opacity: 0.55;
+.socials {
+  display: grid;
+  gap: 7px;
+  margin-top: 7px;
+}
+
+/* Icon and label in a bordered pill, so the two links read as buttons
+   worth pressing rather than as more small print. */
+.social {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 12px 7px 10px;
+  border: 1px solid rgba(233, 233, 233, 0.22);
+  border-radius: 999px;
+  transition:
+    border-color 0.45s var(--ease),
+    background-color 0.45s var(--ease),
+    transform 0.45s var(--ease);
+}
+
+.social:hover,
+.social:focus-visible {
+  border-color: var(--red);
+  background: rgba(172, 18, 18, 0.14);
+  transform: translateY(-2px);
+}
+
+.social svg {
+  flex: none;
+}
+
+.socialText {
+  display: grid;
+  line-height: 1.25;
+}
+
+.socialText b {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.socialText i {
+  font-style: normal;
+  font-size: 10.5px;
+  letter-spacing: 0.02em;
+  color: var(--body-dk);
 }
 
 .foot {
@@ -65,4 +177,33 @@
   letter-spacing: 0.2em;
   text-transform: uppercase;
   opacity: 0.6;
+}
+
+@media (max-width: 640px) {
+  /* Phone: the address, the studio block and the two buttons stack in
+     one column and the watermark is pulled back so it never competes
+     with the copy over it. */
+  .row {
+    align-items: flex-start;
+    gap: 22px;
+  }
+
+  .cols {
+    width: 100%;
+    justify-content: space-between;
+    gap: 18px;
+  }
+
+  .ghost {
+    font-size: 40vw;
+    color: rgba(233, 233, 233, 0.028);
+  }
+
+  .foot {
+    gap: 6px;
+  }
+
+  .foot span:last-child {
+    display: none;
+  }
 }
