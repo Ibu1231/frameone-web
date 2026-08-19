@@ -133,7 +133,11 @@
 
 @media (max-width: 900px) {
   .grid {
+    /* Two across means three rows, and the row template has to say so
+       — an undeclared third row is implicit and gets whatever height
+       is left, which squashed Travel and Fashion to half the rest. */
     grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
   }
 }
 

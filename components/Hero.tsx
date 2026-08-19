@@ -65,7 +65,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <div className="chapter" style={{ height: "190svh" }}>
+    <div className="chapter" style={{ height: "100svh" }}>
       <section className="panel" data-panel="hero">
         <div className="inner">
           <div className={`${styles.media} ${film ? styles.filmIn : ""}`}>

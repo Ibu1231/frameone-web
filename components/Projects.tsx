@@ -27,7 +27,7 @@ export default function Projects() {
   }, []);
 
   return (
-    <div className="chapter" style={{ height: "240svh" }} id="projects">
+    <div className="chapter" style={{ height: "100svh" }} id="projects">
       <section className="panel">
         <div className={`inner pad ${styles.inner}`}>
           <div className={styles.head}>

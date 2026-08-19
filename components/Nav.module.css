@@ -59,7 +59,19 @@
 }
 
 @media (max-width: 820px) {
+  /* The links used to be hidden outright here, which left a phone
+     with no way to reach any section — and most of the traffic is
+     phones. They stay, tightened to fit. */
   .links {
+    gap: clamp(9px, 3.2vw, 16px);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+  }
+
+  /* Start a project is reachable from the contact section itself, so
+     it gives up its space to the links rather than the other way
+     round. */
+  .cta {
     display: none;
   }
 }

@@ -20,7 +20,7 @@ export default function Collage() {
   const stageClass = gridIn ? styles.stage2 : headingIn ? styles.stage1 : "";
 
   return (
-    <div className="chapter" style={{ height: "220svh" }} id="work">
+    <div className="chapter" style={{ height: "100svh" }} id="work">
       <section className="panel">
         <div className="inner">
           <div className={styles.panelBg} aria-hidden="true" />
