@@ -4,40 +4,21 @@ import { useEffect, useRef } from "react";
 import type { WorkTile } from "@/lib/content";
 import styles from "./WorkGrid.module.css";
 
-const NARROW = "(max-width: 860px)";
-
 /**
  * Which tiles are on screen, and how much of each.
  *
- * On a wide screen every visible tile plays, as the reference does.
- * On a phone only the most-visible one does: all six sit in the
- * viewport at once there, and six decoders on mobile data is what made
- * the page crawl. One at a time keeps the grid alive without the
- * stall — the reader still sees a film playing wherever they are
- * looking.
+ * Every visible tile plays, on every screen size. Six at once is only
+ * affordable because a tile now runs a light loop rather than a
+ * multi-megabyte gallery film; if the tile films ever get heavy again
+ * this is the first thing that will hurt.
  */
 const onScreen = new Map<HTMLVideoElement, number>();
 let queued = 0;
 
 function settle() {
   queued = 0;
-  const solo = window.matchMedia(NARROW).matches;
-
-  let pick: HTMLVideoElement | null = null;
-  if (solo) {
-    let best = 0;
-    onScreen.forEach((ratio, video) => {
-      if (ratio > best) {
-        best = ratio;
-        pick = video;
-      }
-    });
-    if (best < 0.3) pick = null;
-  }
-
   onScreen.forEach((ratio, video) => {
-    const shouldPlay = solo ? video === pick : ratio > 0;
-    if (shouldPlay) {
+    if (ratio > 0) {
       void video.play().catch(() => {
         /* Refused for now — the next scroll or tap tries again. */
       });

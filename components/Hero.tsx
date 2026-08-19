@@ -25,11 +25,15 @@ export default function Hero() {
     const video = videoRef.current;
     if (!video) return;
 
-    // Phones get the lighter encode. Set before play so only one file is
-    // ever fetched.
-    if (window.innerWidth < 860 && heroVideo.srcMobile) {
-      video.src = heroVideo.srcMobile;
-    }
+    // The source is chosen here and nowhere else. It used to be set in
+    // the markup as well, which meant the browser started pulling the
+    // 10MB desktop encode the moment it parsed the tag and only swapped
+    // to the 4MB phone encode once React had hydrated — a phone paid for
+    // both, and the hero sat on its poster for twenty seconds waiting.
+    // The poster is 64KB and paints immediately; the film arrives after.
+    const phone = window.matchMedia("(max-width: 860px)").matches;
+    video.src = phone && heroVideo.srcMobile ? heroVideo.srcMobile : heroVideo.src;
+    video.load();
 
     // The loop is silent by design — there is no audio track in either
     // encode — but muted must be set as a property, not just an
@@ -71,13 +75,12 @@ export default function Hero() {
           <div className={`${styles.media} ${film ? styles.filmIn : ""}`}>
             <video
               ref={videoRef}
-              src={heroVideo.src}
               poster={heroVideo.poster}
               muted
               loop
               playsInline
               autoPlay
-              preload="auto"
+              preload="none"
               aria-label={heroVideo.alt}
               data-hero-video
             />

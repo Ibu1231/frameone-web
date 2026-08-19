@@ -7,10 +7,10 @@ export default function Contact() {
     <div className="chapter" style={{ height: "100svh" }} id="contact">
       <section className="panel dk">
         <div className={`inner pad ${styles.inner}`}>
-          <Reveal as="span" delay={3} className="lbl">
+          <Reveal as="span" delay={1.1} className="lbl">
             Let&rsquo;s talk
           </Reveal>
-          <Reveal as="h2" mask delay={3.14} className={`gradTitle ${styles.heading}`}>
+          <Reveal as="h2" mask delay={1.17} className={`gradTitle ${styles.heading}`}>
             Let&rsquo;s make something worth watching.
           </Reveal>
 

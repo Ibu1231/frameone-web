@@ -59,5 +59,12 @@ export function useReveal(delay = 0): boolean {
   return shown;
 }
 
-/** Shared cadence, so every section staggers on the same rhythm. */
-export const BEAT = 140;
+/**
+ * Shared cadence, so every section staggers on the same rhythm.
+ *
+ * Kept short deliberately. Because the whole page reveals off one
+ * clock, a generous beat means the sections furthest down are still
+ * blank seconds after load — a reader who scrolls straight away finds
+ * empty panels. Everything on the page is now revealed inside ~1.2s.
+ */
+export const BEAT = 90;

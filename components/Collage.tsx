@@ -9,8 +9,8 @@ import grid from "./WorkGrid.module.css";
 import styles from "./Collage.module.css";
 
 /* Heading first, then the grid. The label rides the heading's stage. */
-const HEADING_AT = BEAT * 10;
-const GRID_AT = BEAT * 12;
+const HEADING_AT = BEAT * 5;
+const GRID_AT = BEAT * 6;
 
 export default function Collage() {
   const [open, setOpen] = useState<Category | null>(null);

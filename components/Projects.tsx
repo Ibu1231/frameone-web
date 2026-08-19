@@ -31,10 +31,10 @@ export default function Projects() {
       <section className="panel">
         <div className={`inner pad ${styles.inner}`}>
           <div className={styles.head}>
-            <Reveal as="h2" mask delay={2} className={`gradTitle ${styles.title}`}>
+            <Reveal as="h2" mask delay={0.72} className={`gradTitle ${styles.title}`}>
               Our Projects
             </Reveal>
-            <Reveal as="span" delay={2.14} className={styles.count}>
+            <Reveal as="span" delay={0.79} className={styles.count}>
               {categories.length} genres · {projectCount} projects
             </Reveal>
           </div>
@@ -46,7 +46,7 @@ export default function Projects() {
             {categories.map((cat, ci) => (
               <Reveal
                 key={cat.slug}
-                delay={2.28 + ci * 0.1}
+                delay={0.86 + ci * 0.06}
                 className={`${styles.cat} ${
                   active === cat.slug ? styles.active : ""
                 }`}

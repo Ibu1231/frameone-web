@@ -598,7 +598,11 @@ export const workTiles: WorkTile[] = WORK_DEFS.map((def) => {
   return {
     slug: def.slug,
     title: def.title ?? category?.title ?? def.slug,
-    film: GENRE_FILMS[def.slug] ?? clip?.src ?? PLACEHOLDER_FILM,
+    /* Never the gallery clip. Those run 14-22MB each — fine for the
+       reel view where the film is the point, ruinous for a grid of six
+       that autoplays. A tile takes its purpose-made loop or the light
+       placeholder, nothing else. */
+    film: GENRE_FILMS[def.slug] ?? PLACEHOLDER_FILM,
     /* The small still, not the large one: this is a poster behind a
        muted loop, never examined at full size. */
     poster: clip?.poster ?? still?.srcSmall ?? heroVideo.poster,
@@ -613,7 +617,7 @@ export const workTiles: WorkTile[] = WORK_DEFS.map((def) => {
         )?.title) ??
       category?.projects[0]?.title ??
       "",
-    pending: !GENRE_FILMS[def.slug] && !clip,
+    pending: !GENRE_FILMS[def.slug],
     hasGallery: (category?.projects.length ?? 0) > 0,
   };
 });
