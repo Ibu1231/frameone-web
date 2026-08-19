@@ -51,7 +51,7 @@ export default function GalleryClip({ clip, onOpen }: Props) {
         type="button"
         className={styles.open}
         onClick={onOpen}
-        aria-label={`Watch ${clip.alt} with sound`}
+        aria-label={`Open ${clip.alt} in the reel player`}
       >
         <video
           ref={videoRef}
@@ -65,7 +65,7 @@ export default function GalleryClip({ clip, onOpen }: Props) {
           aria-label={clip.alt}
         />
         <span className={styles.playHint} aria-hidden="true">
-          ▶ Watch with sound
+          ▶ Open reel
         </span>
       </button>
     </figure>

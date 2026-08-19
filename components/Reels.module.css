@@ -166,3 +166,54 @@
     color: rgba(233, 233, 233, 0.92);
   }
 }
+
+/* Arrival hint. The player looks like a single video until you know it
+   is a run, so this says so once and then gets out of the way — on a
+   timer, or the moment the reader moves. */
+.hintBar {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(18px, 4vh, 40px);
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border: 1px solid rgba(233, 233, 233, 0.28);
+  border-radius: 999px;
+  background: rgba(10, 10, 10, 0.72);
+  backdrop-filter: blur(6px);
+  color: var(--dark-ink);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: hintIn 600ms var(--ease) both;
+}
+
+.hintBar span {
+  color: var(--red);
+  font-size: 13px;
+}
+
+@keyframes hintIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@media (max-width: 860px) {
+  /* Clear of the caption block, which owns the bottom-left on a phone. */
+  .hintBar {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 118px);
+    font-size: 9px;
+    padding: 8px 13px;
+  }
+}

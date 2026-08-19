@@ -123,6 +123,16 @@ export default function Gallery({ category, onClose }: Props) {
           </button>
         </div>
 
+        {/* Films and stills behave differently, and nothing on the card
+            said so — readers were not finding the reel player at all. */}
+        {clips.length > 0 && (
+          <p className={styles.guide}>
+            <span className={styles.guideMark} aria-hidden="true">▶</span>
+            Tap any film to open the reel player — then scroll or swipe to
+            move between films.
+          </p>
+        )}
+
         {/* Lenis intercepts wheel events globally and preventDefaults
             them. lenis.stop() halts its own scrolling but does NOT stop
             that interception, so wheel events over this container were

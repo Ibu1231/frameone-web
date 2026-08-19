@@ -23,7 +23,6 @@ export default function Collage() {
     <div className="chapter" style={{ height: "100svh" }} id="work">
       <section className="panel">
         <div className="inner">
-          <div className={styles.panelBg} aria-hidden="true" />
 
           <div className={`pad ${styles.inner} ${stageClass}`}>
             <span className={`lbl ${styles.label}`}>{collage.label}</span>

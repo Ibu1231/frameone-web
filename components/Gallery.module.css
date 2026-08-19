@@ -325,3 +325,32 @@
   aspect-ratio: 16 / 9;
   content-visibility: auto;
 }
+
+/* Sits under the gallery's title bar: one line telling the reader that
+   films open into the reel player. */
+.guide {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 var(--pad) 10px;
+  padding: 9px 13px;
+  border: 1px solid rgba(172, 18, 18, 0.45);
+  background: rgba(172, 18, 18, 0.1);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #d9d5cf;
+  line-height: 1.5;
+}
+
+.guideMark {
+  color: var(--red);
+  flex: none;
+}
+
+@media (max-width: 640px) {
+  .guide {
+    font-size: 9.5px;
+    letter-spacing: 0.05em;
+  }
+}

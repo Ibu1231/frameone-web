@@ -26,6 +26,9 @@ export default function Reels({ films, start, title, onClose }: Props) {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const [active, setActive] = useState(start);
   const [muted, setMuted] = useState(true);
+  /* Shown once on arrival: without it the player looks like a single
+     video rather than a run you can move through. */
+  const [hint, setHint] = useState(true);
 
   // Open on the film that was clicked. Instant, not smooth: the viewer
   // asked for this one, they should not have to watch the track fly to
@@ -68,6 +71,11 @@ export default function Reels({ films, start, title, onClose }: Props) {
   }, [muted, active]);
 
   useEffect(() => {
+    const id = window.setTimeout(() => setHint(false), 4200);
+    return () => window.clearTimeout(id);
+  }, []);
+
+  useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
@@ -108,7 +116,12 @@ export default function Reels({ films, start, title, onClose }: Props) {
       {/* data-lenis-prevent: Lenis intercepts wheel events globally and
           preventDefaults them, which would swallow the snap scrolling
           inside this track. */}
-      <div className={styles.track} ref={trackRef} data-lenis-prevent>
+      <div
+        className={styles.track}
+        ref={trackRef}
+        data-lenis-prevent
+        onScroll={() => hint && setHint(false)}
+      >
         {films.map((film, i) => (
           <section key={film.src} className={styles.slide}>
             <div className={styles.player}>
@@ -140,6 +153,12 @@ export default function Reels({ films, start, title, onClose }: Props) {
           </section>
         ))}
       </div>
+
+      {hint && (
+        <p className={styles.hintBar}>
+          <span aria-hidden="true">↕</span> Scroll or swipe for the next film
+        </p>
+      )}
     </div>
   );
 }

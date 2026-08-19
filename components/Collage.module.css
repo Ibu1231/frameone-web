@@ -2,15 +2,9 @@
    Selected frames — three self-contained genre slideshows.
    ============================================================ */
 
-.panelBg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background-color: var(--paper);
-  background-image: var(--tex);
-  background-size: var(--tex-size);
-  overflow: hidden;
-}
+/* The ground used to be painted here as well as by .panel::before —
+   opaquely, which covered the seam fade. The shared ground is the
+   only one now. */
 
 /* No decorative ground of its own. It previously carried two
    repeating-linear-gradient rule fields (58deg and -34deg) plus its own
