@@ -7,6 +7,20 @@
   z-index: 0;
   pointer-events: none;
   background:
+    /* Opens on the exact colour of the panel above, so the two meet
+       with no line and no shadow, then travels through the palette's
+       reds into black. A straight cross-fade between paper and near-
+       black passes through neutral grey, which is what made the last
+       version read as a dirty smear. */
+    linear-gradient(
+      180deg,
+      var(--paper) 0%,
+      #a2948a 4%,
+      #6b4740 9%,
+      #3a1c19 15%,
+      #1a0d0c 21%,
+      rgba(10, 10, 10, 0) 27%
+    ),
     radial-gradient(
       68% 58% at 84% 88%,
       rgba(120, 16, 12, 0.5) 0%,
@@ -15,13 +29,10 @@
     ),
     radial-gradient(
       54% 46% at 8% 12%,
-      rgba(70, 7, 7, 0.34) 0%,
+      rgba(70, 7, 7, 0.3) 0%,
       rgba(10, 10, 10, 0) 70%
     ),
     #0a0a0a;
-  /* Same fade as every other panel top, so black arrives gradually. */
-  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 var(--seam));
-  mask-image: linear-gradient(180deg, transparent 0, #000 var(--seam));
 }
 
 /* The wordmark set enormous and almost invisible, anchored off the

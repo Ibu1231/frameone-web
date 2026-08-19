@@ -586,9 +586,9 @@ const PLACEHOLDER_FILM = media("/videos/hero-720.mp4");
  * one, and to the showreel placeholder if it does not.
  */
 const GENRE_FILMS: Record<string, string | null> = {
-  "concerts-festivals": null, // media("/videos/genres/concerts-festivals.mp4")
-  automotive: null, // media("/videos/genres/automotive.mp4")
-  corporate: null, // media("/videos/genres/corporate.mp4")
+  "concerts-festivals": media("/videos/genres/concerts-festivals.mp4"),
+  automotive: media("/videos/genres/automotive.mp4"),
+  corporate: media("/videos/genres/corporate.mp4"),
   sports: null, // media("/videos/genres/sports.mp4")
   travel: null, // media("/videos/genres/travel.mp4")
   fashion: null, // media("/videos/genres/fashion.mp4")

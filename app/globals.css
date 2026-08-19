@@ -129,17 +129,13 @@ h3 {
   overflow: clip;
   display: flex;
   flex-direction: column;
-  /* Painted by ::before, which can be masked. */
-  background: transparent;
+  background: var(--paper);
 }
 
 .panel.dk {
-  color: var(--dark-ink);
-}
-
-.panel.dk::before {
   background-color: var(--dark);
   background-image: none;
+  color: var(--dark-ink);
 }
 
 .panel.dk .lbl {
@@ -273,43 +269,30 @@ h3 {
   --tex-size: 800px 800px, 200px 200px;
 }
 
-/* One layer, viewport-anchored. */
-/* The ground moves onto a masked layer so the top edge can dissolve.
-   A panel slides up over the one before it, and an opaque edge doing
-   that reads as a cut between two pages rather than one page
-   changing colour. Faded over --seam, the incoming section resolves
-   out of the outgoing one. */
-.panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
+/* Panels paint their own ground again. The masked fade this replaces
+   produced a grey wash: a cross-fade between the paper and the dark
+   ground has to pass through neutral grey, and 190px of it read as a
+   smear rather than a transition. Paper meeting paper needs no fade
+   at all — same colour, same texture origin, invisible join — and the
+   one place the colour actually changes is handled below, in the
+   palette's own tones. */
+.panel {
   background-color: var(--paper);
   background-image: var(--tex);
   background-size: var(--tex-size);
-  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 var(--seam));
-  mask-image: linear-gradient(180deg, transparent 0, #000 var(--seam));
 }
 
-/* The first panel has nothing above it to dissolve out of. */
-.chapter:first-of-type .panel::before {
-  -webkit-mask-image: none;
-  mask-image: none;
+.panel.dk {
+  background-color: var(--dark);
+  background-image: none;
 }
 
 /* The dark bands stay clean — texture over near-black just reads as
    compression noise. Handled on .panel.dk::before above. */
 
-/* ---------- panel-to-panel transition ----------
-   The panels are sticky siblings, so a later one slides up and covers
-   the one before it. Left bare that reads as a raw cut, and fading the
-   hero's lower edge to paper only produced a glowing strip against the
-   dark footage. Instead the incoming panel casts a shadow upward onto
-   the one it is covering: the join becomes a deliberate layering — one
-   sheet sliding over another — rather than an accident. Later panels
-   paint above earlier ones by document order, so no z-index is needed,
-   and the shadow is only visible while a join is actually on screen. */
-.panel {
-  box-shadow: 0 -26px 54px rgba(10, 10, 10, 0.5);
-}
+/* ---------- where the ground changes colour ----------
+   Only one join on the site changes colour: paper into the dark
+   closing panel, and Contact's own ground carries it. Everywhere else
+   two paper panels meet, and with no shadow and no fade that join is
+   genuinely invisible — same colour, same texture, same tile origin
+   while pinned. Nothing to declare here. */
