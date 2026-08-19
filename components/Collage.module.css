@@ -91,3 +91,63 @@
     transform: none;
   }
 }
+
+/* ---------- late cue ----------
+   Arrives well after the entrance is over, for the reader who has been
+   looking at the grid without realising the tiles open. Red, like the
+   titles, so it reads as part of the page rather than as a system
+   message — and small enough to ignore once it has done its job.
+
+   It holds its space from the start, so its arrival does not shift the
+   grid underneath it. */
+.cue {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: clamp(7px, 1.1vh, 13px);
+  font-size: clamp(9.5px, 0.72vw, 11px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--red);
+  opacity: 0;
+  transform: translateY(7px);
+  transition:
+    opacity 1.1s var(--ease),
+    transform 1.1s var(--ease);
+}
+
+.cueIn {
+  opacity: 1;
+  transform: none;
+}
+
+/* The arrow drifts toward the grid it is pointing at, once the line has
+   settled. Slow and small — a nudge, not a blink. */
+.cue span {
+  display: inline-block;
+  font-size: 1.15em;
+  line-height: 1;
+}
+
+.cueIn span {
+  animation: cueNudge 2.6s var(--ease) 1.1s infinite;
+}
+
+@keyframes cueNudge {
+  0%,
+  62%,
+  100% {
+    transform: translateX(0);
+  }
+  76% {
+    transform: translateX(5px);
+  }
+}
+
+@media (max-width: 640px) {
+  .cue {
+    letter-spacing: 0.1em;
+    gap: 7px;
+  }
+}

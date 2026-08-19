@@ -11,11 +11,16 @@ import styles from "./Collage.module.css";
 /* Heading first, then the grid. The label rides the heading's stage. */
 const HEADING_AT = BEAT * 5;
 const GRID_AT = BEAT * 6;
+/* Long after everything has arrived. This is for the reader who has
+   looked at the grid for a while and not realised the tiles open, so
+   it must not appear early enough to read as part of the entrance. */
+const CUE_AT = 6000;
 
 export default function Collage() {
   const [open, setOpen] = useState<Category | null>(null);
   const headingIn = useReveal(HEADING_AT);
   const gridIn = useReveal(GRID_AT);
+  const cue = useReveal(CUE_AT);
 
   const stageClass = gridIn ? styles.stage2 : headingIn ? styles.stage1 : "";
 
@@ -27,6 +32,11 @@ export default function Collage() {
           <div className={`pad ${styles.inner} ${stageClass}`}>
             <span className={`lbl ${styles.label}`}>{collage.label}</span>
             <h2 className={`gradTitle ${styles.heading}`}>{collage.heading}</h2>
+
+            <p className={`${styles.cue} ${cue ? styles.cueIn : ""}`}>
+              <span aria-hidden="true">→</span>
+              Select a genre to view its films and stills
+            </p>
 
             <div className={`${grid.grid} ${styles.workGrid}`}>
               {workTiles.map((tile) => (
