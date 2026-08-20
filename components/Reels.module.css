@@ -181,7 +181,18 @@
     right: 0;
     bottom: 0;
     padding: 0 var(--pad) calc(env(safe-area-inset-bottom, 0px) + 26px);
-    max-width: 78%;
+    /* THE LINE.
+       This was max-width: 78%, which constrained the element — and the
+       element carries the wash. So the gradient stopped dead at 78% of
+       the width and the remaining strip stayed un-darkened, giving a
+       hard vertical edge running up the frame. It only showed in the
+       full player because that is the only place the caption is laid
+       over the video.
+
+       The wash now spans the full width and the text is held to its
+       measure by padding instead, so it wraps in the same place with
+       no edge to see. */
+    padding-right: 26%;
     align-content: end;
     gap: 6px;
     /* Text sits on the frame itself, so it carries a wash up from the
