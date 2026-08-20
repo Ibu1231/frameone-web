@@ -72,7 +72,7 @@ export const studio = {
   phoneDisplay: "+91 81974 02298",
   location: "Bangalore, IN",
   reach: "Worldwide",
-  intro: "FrameOne Global — media production. Bangalore, operating worldwide.",
+  intro: "Media production. Bangalore, operating worldwide.",
   disciplineSummary: [
     "Live events",
     "Corporate films",
@@ -87,7 +87,7 @@ export const heroLines = ["Crafting stories,", "frame by frame."];
 export const whoWeAre = {
   label: "Who we are",
   heading: "We don't just cover the room. We make you feel like you were in it.",
-  body: "At FrameOne, we don't just capture moments — we turn them into stories people remember. From high-energy live events and cinematic brand films to fashion and automotive productions, we bring together creative vision, technical precision, and flawless execution to create visuals that demand attention. With an end-to-end production approach and a team that thrives under pressure, we transform ideas into powerful visual experiences — because every frame should have a purpose, and every story deserves to be unforgettable.",
+  body: "We don't just capture moments — we turn them into stories people remember. From high-energy live events and cinematic brand films to fashion and automotive productions, we bring together creative vision, technical precision, and flawless execution to create visuals that demand attention. With an end-to-end production approach and a team that thrives under pressure, we transform ideas into powerful visual experiences — because every frame should have a purpose, and every story deserves to be unforgettable.",
 };
 
 /* ---------------- Automotive — client media ----------------
@@ -590,8 +590,8 @@ const GENRE_FILMS: Record<string, string | null> = {
   automotive: media("/videos/genres/automotive.mp4"),
   corporate: media("/videos/genres/corporate.mp4"),
   sports: null, // media("/videos/genres/sports.mp4")
-  travel: null, // media("/videos/genres/travel.mp4")
-  fashion: null, // media("/videos/genres/fashion.mp4")
+  travel: media("/videos/genres/travel.mp4"),
+  fashion: media("/videos/genres/fashion.mp4"),
 };
 
 const WORK_DEFS: { slug: string; title?: string }[] = [
