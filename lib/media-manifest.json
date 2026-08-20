@@ -1949,5 +1949,966 @@
       ],
       "clips": []
     }
+  },
+  "corporate": {
+    "canon-launch": {
+      "photos": [
+        {
+          "file": "01",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "02",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "03",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "04",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "05",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "06",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "07",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "08",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "09",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "10",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "11",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "12",
+          "width": 1800,
+          "height": 1200
+        }
+      ],
+      "clips": []
+    },
+    "google-io-networking-event": {
+      "photos": [
+        {
+          "file": "01",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "02",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "03",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "04",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "05",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "06",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "07",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "08",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "09",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "10",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "11",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "12",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "13",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "14",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "15",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "16",
+          "width": 1800,
+          "height": 1200
+        }
+      ],
+      "clips": []
+    },
+    "gtp": {
+      "photos": [
+        {
+          "file": "01",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "02",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "03",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "04",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "05",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "06",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "07",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "08",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "09",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "10",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "11",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "12",
+          "width": 1800,
+          "height": 1200
+        }
+      ],
+      "clips": []
+    },
+    "sez-dubai-networking-event": {
+      "photos": [
+        {
+          "file": "01",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "02",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "03",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "04",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "05",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "06",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "07",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "08",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "09",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "10",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "11",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "12",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "13",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "14",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "15",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "16",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "17",
+          "width": 1800,
+          "height": 1200
+        }
+      ],
+      "clips": []
+    },
+    "shell": {
+      "photos": [
+        {
+          "file": "01",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "02",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "03",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "04",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "05",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "06",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "07",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "08",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "09",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "10",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "11",
+          "width": 1800,
+          "height": 2250
+        },
+        {
+          "file": "12",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "13",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "14",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "15",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "16",
+          "width": 1800,
+          "height": 1200
+        }
+      ],
+      "clips": []
+    },
+    "visit-saudi-china": {
+      "photos": [
+        {
+          "file": "01",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "02",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "03",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "04",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "05",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "06",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "07",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "08",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "09",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "10",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "11",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "12",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "13",
+          "width": 1800,
+          "height": 1200
+        }
+      ],
+      "clips": []
+    },
+    "visit-saudi-indonesia": {
+      "photos": [
+        {
+          "file": "01",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "02",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "03",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "04",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "05",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "06",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "07",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "08",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "09",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "10",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "11",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "12",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "13",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "14",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "15",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "16",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "17",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "18",
+          "width": 1800,
+          "height": 1200
+        }
+      ],
+      "clips": []
+    }
+  },
+  "sports": {
+    "hyrox": {
+      "photos": [
+        {
+          "file": "01",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "02",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "03",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "04",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "05",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "06",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "07",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "08",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "09",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "10",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "11",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "12",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "13",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "14",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "15",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "16",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "17",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "18",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "19",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "20",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "21",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "22",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "23",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "24",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "25",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "26",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "27",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "28",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "29",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "30",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "31",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "32",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "33",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "34",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "35",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "36",
+          "width": 1800,
+          "height": 1200
+        }
+      ],
+      "clips": []
+    },
+    "ipl-kkr-vs-srh": {
+      "photos": [],
+      "clips": [
+        {
+          "slug": "match-preview-kkr-vs-srh",
+          "width": 1920,
+          "height": 1440,
+          "audio": true
+        }
+      ]
+    },
+    "messi-in-india": {
+      "photos": [],
+      "clips": [
+        {
+          "slug": "messi-in-india",
+          "width": 1080,
+          "height": 1920,
+          "audio": true
+        }
+      ]
+    },
+    "wtl-tennis": {
+      "photos": [
+        {
+          "file": "01",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "02",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "03",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "04",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "05",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "06",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "07",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "08",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "09",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "10",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "11",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "12",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "13",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "14",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "15",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "16",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "17",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "18",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "19",
+          "width": 1800,
+          "height": 2250
+        },
+        {
+          "file": "20",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "21",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "22",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "23",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "24",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "25",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "26",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "27",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "28",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "29",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "30",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "31",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "32",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "33",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "34",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "35",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "36",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "37",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "38",
+          "width": 1800,
+          "height": 2700
+        }
+      ],
+      "clips": []
+    }
   }
 }

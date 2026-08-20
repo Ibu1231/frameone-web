@@ -119,6 +119,17 @@ const PROJECT_INFO: Record<string, { title: string; meta: string }> = {
   "mix-before-2026": { title: "Selected Work — before 2026", meta: "Live · Stills" },
   "sula-fest-26": { title: "Sula Fest 2026", meta: "Festival · Stills" },
   "un-40": { title: "UN 40", meta: "Live · Stills" },
+  "canon-launch": { title: "Canon Launch", meta: "Launch · Brand" },
+  "google-io-networking-event": { title: "Google IO — Networking Event", meta: "Corporate · Event" },
+  gtp: { title: "GTP", meta: "Corporate · Event" },
+  "sez-dubai-networking-event": { title: "SEZ Dubai — Networking Event", meta: "Corporate · Event" },
+  shell: { title: "Shell", meta: "Corporate · Brand" },
+  "visit-saudi-china": { title: "Visit Saudi — China", meta: "Campaign · Travel" },
+  "visit-saudi-indonesia": { title: "Visit Saudi — Indonesia", meta: "Campaign · Travel" },
+  hyrox: { title: "Hyrox", meta: "Fitness · Stills" },
+  "ipl-kkr-vs-srh": { title: "IPL — KKR vs SRH", meta: "Cricket · Film" },
+  "messi-in-india": { title: "Messi in India", meta: "Football · Film" },
+  "wtl-tennis": { title: "WTL Tennis", meta: "Tennis · Stills" },
 };
 
 /** Builds a genre's projects from the manifest. */
@@ -298,49 +309,14 @@ const CATEGORY_DEFS: Category[] = [
     highlights: ["Visit Saudi", "SEZ", "Google IO"],
     title: "Corporate Work",
     blurb: "Brand films, founder stories, launches, and event capture.",
-    projects: [
-      {
-        slug: "founder-series",
-        title: "Founder Series",
-        meta: "Corporate · Interview",
-        cover: reel("corp-interview", "Interview setup, monochrome"),
-        photos: [
-          reel("corp-interview", "Interview setup, monochrome"),
-          reel("corp-greenroom", "Green room portrait under mirror lights"),
-          reel("corp-rooftop", "Rooftop portrait at blue hour"),
-        ],
-      },
-      {
-        slug: "on-location",
-        title: "On Location",
-        meta: "Corporate · BTS",
-        cover: reel("corp-camera", "Camera operator shooting on location"),
-        photos: [
-          reel("corp-camera", "Camera operator shooting on location"),
-          reel("corp-street", "Crew moving through the city"),
-          reel("corp-rooftop", "Rooftop portrait at blue hour"),
-        ],
-      },
-    ],
+    projects: projectsFrom("corporate"),
   },
   {
     slug: "sports",
     highlights: ["Hyrox", "IPL", "WTL Tennis"],
     title: "Sports",
     blurb: "Match days, tournaments, and the moment the trophy goes up.",
-    projects: [
-      {
-        slug: "finals-night",
-        title: "Finals Night",
-        meta: "Sport · Tournament",
-        cover: reel("sports-trophy", "Trophy lifted above the crowd"),
-        photos: [
-          reel("sports-trophy", "Trophy lifted above the crowd"),
-          reel("sports-football", "Player striking the ball mid-run"),
-          reel("concert-crowd", "Stands full at golden hour"),
-        ],
-      },
-    ],
+    projects: projectsFrom("sports"),
   },
 ];
 
@@ -585,7 +561,7 @@ const GENRE_FILMS: Record<string, string | null> = {
   "concerts-festivals": media("/videos/genres/concerts-festivals.mp4"),
   automotive: media("/videos/genres/automotive.mp4"),
   corporate: media("/videos/genres/corporate.mp4"),
-  sports: null, // media("/videos/genres/sports.mp4")
+  sports: media("/videos/genres/sports.mp4"),
   travel: media("/videos/genres/travel.mp4"),
   fashion: media("/videos/genres/fashion.mp4"),
 };
