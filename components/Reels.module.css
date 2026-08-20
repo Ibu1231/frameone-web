@@ -2,6 +2,9 @@
    Phone: full-bleed film with the caption laid over its bottom-left. */
 
 .wrap {
+  transition:
+    transform 0.38s var(--ease),
+    opacity 0.38s var(--ease);
   position: fixed;
   inset: 0;
   z-index: 90;
@@ -157,6 +160,10 @@
        overscan, pulled up by one, swallows the rounding either way. */
     height: calc(100% + 2px);
     margin-top: -1px;
+    /* Its own compositing layer: without one, the paint around it can
+       bleed a seam across the frame on iOS. */
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   .caption {
@@ -195,8 +202,10 @@
   padding: 9px 16px;
   border: 1px solid rgba(233, 233, 233, 0.28);
   border-radius: 999px;
-  background: rgba(10, 10, 10, 0.72);
-  backdrop-filter: blur(6px);
+  background: rgba(10, 10, 10, 0.86);
+  /* No backdrop-filter. It forces a compositing layer over the video
+     on iOS, and that boundary is a known source of a seam across the
+     frame beneath it. A solid ground reads the same here. */
   color: var(--dark-ink);
   font-size: 10px;
   letter-spacing: 0.16em;

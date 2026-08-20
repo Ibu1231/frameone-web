@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Clip } from "@/lib/content";
+import { useDismissGesture } from "@/lib/useDismissGesture";
 import styles from "./Reels.module.css";
 
 type Props = {

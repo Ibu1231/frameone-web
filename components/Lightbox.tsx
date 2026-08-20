@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { GalleryItem } from "@/lib/content";
+import { useDismissGesture } from "@/lib/useDismissGesture";
 import styles from "./Lightbox.module.css";
 
 type Props = {
@@ -53,9 +54,17 @@ export default function Lightbox({ items, index, onIndex, onClose }: Props) {
 
   if (!item) return null;
 
+  /* A phone closes this by throwing it away, the way the iOS photo
+     viewer does. The buttons stay for everything else. */
+  const { handlers, style, dragging } = useDismissGesture({ onDismiss: onClose });
+  const [shown, setShown] = useState(false);
+  useEffect(() => setShown(true), []);
+
   return (
     <div
-      className={styles.wrap}
+      {...handlers}
+      style={style}
+      className={`${styles.wrap} ${shown ? styles.shown : ""} ${dragging ? styles.dragging : ""}`}
       role="dialog"
       aria-modal="true"
       aria-label={
