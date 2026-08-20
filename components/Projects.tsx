@@ -75,11 +75,17 @@ export default function Projects() {
                   </span>
 
                   <span className={styles.projects}>
-                    {cat.projects.map((project) => (
-                      <span key={project.slug} className={styles.project}>
-                        {project.title}
+                    {/* The named few, then an admission that there are
+                        more. Listing every project turned the row into
+                        a directory. */}
+                    {cat.highlights.map((project) => (
+                      <span key={project} className={styles.project}>
+                        {project}
                       </span>
                     ))}
+                    {cat.highlights.length > 0 && (
+                      <span className={styles.project}>&amp; more</span>
+                    )}
                     <span className={styles.enter}>View gallery →</span>
                   </span>
                 </button>

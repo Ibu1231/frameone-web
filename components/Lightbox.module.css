@@ -1,4 +1,8 @@
+/* The lightbox does not scroll, so it can claim the gesture outright.
+   Without touch-action the browser handles the pan itself and never
+   delivers touchmove — which is why the drag did nothing. */
 .wrap {
+  touch-action: none;
   position: fixed;
   inset: 0;
   z-index: 300;

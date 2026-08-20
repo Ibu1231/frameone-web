@@ -93,8 +93,13 @@ export default function Lightbox({ items, index, onIndex, onClose }: Props) {
           >
             ›
           </button>
-          <button type="button" className={styles.close} onClick={onClose}>
-            Close ✕
+          <button
+            type="button"
+            className={styles.close}
+            onClick={onClose}
+            aria-label="Close"
+          >
+            ✕
           </button>
         </div>
       </div>

@@ -1,7 +1,12 @@
 /* Instagram-Reels-style scroller. Desktop: film left, caption right.
    Phone: full-bleed film with the caption laid over its bottom-left. */
 
+/* pan-y keeps vertical scrolling with the snap track while horizontal
+   drags reach our handlers. Without this the browser claims the whole
+   gesture and touchmove never fires — which is why the drag did
+   nothing. */
 .wrap {
+  touch-action: pan-y;
   transition:
     transform 0.38s var(--ease),
     opacity 0.38s var(--ease);
@@ -129,39 +134,43 @@
 
 /* ---------- phone: full-bleed, caption overlaid ---------- */
 @media (max-width: 860px) {
+  /* THE SEAM.
+     The video box was resolving taller than its slide — 694px inside
+     664px on some films — because a percentage height inside a
+     place-items: center grid does not resolve against the slide the
+     way it looks like it should. Nothing clipped it, so every film
+     bled ~15px into the slides above and below it, and where two
+     video boxes overlapped you got a hard horizontal line sitting at
+     a fixed point on screen. That is why it never moved with the
+     footage and never appeared in the gallery preview.
+
+     Absolute positioning inside a clipped slide removes the ambiguity:
+     the frame is exactly the slide, plus one pixel of overscan top and
+     bottom to swallow fractional-viewport rounding, and the clip means
+     it can never reach a neighbour. */
   .slide {
     grid-template-columns: 1fr;
     gap: 0;
     padding: 0;
     position: relative;
-  }
-
-  .player {
-    height: 100%;
-    width: 100%;
-  }
-
-  /* The slide carries its own ground. Without it, any sub-pixel gap at
-     a snap boundary showed the wrap behind, which is what reads as a
-     faint line across the video. */
-  .slide {
+    overflow: hidden;
     background: #0a0a0a;
   }
 
+  .player {
+    position: absolute;
+    inset: 0;
+    display: block;
+  }
+
   .player video {
+    position: absolute;
+    top: -1px;
+    left: 0;
     width: 100%;
-    height: 100%;
-    max-height: none;
-    /* Full-bleed like Reels: fill the screen and accept the crop. */
-    object-fit: cover;
-    /* A phone's viewport height is rarely a whole number of device
-       pixels, so a full-height video lands on a fractional boundary and
-       leaves a hairline at the top or bottom edge. Two pixels of
-       overscan, pulled up by one, swallows the rounding either way. */
     height: calc(100% + 2px);
-    margin-top: -1px;
-    /* Its own compositing layer: without one, the paint around it can
-       bleed a seam across the frame on iOS. */
+    max-height: none;
+    object-fit: cover;
     transform: translateZ(0);
     backface-visibility: hidden;
   }

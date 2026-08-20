@@ -228,17 +228,23 @@ export type Category = {
   title: string;
   blurb: string;
   projects: Project[];
+  /** Named on the Our Projects row. Deliberately a short display list,
+   *  not every project in the gallery — the row is a signpost, and a
+   *  dozen titles in it reads as a directory. */
+  highlights: string[];
 };
 
-export const categories: Category[] = [
+const CATEGORY_DEFS: Category[] = [
   {
     slug: "concerts-festivals",
+    highlights: ["Lollapalooza", "Rolling Loud", "UN 40"],
     title: "Concerts & Festivals",
     blurb: "Multi-camera live coverage, same-day cuts, and festival films.",
     projects: projectsFrom("concerts"),
   },
   {
     slug: "travel",
+    highlights: [],
     title: "Travel",
     blurb: "Long-form journeys, brand expeditions, and destination films.",
     projects: [
@@ -282,12 +288,14 @@ export const categories: Category[] = [
   },
   {
     slug: "automotive",
+    highlights: ["Royal Enfield Odyssey 2026", "F1 Abu Dhabi", "F1 Singapore"],
     title: "Automotive",
     blurb: "Race weekends, launches, rides and expedition films.",
     projects: projectsFrom("automotive"),
   },
   {
     slug: "corporate",
+    highlights: ["Visit Saudi", "SEZ", "Google IO"],
     title: "Corporate Work",
     blurb: "Brand films, founder stories, launches, and event capture.",
     projects: [
@@ -317,6 +325,7 @@ export const categories: Category[] = [
   },
   {
     slug: "sports",
+    highlights: ["Hyrox", "IPL", "WTL Tennis"],
     title: "Sports",
     blurb: "Match days, tournaments, and the moment the trophy goes up.",
     projects: [
@@ -334,6 +343,21 @@ export const categories: Category[] = [
     ],
   },
 ];
+
+/* Display order, kept separate from the definitions so reordering does
+ * not mean moving hundreds of lines. Travel sits last while it has no
+ * work in it yet. */
+const CATEGORY_ORDER = [
+  "concerts-festivals",
+  "automotive",
+  "corporate",
+  "sports",
+  "travel",
+];
+
+export const categories: Category[] = CATEGORY_ORDER.map(
+  (slug) => CATEGORY_DEFS.find((c) => c.slug === slug)!,
+).filter(Boolean);
 
 /**
  * Every frame in a genre, pooled across its projects into one set.
