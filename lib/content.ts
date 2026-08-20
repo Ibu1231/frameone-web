@@ -108,6 +108,17 @@ const PROJECT_INFO: Record<string, { title: string; meta: string }> = {
   "flying-flea": { title: "Royal Enfield Flying Flea Launch", meta: "Launch · Brand" },
   "jawa-ride-blr": { title: "Jawa Ride Shoot", meta: "Ride · Bangalore" },
   "re-odyssey": { title: "Royal Enfield Himalayan Odyssey 2026", meta: "Expedition · Brand film" },
+  akon: { title: "Akon, Bangalore", meta: "Live · Film" },
+  "almost-human": { title: "Almost Human", meta: "Live · Stills" },
+  "ben-bohmer": { title: "Ben Böhmer", meta: "Live · Film" },
+  "calvin-harris": { title: "Calvin Harris", meta: "Live · Stills" },
+  "karan-aujla": { title: "Karan Aujla", meta: "Live · Stills" },
+  "lolla-25-shawn-mendez": { title: "Lollapalooza 2025 — Shawn Mendes", meta: "Festival · Stills" },
+  "lolla-26-linkin-park": { title: "Lollapalooza 2026 — Linkin Park", meta: "Festival · Stills" },
+  "lolla-26-playboi-carti": { title: "Lollapalooza 2026 — Playboi Carti", meta: "Festival · Stills & film" },
+  "mix-before-2026": { title: "Selected Work — before 2026", meta: "Live · Stills" },
+  "sula-fest-26": { title: "Sula Fest 2026", meta: "Festival · Stills" },
+  "un-40": { title: "UN 40", meta: "Live · Stills" },
 };
 
 /** Builds a genre's projects from the manifest. */
@@ -224,46 +235,7 @@ export const categories: Category[] = [
     slug: "concerts-festivals",
     title: "Concerts & Festivals",
     blurb: "Multi-camera live coverage, same-day cuts, and festival films.",
-    projects: [
-      {
-        slug: "lollapalooza",
-        title: "Lollapalooza",
-        meta: "Festival · Multi-cam",
-        cover: reel("concert-mainstage", "Festival mainstage with pyrotechnics"),
-        photos: [
-          reel("concert-mainstage", "Festival mainstage with pyrotechnics"),
-          reel("concert-crowd", "Festival crowd at golden hour"),
-          reel("concert-pyro", "Wall of flame jets across the stage"),
-          reel("concert-wide", "Wide of the stage and full field"),
-          photos.beam,
-        ],
-      },
-      {
-        slug: "rolling-loud",
-        title: "Rolling Loud",
-        meta: "Festival · Live",
-        cover: reel("concert-lasers", "Laser array over a live set"),
-        photos: [
-          reel("concert-lasers", "Laser array over a live set"),
-          reel("concert-dj", "DJ booth with stage mascot and pyro"),
-          reel("concert-duo", "Two performers framed by flame jets"),
-          photos.mask,
-          photos.confetti,
-        ],
-      },
-      {
-        slug: "arena-tour",
-        title: "Arena Tour",
-        meta: "Tour · Headline",
-        cover: reel("concert-artist", "Artist facing a full arena crowd"),
-        photos: [
-          reel("concert-artist", "Artist facing a full arena crowd"),
-          reel("concert-flames", "Performer between flame columns"),
-          photos.confetti,
-          reel("concert-crowd", "Crowd with phones raised"),
-        ],
-      },
-    ],
+    projects: projectsFrom("concerts"),
   },
   {
     slug: "travel",

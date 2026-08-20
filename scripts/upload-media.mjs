@@ -27,10 +27,11 @@ if (!bucket || bucket.startsWith("--")) {
   process.exit(1);
 }
 
-// Videos, plus the full-size stills. Thumbnails (-sm) deliberately stay
-// in the repo: they are what the grids paint from, and same-origin saves
-// a connection handshake on the critical path.
-const ROOTS = ["public/videos", "public/images"];
+// Video only. Images are NOT served from the CDN — media() rewrites
+// /videos and nothing else, so every /images/... URL is same-origin
+// from the Pages export. Uploading them here put a copy in the bucket
+// that nothing ever requests, eating a 10GB ceiling for nothing.
+const ROOTS = ["public/videos"];
 
 /** Every file under public/videos, as repo-relative paths. */
 function walk(dir) {

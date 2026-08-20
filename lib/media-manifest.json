@@ -577,5 +577,1377 @@
         }
       ]
     }
+  },
+  "concerts": {
+    "akon": {
+      "photos": [],
+      "clips": [
+        {
+          "slug": "fleck-media-x-akon-blr",
+          "width": 1080,
+          "height": 1920,
+          "audio": true
+        }
+      ]
+    },
+    "almost-human": {
+      "photos": [
+        {
+          "file": "01",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "02",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "03",
+          "width": 1800,
+          "height": 1200
+        }
+      ],
+      "clips": []
+    },
+    "ben-bohmer": {
+      "photos": [],
+      "clips": [
+        {
+          "slug": "ben-bohmer",
+          "width": 1920,
+          "height": 1536,
+          "audio": true
+        }
+      ]
+    },
+    "calvin-harris": {
+      "photos": [
+        {
+          "file": "01",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "02",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "03",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "04",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "05",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "06",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "07",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "08",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "09",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "10",
+          "width": 1800,
+          "height": 1200
+        }
+      ],
+      "clips": []
+    },
+    "karan-aujla": {
+      "photos": [
+        {
+          "file": "01",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "02",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "03",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "04",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "05",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "06",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "07",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "08",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "09",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "10",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "11",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "12",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "13",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "14",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "15",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "16",
+          "width": 1800,
+          "height": 1200
+        }
+      ],
+      "clips": []
+    },
+    "lolla-25-shawn-mendez": {
+      "photos": [
+        {
+          "file": "01",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "02",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "03",
+          "width": 1375,
+          "height": 1719
+        },
+        {
+          "file": "04",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "05",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "06",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "07",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "08",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "09",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "10",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "11",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "12",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "13",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "14",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "15",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "16",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "17",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "18",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "19",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "20",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "21",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "22",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "23",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "24",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "25",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "26",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "27",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "28",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "29",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "30",
+          "width": 1800,
+          "height": 1200
+        }
+      ],
+      "clips": []
+    },
+    "lolla-26-linkin-park": {
+      "photos": [
+        {
+          "file": "01",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "02",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "03",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "04",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "05",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "06",
+          "width": 1607,
+          "height": 2410
+        },
+        {
+          "file": "07",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "08",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "09",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "10",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "11",
+          "width": 1607,
+          "height": 2410
+        },
+        {
+          "file": "12",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "13",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "14",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "15",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "16",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "17",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "18",
+          "width": 1567,
+          "height": 2350
+        },
+        {
+          "file": "19",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "20",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "21",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "22",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "23",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "24",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "25",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "26",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "27",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "28",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "29",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "30",
+          "width": 1800,
+          "height": 1200
+        }
+      ],
+      "clips": []
+    },
+    "lolla-26-playboi-carti": {
+      "photos": [
+        {
+          "file": "01",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "02",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "03",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "04",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "05",
+          "width": 1800,
+          "height": 2700
+        }
+      ],
+      "clips": [
+        {
+          "slug": "playboi-carti-lollaindia",
+          "width": 1920,
+          "height": 1536,
+          "audio": true
+        },
+        {
+          "slug": "rolling-loud-india-day-2-recap",
+          "width": 1080,
+          "height": 1920,
+          "audio": true
+        }
+      ]
+    },
+    "mix-before-2026": {
+      "photos": [
+        {
+          "file": "01",
+          "width": 1800,
+          "height": 2250
+        },
+        {
+          "file": "02",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "03",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "04",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "05",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "06",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "07",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "08",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "09",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "10",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "11",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "12",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "13",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "14",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "15",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "16",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "17",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "18",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "19",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "20",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "21",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "22",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "23",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "24",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "25",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "26",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "27",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "28",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "29",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "30",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "31",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "32",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "33",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "34",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "35",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "36",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "37",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "38",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "39",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "40",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "41",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "42",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "43",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "44",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "45",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "46",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "47",
+          "width": 1800,
+          "height": 1798
+        },
+        {
+          "file": "48",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "49",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "50",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "51",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "52",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "53",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "54",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "55",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "56",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "57",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "58",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "59",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "60",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "61",
+          "width": 1800,
+          "height": 1350
+        },
+        {
+          "file": "62",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "63",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "64",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "65",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "66",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "67",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "68",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "69",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "70",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "71",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "72",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "73",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "74",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "75",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "76",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "77",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "78",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "79",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "80",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "81",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "82",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "83",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "84",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "85",
+          "width": 1800,
+          "height": 2250
+        },
+        {
+          "file": "86",
+          "width": 1800,
+          "height": 1959
+        },
+        {
+          "file": "87",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "88",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "89",
+          "width": 1800,
+          "height": 1200
+        }
+      ],
+      "clips": []
+    },
+    "sula-fest-26": {
+      "photos": [
+        {
+          "file": "01",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "02",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "03",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "04",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "05",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "06",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "07",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "08",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "09",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "10",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "11",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "12",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "13",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "14",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "15",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "16",
+          "width": 1800,
+          "height": 2700
+        }
+      ],
+      "clips": []
+    },
+    "un-40": {
+      "photos": [
+        {
+          "file": "01",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "02",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "03",
+          "width": 1800,
+          "height": 2250
+        },
+        {
+          "file": "04",
+          "width": 1800,
+          "height": 2250
+        },
+        {
+          "file": "05",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "06",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "07",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "08",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "09",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "10",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "11",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "12",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "13",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "14",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "15",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "16",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "17",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "18",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "19",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "20",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "21",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "22",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "23",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "24",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "25",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "26",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "27",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "28",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "29",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "30",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "31",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "32",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "33",
+          "width": 1800,
+          "height": 2250
+        },
+        {
+          "file": "34",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "35",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "36",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "37",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "38",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "39",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "40",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "41",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "42",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "43",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "44",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "45",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "46",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "47",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "48",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "49",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "50",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "51",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "52",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "53",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "54",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "55",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "56",
+          "width": 1800,
+          "height": 2700
+        },
+        {
+          "file": "57",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "58",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "file": "59",
+          "width": 1800,
+          "height": 1200
+        }
+      ],
+      "clips": []
+    }
   }
 }
