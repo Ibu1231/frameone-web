@@ -78,9 +78,41 @@
   grid-template-columns: minmax(0, 1fr);
   place-items: center;
   padding: 0 var(--pad) clamp(10px, 2vh, 18px);
-  /* Safety valve for extreme ratios — nothing is ever cut off. */
-  overflow: auto;
+  /* Nothing can overflow now that the frame is fitted to the stage. */
+  overflow: hidden;
   overscroll-behavior: contain;
+}
+
+/* The image is sized by its box, not by a percentage cap.
+
+   max-height: 100% kept failing here: once the <picture> wrapper went
+   in for the phone srcset the percentage had nothing dependable to
+   resolve against, and it was quietly ignored — the frame rendered at
+   its full intrinsic height and the viewer scrolled. display: contents
+   made it worse by promoting <source> to a grid item as well.
+
+   Filling a known box and letting object-fit do the fitting removes
+   the percentage from the picture entirely: the frame is always
+   exactly the stage, and contain means nothing is ever cropped or
+   pushed out of view. */
+.stage picture {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+.stage picture img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  margin: 0;
 }
 
 .stage img,
