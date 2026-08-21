@@ -95,8 +95,24 @@ export default function Reels({ films, start, title, onClose }: Props) {
     [],
   );
 
+  /* Rightward closes anywhere — that is the iOS back gesture. Downward
+     closes too, but only at the very top of the run, where a drag down
+     has no film above it to scroll to. Below that, down belongs to the
+     track. */
+  const { handlers, style, dragging } = useDismissGesture({
+    onDismiss: onClose,
+    canDismissDown: () => (trackRef.current?.scrollTop ?? 1) <= 0,
+  });
+
   return (
-    <div className={styles.wrap} role="dialog" aria-modal="true" aria-label={`${title} — films`}>
+    <div
+      {...handlers}
+      style={style}
+      className={`${styles.wrap} ${dragging ? styles.dragging : ""}`}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${title} — films`}
+    >
       <div className={styles.chrome}>
         <span className={`gradTitle onDark ${styles.genre}`}>{title}</span>
         <div className={styles.controls}>

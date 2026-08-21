@@ -54,9 +54,14 @@ export default function Lightbox({ items, index, onIndex, onClose }: Props) {
 
   if (!item) return null;
 
-  /* A phone closes this by throwing it away, the way the iOS photo
-     viewer does. The buttons stay for everything else. */
-  const { handlers, style, dragging } = useDismissGesture({ onDismiss: onClose });
+  /* The iOS photo-viewer split: drag down to leave, swipe sideways to
+     move between frames. Paging without closing the viewer first was
+     the whole complaint. */
+  const { handlers, style, dragging } = useDismissGesture({
+    onDismiss: onClose,
+    axis: "y",
+    onPage: (direction) => onIndex((index + direction + total) % total),
+  });
   const [shown, setShown] = useState(false);
   useEffect(() => setShown(true), []);
 

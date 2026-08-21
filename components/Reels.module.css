@@ -259,3 +259,8 @@
     padding: 8px 13px;
   }
 }
+
+/* While a finger is on it the surface answers to the finger only. */
+.dragging {
+  transition: none;
+}
